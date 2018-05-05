@@ -2,12 +2,12 @@
   "name": "Switchlings Bot",
   "version": "1.0.0",
   "description": "",
-  "main": "Switchlings Bot.py",
+  "main": "Switfflingbot.py",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "start": "node SwitchlingsBot.py"
+    "start": "node SwifflingBot.py"
   },
   "engines": {
     "node": "0.10.x"
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/Suhail6inkling/Switchlings-Bot.git"
   },
-  "author": "Duhail Merali",
+  "author": "Suhail Merali",
   "license": ""
   },
   "dependencies": {
