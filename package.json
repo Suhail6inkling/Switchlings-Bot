@@ -1,22 +1,22 @@
 {
-  "name": "[bot name]",
+  "name": "Switchlings Bot",
   "version": "1.0.0",
   "description": "",
-  "main": "[main file]",
+  "main": "Switchlings Bot.py",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "start": "node [main file]"
+    "start": "node SwitchlingsBot.py"
   },
   "engines": {
     "node": "0.10.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/[repository url]"
+    "url": "https://github.com/Suhail6inkling/Switchlings-Bot.git"
   },
-  "author": "[your name]",
+  "author": "Duhail Merali",
   "license": ""
   },
   "dependencies": {
