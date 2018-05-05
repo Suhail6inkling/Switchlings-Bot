@@ -1,0 +1,28 @@
+{
+  "name": "[bot name]",
+  "version": "1.0.0",
+  "description": "",
+  "main": "[main file]",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node [main file]"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/[repository url]"
+  },
+  "author": "[your name]",
+  "license": ""
+  },
+  "dependencies": {
+    "hapi": "^8.4.0",
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+  }
+}
