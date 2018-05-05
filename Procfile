@@ -1,1 +1,1 @@
-worker: python [main python file]
+worker: python SwifflingBot.py
