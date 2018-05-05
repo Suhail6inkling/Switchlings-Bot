@@ -2,7 +2,7 @@
   "name": "Switchlings Bot",
   "version": "1.0.0",
   "description": "",
-  "main": "Swifflingbot.py",
+  "main": "SwifflingBot.py",
   "directories": {
     "test": "test"
   },
