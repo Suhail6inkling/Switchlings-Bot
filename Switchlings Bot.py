@@ -2,12 +2,17 @@ import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, csv, os
-from config import badwords1, badwords2, noroles, channels, SSinfo, categories
 
 try:
-    from config import TOKEN
+    from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, categories
 except ModuleNotFoundError:
     TOKEN = os.environ['TOKEN']
+    badwords1 = os.environ['badwords1']
+    badwords2 = os.environ["badwords2"]
+    noroles = os.environ["noroles"]
+    channels = os.environ["channels"]
+    SSinfo = os.environ["SSinfo"]
+    categories = os.eviron["categories"]
 
 Client = discord.Client()
 prefix = "s."
