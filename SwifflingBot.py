@@ -7,13 +7,13 @@ try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, categories
 except ModuleNotFoundError:
     TOKEN = os.environ['TOKEN']
-    badwords1 = list(os.environ['badwords1'])
-    badwords2 = list(os.environ["badwords2"])
-    noroles = os.environ["noroles"]
-    channels = list(os.environ["channels"])
-    SSinfo = os.environ["SSinfo"]
-    categories = os.environ["categories"]
-
+    badwords1 = (os.environ['badwords1']).split(",")
+    badwords2 = (os.environ["badwords2"]).split(",")
+    noroles = (os.environ["noroles"]).split(",")
+    channels = (os.environ["channels"]).split(",")
+    SSinfo = (os.environ["SSinfo"]).split(",")
+    categories = os.environ["categories"]).split(",")
+    
 Client = discord.Client()
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
