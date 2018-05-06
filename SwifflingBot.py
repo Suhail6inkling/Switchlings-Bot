@@ -79,7 +79,7 @@ async def on_message(message):
     print(badwords1)
     print(badwords2)
     print(message.content)
-    for a in badword1:
+    for a in badwords1:
         print(a)
     if message.content.startswith("s.ping"):
         await message.channel.send("Pong!")
