@@ -24,7 +24,7 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
-    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warnings, bot
+    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot
     server = client.get_guild(413113734303580171)
     person = discord.utils.get(server.members, name="Government Guinea Pig")
     bot = discord.utils.get(server.members, name="Switchlings Bot")
@@ -33,13 +33,13 @@ async def on_ready():
     welcomechat = discord.utils.get(server.channels, name = "welcome")
     swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
     warningschat = discord.utils.get(server.channels, name = "warnings")
-    file = open("warnings.csv","r")
+    file = open("warning.csv","r")
     reader = csv.reader(file)
-    warnings = list(reader)
-    print(warnings)
-    for x in warnings:
+    warning = list(reader)
+    print(warning)
+    for x in warning:
         if x == []:
-            warnings.remove(x)
+            warning.remove(x)
         else:
             x[1] = int(x[1])
 
@@ -110,19 +110,19 @@ async def on_message(message):
         a.remove(a[0])
         num = int(a[0])
         nowarnings = True
-        for warning in warnings:
-            if warninger.mention in warning:
+        for w in warning:
+            if warninger.mention in w:
                 nowarnings = False
                 if num == 0:
-                    warnings.remove(warning)
+                    warning.remove(w)
                 else:
-                    warning[1] = num
+                    w[1] = num
         if nowarnings:
             if num == 0:
                 pass
                 await message.channel.send("This person didn't have any warnings to begin with!")
             else:
-                warnings.append([warninger.mention, num])
+                warning.append([warninger.mention, num])
         await message.add_reaction("✅")
         await warningwrite()
         return
@@ -423,9 +423,9 @@ Please note that some of these commands are a work in progress and may not work.
         
     
 async def givewarning(user, reason):
-    global warningschat, swifflingbotchat, warnings
+    global warningschat, swifflingbotchat, warning
     firstwarning = True
-    for warningee in warnings:
+    for warningee in warning:
         if  warningee[0] == user:
             firstwarning = False
             warningee[1]+=1
@@ -440,7 +440,7 @@ async def givewarning(user, reason):
                 ending = "th"
     if firstwarning:
         warningee = [user, 1]
-        warnings.append(warningee)
+        warning.append(warningee)
         ending = "st"
     if reason.endswith("[rape]"):
         h = reason.split("[rape]")
@@ -484,9 +484,9 @@ Reason:
     await warningwrite()
 
 async def warningwrite():
-    file = open("warnings.csv","w")
+    file = open("warning.csv","w")
     writer = csv.writer(file)
-    for a in warnings:
+    for a in warning:
         try:
             a[0] = a[0].mention
         except:
