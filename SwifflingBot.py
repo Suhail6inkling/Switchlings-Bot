@@ -23,6 +23,7 @@ async def on_ready():
     print("Bot Online!")
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
+    
     await client.change_presence(activity = discord.Game(name="Say s.help"))
     global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot
     server = client.get_guild(413113734303580171)
