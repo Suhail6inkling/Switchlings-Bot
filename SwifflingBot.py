@@ -80,10 +80,10 @@ async def on_message(message):
         if message.author == person:
             a = message.content.split("s.test ")
             a = a[1]
-            if a == "warnings":
-                print(warnings)
+            if a == "warning":
+                print(warning)
             if a == "csv":
-                file = open("warnings.csv", "r")
+                file = open("warning.csv", "r")
                 reader = csv.reader(file)
                 print(list(reader))
     if message.content.startswith("s.ping"):
