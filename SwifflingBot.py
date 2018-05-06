@@ -76,6 +76,16 @@ async def on_message(message):
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
             await givewarning(message.author.mention, reason)
             return
+    if nessage.content.startswith("s.test"):
+        if message.author == person:
+            a = message.content.split("s.test ")
+            a = a[1]
+            if a == "warnings":
+                print(warnings)
+            if a == "csv":
+                file = open("warnings.csv", "r")
+                reader = csv.reader(file)
+                print(list(reader))
     if message.content.startswith("s.ping"):
         await message.channel.send("Pong!")
         await message.add_reaction("✅")
@@ -103,29 +113,30 @@ async def on_message(message):
         return
 
     if message.content.startswith("s.editwarningnumber"):
-        warninger = message.mentions
-        warninger = warninger[0]
-        a = message.content.split(" ")
-        a.remove(a[0])
-        a.remove(a[0])
-        num = int(a[0])
-        nowarnings = True
-        for w in warning:
-            if warninger.mention in w:
-                nowarnings = False
+        if "Mods" in [role.name for role in message.author.roles]:
+            warninger = message.mentions
+            warninger = warninger[0]
+            a = message.content.split(" ")
+            a.remove(a[0])
+            a.remove(a[0])
+            num = int(a[0])
+            nowarnings = True
+            for w in warning:
+                if warninger.mention in w:
+                    nowarnings = False
+                    if num == 0:
+                        warning.remove(w)
+                    else:
+                        w[1] = num
+            if nowarnings:
                 if num == 0:
-                    warning.remove(w)
+                    pass
+                    await message.channel.send("This person didn't have any warnings to begin with!")
                 else:
-                    w[1] = num
-        if nowarnings:
-            if num == 0:
-                pass
-                await message.channel.send("This person didn't have any warnings to begin with!")
-            else:
-                warning.append([warninger.mention, num])
-        await message.add_reaction("✅")
-        await warningwrite()
-        return
+                    warning.append([warninger.mention, num])
+            await message.add_reaction("✅")
+            await warningwrite()
+            return
     if message.content.startswith("s.gimmeeveryrole"):
         if message.author == person:
             roleid = []
