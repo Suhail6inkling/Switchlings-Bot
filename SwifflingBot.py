@@ -76,11 +76,6 @@ async def on_message(message):
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
             await givewarning(message.author.mention, reason)
             return
-    print(badwords1)
-    print(badwords2)
-    print(message.content)
-    for a in badwords1:
-        print(a)
     if message.content.startswith("s.ping"):
         await message.channel.send("Pong!")
         await message.add_reaction("✅")
