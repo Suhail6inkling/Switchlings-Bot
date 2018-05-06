@@ -76,7 +76,7 @@ async def on_message(message):
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
             await givewarning(message.author.mention, reason)
             return
-    if nessage.content.startswith("s.test"):
+    if message.content.startswith("s.test"):
         if message.author == person:
             a = message.content.split("s.test ")
             a = a[1]
