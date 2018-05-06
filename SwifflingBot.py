@@ -46,7 +46,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    """if message.content.startswith("s,exception s."):
+    if message.content.startswith("s,exception s."):
         print("Hi")
         if message.author == person:
             message.content=(message.content.split("s,exception "))[1]
@@ -75,7 +75,7 @@ async def on_message(message):
             message.delete()
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
             await givewarning(message.author.mention, reason)
-            return"""
+            return
     print(badwords1)
     print(badwords2)
     print(message.content)
