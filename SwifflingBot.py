@@ -12,7 +12,7 @@ except ModuleNotFoundError:
     noroles = os.environ["noroles"]
     channels = os.environ["channels"]
     SSinfo = os.environ["SSinfo"]
-    categories = os.eviron["categories"]
+    categories = os.environ["categories"]
 
 Client = discord.Client()
 prefix = "s."
