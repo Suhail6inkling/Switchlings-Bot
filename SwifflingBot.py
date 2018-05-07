@@ -469,7 +469,8 @@ Please note that some of these commands are a work in progress and may not work.
             printguessedletters = ""
             hangmanstatus = 0
             hangmantime = 0
-            await drawhangman(message.channel, dashedword, printguessedletters, hangmanman[hangmanstatus])
+            hangperson = hangmanman[hangstatus]
+            await drawhangman(message.channel, dashedword, printguessedletters, hangperson)
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
             hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
             while True:
@@ -524,7 +525,8 @@ Please note that some of these commands are a work in progress and may not work.
                     await message.channel.send("You lose! The word was **{}**!".format(hangman[2]))
                     hangman = [False]
                     return
-            await drawhangman(message.channel, hangman[3], hangman[5], hangmanman(hangman[6]))
+            hangperson = hangmanman[hangman[6]]
+            await drawhangman(message.channel, hangman[3], hangman[5], hangperson)
             return
     if message.content.startswith("s.guessword"):
         if hangman[0] == False:
@@ -547,7 +549,8 @@ Please note that some of these commands are a work in progress and may not work.
                     await message.channel.send("You lose! The word was **{}**!".format(hangman[2]))
                     hangman = [False]
                     return
-            drawhangman(message.channel, hangman[3], hangman[5], hangmanstatus(hangman[6]))
+            hangperson = hangmanman[hangman[6]]
+            await drawhangman(message.channel, hangman[3], hangman[5], hangperson)
             return
     if message.content.startswith("s.playgame"):
         await message.channel.send("""These are the games I can currently play atm:
