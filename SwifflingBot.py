@@ -316,6 +316,7 @@ Please note that some of these commands are a work in progress and may not work.
     if message.content.startswith("s.open"):
         if "The Switchlings" in [role.name for role in message.author.roles]:
             permashut = False
+            await message.channel.send("Should be open now")
         return
 
     
@@ -332,16 +333,19 @@ Please note that some of these commands are a work in progress and may not work.
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = False
                         await channel.set_permissions(message.guild.default_role, overwrite=perms)
-            await message.channel.send("The Switchlings Plaza! has been shut.")
+            await message.channel.send("The Switchlings Plaza! is currently shut for lockdown.")
             if secs == "indefinite":
                 while True:
                     asyncio.sleep(1)
                     if permashut == False:
                         break
+                    break
+                
             for i in range(0, secs):
                 asyncio.sleep(1)
                 if permashut == False:
                     break
+                break
             for ID in channels:
                         channel = client.get_channel(ID)
                         perms = discord.PermissionOverwrite()
@@ -423,19 +427,19 @@ Please note that some of these commands are a work in progress and may not work.
         rps = ["Rock","Paper","Scissors"]
         wins = {"Rock" : "Paper", "Paper" : "Scissors", "Scissors" : "Rock"}
         if a.title() not in rps:
-            await message.channel..send("Please choose either Rock, Paper or Scissors!")
+            await message.channel.send("Please choose either Rock, Paper or Scissors!")
             return
         else:
             a = a.title()
             b = random.choice(rps)
             if a == b:
-                print("Draw! We both chose **{}**!".format(a))
+                await message.channel.send("Draw! We both chose **{}**!".format(a))
                 return
             if wins[b] == a:
-                print("Darn, I chose **{}** while you chose **{}**. You win.. Gg...".format(b,a))
+                await message.channel.send("Darn, I chose **{}** while you chose **{}**. You win.. Gg...".format(b,a))
                 return
-            esle:
-                print("Yes! While you chose **{}**, I counteracted with **{}** I win!".format(a,b))
+            else:
+                await message.channel.send("Yes! While you chose **{}**, I counteracted with **{}** I win!".format(a,b))
                 return
     if message.content.startswith("s.playgame"):
         await message.channel.send("""These are the games I can currently play atm:
