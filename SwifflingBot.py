@@ -65,7 +65,7 @@ async def on_message(message):
             return
         else:
             pass"""
-    global badwords1, swifflingbotchat, warningschat, bot#, noexception
+    global badwords1, swifflingbotchat, warningschat, bot, hangman#, noexception
     for word in badwords1:
         if word in (message.content.lower()) and message.author != bot:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
