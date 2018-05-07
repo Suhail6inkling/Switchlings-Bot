@@ -503,7 +503,7 @@ Please note that some of these commands are a work in progress and may not work.
             if letter in hangman[2]:
                 for c in range(0, len(hangman[2])):
                     if hangman[2][c] == letter:
-                        hangman[3] = "{}{}{}".format(hangman[:c],letter,hangman[c+1:]
+                        hangman[3] = "{}{}{}".format(hangman[:c],letter,hangman[c+1:])
                 if hangman[3] == hangman[2]:
                     await message.channel.send("Congratulations! You guessed the correct thing!")
                     hangman = [False]
