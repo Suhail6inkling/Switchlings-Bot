@@ -496,7 +496,7 @@ Please note that some of these commands are a work in progress and may not work.
                 await message.channel.send("Please only give one letter!")
                 return
             if letter in guessedletters:
-                awaut message.channel.send("You've already guessed that letter!")
+                await message.channel.send("You've already guessed that letter!")
                 return
             letter = letter.lower()
             if letter in hangman[2]:
@@ -644,8 +644,8 @@ async def warningwrite():
         writer.writerow(a)
     file.close()
 
-async def drawhangman(message.channel, dashedword, printguessedletters, hangperson):
-    await message.channel.send("""
+async def drawhangman(messagechannel, dashedword, printguessedletters, hangperson):
+    await messagechannel.send("""
 Word: **{}**
 
 Letters guessed: *{}*
