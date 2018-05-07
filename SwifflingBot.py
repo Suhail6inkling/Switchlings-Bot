@@ -455,7 +455,7 @@ Please note that some of these commands are a work in progress and may not work.
             else:
                 await message.channel.send("Yes! While you chose **{}**, I counteracted with **{}** I win!".format(a,b))
                 return
-    if message.content.startswith("s.play hangman"):
+    if message.content.startswith("s.playgame hangman"):
         hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
         if hangman[0] == True:
             await message.channel.send("There's already a hangman game going on!")
