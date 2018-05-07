@@ -351,14 +351,12 @@ Please note that some of these commands are a work in progress and may not work.
                     asyncio.sleep(1)
                     if permashut == False:
                         break
-                    break
-                
+                    
             else:
                 for i in range(0, secs):
                     asyncio.sleep(1)
                     if permashut == False:
                         break
-                    break
             for ID in channels:
                         channel = client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
@@ -482,7 +480,7 @@ Please note that some of these commands are a work in progress and may not work.
                     hangman = [False]
                 if hangman[0] == False:
                     break
-                break
+                
         return
             
     if message.content.startswith("s.guessletter"):
