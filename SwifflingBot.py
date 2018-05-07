@@ -4,7 +4,7 @@ from discord.ext import commands
 import asyncio, random, os, csv
 
 try:
-    from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, categories
+    from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords
 except ModuleNotFoundError:
     TOKEN = os.environ['TOKEN']
     badwords1 = (os.environ['badwords1']).split(",")
@@ -12,7 +12,7 @@ except ModuleNotFoundError:
     noroles = (os.environ["noroles"]).split(",")
     channels = (os.environ["channels"]).split(",")
     SSinfo = (os.environ["SSinfo"]).split(",")
-    categories = (os.environ["categories"]).split(",")
+    hangmanwords = (os.environ["hangmanwords"]).split(",")
     
 Client = discord.Client()
 prefix = "s."
@@ -86,6 +86,8 @@ async def on_message(message):
                 file = open("warning.csv", "r")
                 reader = csv.reader(file)
                 print(list(reader))
+            if a == "hangman":
+                print(hangman)
             return
     if message.content.startswith("s.ping"):
         await message.channel.send("Pong!")
@@ -178,7 +180,8 @@ async def on_message(message):
 
 <s.randomchoice (comma-separated values)> - Randomly chooses from given options.
 <s.flip (number of coins)> - Flips a specific amount of coins.
-<s.magic8ball> - Ask me a question!```
+<s.magic8ball> - Ask me a question!
+<s.playgame (game)> - Let's play a game!```
 
 
 And this is what I can do exclusively for you guys:""")
@@ -441,10 +444,105 @@ Please note that some of these commands are a work in progress and may not work.
             else:
                 await message.channel.send("Yes! While you chose **{}**, I counteracted with **{}** I win!".format(a,b))
                 return
+    if message.content.startswith("s.play hangman"):
+        hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
+        if hangman[0] == True:
+            await message.channel.send("There's already a hangman game going on!")
+            return
+        else:
+            word = random.choice(hangmanwords)
+            dashedword = "-"
+            for a in range(0, len(word)):
+                dashedword=("{}-".format(dashedword))
+            guessedletters = []
+            printguessedletters = ""
+            hangmanstatus = 0
+            hangmantime = 0
+            drawhangman(message.channel, dashedword, printguessedletters, hangmanman[hangmanstats])
+            await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
+        hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
+        while True:
+            asyncio.sleep(1)
+            hangmantime+=1
+            if hangmantime == 100:
+                await message.channel.send("{}, you're hangman game has timed out".format(message.author.mention))
+                hangman = [False]
+            if hangman[0] == False:
+                break
+            break
+        
+            
+    if message.content.startswith("s.guessletter"):
+        if hangman[0] == False:
+            await message.channel.send("There is no hangman game going on!")
+            return
+        elif hangman[1] != message.author.mention:
+            await message.channel.send("You're not the person playing hangman right now!")
+            return
+        else:
+            hangmantime = 0
+            letter = message.content.split("s.guessletter ")[1]
+            if len(letter) != 1:
+                await message.channel.send("Please only give one letter!")
+                return
+            if letter in guessedletters:
+                awaut message.channel.send("You've already guessed that letter!")
+                return
+            letter = letter.lower()
+            if letter in hangman[2]:
+                for c in range(0, len(hangman[2])):
+                    if hangman[2][c] == letter:
+                        hangman[3][c] = letter
+                if hangman[3] == hangman[2]:
+                    await message.channel.send("Congratulations! You guessed the correct thing!")
+                    hangman = [False]
+                    return
+                if hangman[5] == "":
+                    hangman[5] = letter
+                else:
+                    hangman[5] = "{}, {}".format(hangman[5], letter)
+                hangman[4].append(letter)
+            else:
+                if hangman[5] == "":
+                    hangman[5] = letter
+                else:
+                    hangman[5] = "{}, {}".format(hangman[5], letter)
+                hangman[4].append(letter)
+                hangman[6]+=1
+                if hangman[6] == 6:
+                    await message.channel.send("You lose! The word was **{}**!".format(hangman[2]))
+                    hangman = [False]
+                    return
+            drawhangman(message.channel, hangman[3], hangman[5], hangmanstatus(hangman[6]))
+            return
+    if message.content.startswith("s.guessword"):
+        if hangman[0] == False:
+            await message.channel.send("There is no hangman game going on!")
+            return
+        elif hangman[1] != message.author.mention:
+            await message.channel.send("You're not the person playing hangman right now!")
+            return
+        else:
+            hangmantime = 0
+            wordguess = message.content.split("s.guessword ")[1]
+            if wordguess == hangman[2]:
+                await message.channel.send("Congratulations! You guessed the word!")
+                hangman = [False]
+                return
+            else:
+                await message.channel.send("Incorrect!")
+                hangman[6]+=1
+                if hangman[6] == 6:
+                    await message.channel.send("You lose! The word was **{}**!".format(hangman[2]))
+                    hangman = [False]
+                    return
+            drawhangman(message.channel, hangman[3], hangman[5], hangmanstatus(hangman[6]))
+            return
     if message.content.startswith("s.playgame"):
         await message.channel.send("""These are the games I can currently play atm:
 ```md
-<s.playgame rps (option) - Play Rock, Paper, Scissors with me!```
+<s.playgame rps (option)> - Play Rock, Paper, Scissors with me!
+<s.playgame hangman> - Play a game of hangman!```
 More games along the way! Stay tuned!""")
         return
                     
@@ -535,6 +633,14 @@ async def warningwrite():
             pass
         writer.writerow(a)
     file.close()
+
+async def drawhangman(message.channel, dashedword, printguessedletters, hangperson):
+    await message.channel.send("""
+Word: **{}**
+
+Letters guessed: *{}*
+
+{}""".format(dashedword, printguessedletters, hangperson))
 
 @client.event
 async def on_member_remove(member):
