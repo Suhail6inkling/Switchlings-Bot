@@ -17,7 +17,6 @@ except ModuleNotFoundError:
 Client = discord.Client()
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
-hangman = [False]
 
 @client.event
 async def on_ready():
@@ -25,7 +24,7 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
-    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot
+    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangman
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
     person = discord.utils.get(server.members, name="Government Guinea Pig")
@@ -37,6 +36,7 @@ async def on_ready():
     welcomechat = discord.utils.get(server.channels, name = "welcome")
     swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
     warningschat = discord.utils.get(server.channels, name = "warnings")
+    hangman = [False]
     file = open("warning.csv","r")
     reader = csv.reader(file)
     warning = list(reader)
