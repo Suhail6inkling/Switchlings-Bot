@@ -496,7 +496,7 @@ Please note that some of these commands are a work in progress and may not work.
             if len(letter) != 1:
                 await message.channel.send("Please only give one letter!")
                 return
-            if letter in guessedletters:
+            if letter in hangman[4]:
                 await message.channel.send("You've already guessed that letter!")
                 return
             letter = letter.lower()
