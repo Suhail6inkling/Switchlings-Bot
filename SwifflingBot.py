@@ -424,13 +424,15 @@ Please note that some of these commands are a work in progress and may not work.
     if message.content.startswith("s.print"):
         if "Mods" in [role.name for role in message.author.roles]:
             x = message.content.split(" ")
-            textchannel = (message.channel_mentions)[0]
+            textchannels = (message.channel_mentions)[0]
             tosend = ""
             x.remove(x[0])
-            x.remove(x[0])
+            for a in range(0,len(textchannels)):
+                x.remove(x[0])
             for y in x:
                 tosend = "{} {}".format(tosend,y)
-            await textchannel.send("{}".format(tosend))
+            for textchannel in textchannels:
+                await textchannel.send("{}".format(tosend))
             await message.add_reaction("✅")
         return
     if message.content.startswith("s.playgame rps"):
