@@ -469,7 +469,7 @@ Please note that some of these commands are a work in progress and may not work.
             printguessedletters = ""
             hangmanstatus = 0
             hangmantime = 0
-            drawhangman(message.channel, dashedword, printguessedletters, hangmanman[hangmanstats])
+            drawhangman(message.channel, dashedword, printguessedletters, hangmanman[hangmanstatus])
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
             hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
             while True:
@@ -535,7 +535,7 @@ Please note that some of these commands are a work in progress and may not work.
             return
         else:
             hangmantime = 0
-            wordguess = message.content.split("s.guessword ")[1]
+            wordguess = (message.content.split("s.guessword ")[1]).lower()
             if wordguess == hangman[2]:
                 await message.channel.send("Congratulations! You guessed the word!")
                 hangman = [False]
