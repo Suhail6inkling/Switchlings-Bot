@@ -380,7 +380,7 @@ Please note that some of these commands are a work in progress and may not work.
                    await channel.set_permissions(timeouter, overwrite=perms)
                  await ctx.send("{} has been muted for {} seconds".format(timeouter.mention, secs))
                  for i in range(0, secs):
-                    await asyncio.sleep(1)
+                    time.sleep(1)
                  for ID in channels:
                     channel = client.get_channel(int(ID))
                     await channel.set_permissions(timeouter, overwrite=None)
@@ -472,7 +472,7 @@ Please note that some of these commands are a work in progress and may not work.
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
             hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
             while True:
-                asyncio.sleep(1)
+                time.sleep(1)
                 hangmantime+=1
                 print(hangmantime)
                 if hangmantime == 100:
