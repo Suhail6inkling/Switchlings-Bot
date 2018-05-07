@@ -17,6 +17,7 @@ except ModuleNotFoundError:
 Client = discord.Client()
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
+hangman = [False]
 
 @client.event
 async def on_ready():
@@ -470,17 +471,17 @@ Please note that some of these commands are a work in progress and may not work.
             hangmantime = 0
             drawhangman(message.channel, dashedword, printguessedletters, hangmanman[hangmanstats])
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
-        hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
-        while True:
-            asyncio.sleep(1)
-            hangmantime+=1
-            if hangmantime == 100:
-                await message.channel.send("{}, you're hangman game has timed out".format(message.author.mention))
-                hangman = [False]
-            if hangman[0] == False:
+            hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
+            while True:
+                asyncio.sleep(1)
+                hangmantime+=1
+                if hangmantime == 100:
+                    await message.channel.send("{}, you're hangman game has timed out".format(message.author.mention))
+                    hangman = [False]
+                if hangman[0] == False:
+                    break
                 break
-            break
-        
+        return
             
     if message.content.startswith("s.guessletter"):
         if hangman[0] == False:
