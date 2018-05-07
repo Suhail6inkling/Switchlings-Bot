@@ -419,7 +419,7 @@ Please note that some of these commands are a work in progress and may not work.
             await message.add_reaction("✅")
         return
     if message.content.startswith("s.playgame rps"):
-        a = message.content.split("s.playgame rps ")
+        a = message.content.split("s.playgame rps ")[1]
         rps = ["Rock","Paper","Scissors"]
         wins = {"Rock" : "Paper", "Paper" : "Scissors", "Scissors" : "Rock"}
         if a.title() not in rps:
