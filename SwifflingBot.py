@@ -24,7 +24,7 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
-    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangman
+    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, hangman
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
     person = discord.utils.get(server.members, name="Government Guinea Pig")
@@ -36,6 +36,7 @@ async def on_ready():
     welcomechat = discord.utils.get(server.channels, name = "welcome")
     swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
     warningschat = discord.utils.get(server.channels, name = "warnings")
+    hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
     hangman = [False]
     file = open("warning.csv","r")
     reader = csv.reader(file)
@@ -65,7 +66,7 @@ async def on_message(message):
             return
         else:
             pass"""
-    global badwords1, swifflingbotchat, warningschat, bot, hangman#, noexception
+    global badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman#, noexception
     for word in badwords1:
         if word in (message.content.lower()) and message.author != bot:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
@@ -456,7 +457,6 @@ Please note that some of these commands are a work in progress and may not work.
                 await message.channel.send("Yes! While you chose **{}**, I counteracted with **{}** I win!".format(a,b))
                 return
     if message.content.startswith("s.playgame hangman"):
-        hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
         if hangman[0] == True:
             await message.channel.send("There's already a hangman game going on!")
             return
