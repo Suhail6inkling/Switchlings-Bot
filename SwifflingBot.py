@@ -26,7 +26,10 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name="Say s.help"))
     global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot
     server = client.get_guild(413113734303580171)
+    bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
     person = discord.utils.get(server.members, name="Government Guinea Pig")
+    if person == None:
+        await bottestingchat.send("Suhail has changed his username, please change it in the code")
     bot = discord.utils.get(server.members, name="Switchlings Bot")
     ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
     grouprole = discord.utils.get(server.roles, name = "The Switchlings")
@@ -82,12 +85,15 @@ async def on_message(message):
             a = a[1]
             if a == "warning":
                 print(warning)
+                await person.send(warning)
             if a == "csv":
                 file = open("warning.csv", "r")
                 reader = csv.reader(file)
                 print(list(reader))
+                await person.send(list(reader))
             if a == "hangman":
                 print(hangman)
+                await person.send(hangman)
             return
     if message.content.startswith("s.ping"):
         await message.channel.send("Pong!")
@@ -202,7 +208,7 @@ And this is what I can do exclusively for you guys:""")
 Please note that some of these commands are a work in progress and may not work.""")
 ##To add##
 #<s.giveroles (@mention, role1, role2, etc)> - Gives a specific person a role / roles.
-#<s.removeroles (@mention, role1, role2, etc)> - Removes a role / roles from a specific person/
+#<s.removeroles (@mention, role1, role2, etc)> - Removes a role / roles from a specific person
             except discord.errors.Forbidden:
                 await message.channel.send("You must have DMs from server members allowed!")
         else:
@@ -232,6 +238,7 @@ Please note that some of these commands are a work in progress and may not work.
 **Status**                {}
 **Highest Role**        {}
 **Join Date:**           {}""".format(member.name, member.id, member.status, member.top_role, member.joined_at)))
+        avatar = member.avatar_url_as(format="jpg",size=512)
         await message.channel.send(embed=embed)
         return
     if message.content.startswith("s.switchling Seven19inkling"):
@@ -292,7 +299,7 @@ Please note that some of these commands are a work in progress and may not work.
             for member in members:
                 if "Mods" not in [role.name for role in member.roles]:
                     for ID in channels:
-                        channel = client.get_channel(ID)
+                        channel = client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = False
                         await channel.set_permissions(member, overwrite=perms)
@@ -308,7 +315,7 @@ Please note that some of these commands are a work in progress and may not work.
             for member in members:
                 if "Mods" not in [role.name for role in member.roles]:
                     for ID in channels:
-                        channel = client.get_channel(ID)
+                        channel = client.get_channel(int(ID))
                         await channel.set_permissions(member, overwrite=None)
                     await message.channel.send("{} has been unmuted".format(member.mention))
                 else:
@@ -332,7 +339,7 @@ Please note that some of these commands are a work in progress and may not work.
             except:
                 secs = "indefinite"
             for ID in channels:
-                        channel = client.get_channel(ID)
+                        channel = client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = False
                         await channel.set_permissions(message.guild.default_role, overwrite=perms)
@@ -344,13 +351,14 @@ Please note that some of these commands are a work in progress and may not work.
                         break
                     break
                 
-            for i in range(0, secs):
-                asyncio.sleep(1)
-                if permashut == False:
+            else:
+                for i in range(0, secs):
+                    asyncio.sleep(1)
+                    if permashut == False:
+                        break
                     break
-                break
             for ID in channels:
-                        channel = client.get_channel(ID)
+                        channel = client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = True
                         await channel.set_permissions(message.guild.default_role, overwrite=perms)
@@ -366,7 +374,7 @@ Please note that some of these commands are a work in progress and may not work.
         if "Mods" in [role.name for role in message.author.roles]:
             if "Mods" not in [role.name for role in timeouter.roles]:
                  for ID in channels:
-                   channel = client.get_channel(ID)
+                   channel = client.get_channel(int(ID))
                    perms = discord.PermissionOverwrite()
                    perms.send_messages = False
                    await channel.set_permissions(timeouter, overwrite=perms)
@@ -374,7 +382,7 @@ Please note that some of these commands are a work in progress and may not work.
                  for i in range(0, secs):
                     await asyncio.sleep(1)
                  for ID in channels:
-                    channel = client.get_channel(ID)
+                    channel = client.get_channel(int(ID))
                     await channel.set_permissions(timeouter, overwrite=None)
                  await message.channel.send("{} has been unmuted after a timeout".format(timeouter.mention))
             else:
