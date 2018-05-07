@@ -86,6 +86,7 @@ async def on_message(message):
                 file = open("warning.csv", "r")
                 reader = csv.reader(file)
                 print(list(reader))
+            return
     if message.content.startswith("s.ping"):
         await message.channel.send("Pong!")
         await message.add_reaction("✅")
@@ -417,6 +418,32 @@ Please note that some of these commands are a work in progress and may not work.
             await textchannel.send("{}".format(tosend))
             await message.add_reaction("✅")
         return
+    if message.content.startswith("s.playgame rps"):
+        a = message.content.split("s.playgame rps ")
+        rps = ["Rock","Paper","Scissors"]
+        wins = {"Rock" : "Paper", "Paper" : "Scissors", "Scissors" : "Rock"}
+        if a.title() not in rps:
+            await message.channel..send("Please choose either Rock, Paper or Scissors!")
+            return
+        else:
+            a = a.title()
+            b = random.choice(rps)
+            if a == b:
+                print("Draw! We both chose **{}**!".format(a))
+                return
+            if wins[b] == a:
+                print("Darn, I chose **{}** while you chose **{}**. You win.. Gg...".format(b,a))
+                return
+            esle:
+                print("Yes! While you chose **{}**, I counteracted with **{}** I win!".format(a,b))
+                return
+    if message.content.startswith("s.playgame"):
+        await message.channel.send("""These are the games I can currently play atm:
+```md
+<s.playgame rps (option) - Play Rock, Paper, Scissors with me!```
+More games along the way! Stay tuned!""")
+        return
+                    
     if message.content.startswith("s."):
         await message.add_reaction("❌")
         return
