@@ -469,7 +469,7 @@ Please note that some of these commands are a work in progress and may not work.
             printguessedletters = ""
             hangmanstatus = 0
             hangmantime = 0
-            hangperson = hangmanman[hangstatus]
+            hangperson = hangmanman[hangmanstatus]
             await drawhangman(message.channel, dashedword, printguessedletters, hangperson)
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
             hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
