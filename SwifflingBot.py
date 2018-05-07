@@ -35,7 +35,7 @@ async def on_ready():
     grouprole = discord.utils.get(server.roles, name = "The Switchlings")
     welcomechat = discord.utils.get(server.channels, name = "welcome")
     swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
-    warningschat = discor   d.utils.get(server.channels, name = "warnings")
+    warningschat = discord.utils.get(server.channels, name = "warnings")
     hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
     hangman = [False]
     file = open("warning.csv","r")
