@@ -462,9 +462,9 @@ Please note that some of these commands are a work in progress and may not work.
             return
         else:
             word = random.choice(hangmanwords)
-            dashedword = "-"
+            dashedword = ""
             for a in range(0, len(word)):
-                dashedword=("{}-".format(dashedword))
+                dashedword=("{}  -".format(dashedword))
             guessedletters = []
             printguessedletters = ""
             hangmanstatus = 0
@@ -476,6 +476,7 @@ Please note that some of these commands are a work in progress and may not work.
             while True:
                 asyncio.sleep(1)
                 hangmantime+=1
+                print(hangmantime)
                 if hangmantime == 100:
                     await message.channel.send("{}, you're hangman game has timed out".format(message.author.mention))
                     hangman = [False]
