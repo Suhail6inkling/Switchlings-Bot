@@ -462,8 +462,10 @@ Please note that some of these commands are a work in progress and may not work.
         else:
             word = random.choice(hangmanwords)
             dashedword = ""
+            printdashedword = ""
             for a in range(0, len(word)):
-                dashedword=("{}  -".format(dashedword))
+                dashedword = ("{}-".format(dashedword))
+                printdashedword=("{}  -".format(printdashedword))
             guessedletters = []
             printguessedletters = ""
             hangmanstatus = 0
@@ -471,7 +473,7 @@ Please note that some of these commands are a work in progress and may not work.
             hangperson = hangmanman[hangmanstatus]
             await drawhangman(message.channel, dashedword, printguessedletters, hangperson)
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
-            hangman = [True, message.author.mention, word, dashedword, guessedletters, printguessedletters, hangmanstatus]
+            hangman = [True, message.author.mention, word, dashedword, printdashedword, guessedletters, printguessedletters, hangmanstatus]
             while True:
                 await asyncio.sleep(1)
                 hangmantime+=1
@@ -497,36 +499,37 @@ Please note that some of these commands are a work in progress and may not work.
             if len(letter) != 1:
                 await message.channel.send("Please only give one letter!")
                 return
-            if letter in hangman[4]:
+            if letter in hangman[5]:
                 await message.channel.send("You've already guessed that letter!")
                 return
             letter = letter.lower()
             if letter in hangman[2]:
                 for c in range(0, len(hangman[2])):
                     if hangman[2][c] == letter:
+                        hangman[4] = "{}{}{}".format(hangman[4][:3c],letter,hangman[4][3c+1:])
                         hangman[3] = "{}{}{}".format(hangman[3][:c],letter,hangman[3][c+1:])
                 if hangman[3] == hangman[2]:
                     await message.channel.send("Congratulations! You guessed the correct thing!")
                     hangman = [False]
                     return
-                if hangman[5] == "":
-                    hangman[5] = letter
+                if hangman[6] == "":
+                    hangman[6] = letter
                 else:
-                    hangman[5] = "{}, {}".format(hangman[5], letter)
-                hangman[4].append(letter)
+                    hangman[6] = "{}, {}".format(hangman[6], letter)
+                hangman[5].append(letter)
             else:
-                if hangman[5] == "":
-                    hangman[5] = letter
+                if hangman[6] == "":
+                    hangman[6] = letter
                 else:
-                    hangman[5] = "{}, {}".format(hangman[5], letter)
-                hangman[4].append(letter)
-                hangman[6]+=1
-                if hangman[6] == 6:
+                    hangman[6] = "{}, {}".format(hangman[6], letter)
+                hangman[5].append(letter)
+                hangman[7]+=1
+                if hangman[7] == 6:
                     await message.channel.send("You lose! The word was **{}**!".format(hangman[2]))
                     hangman = [False]
                     return
-            hangperson = hangmanman[hangman[6]]
-            await drawhangman(message.channel, hangman[3], hangman[5], hangperson)
+            hangperson = hangmanman[hangman[7]]
+            await drawhangman(message.channel, hangman[4], hangman[6], hangperson)
             return
     if message.content.startswith("s.guessword"):
         if hangman[0] == False:
