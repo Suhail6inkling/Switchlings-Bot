@@ -115,7 +115,7 @@ async def on_message(message):
     if message.content.startswith("s.ping"):
         resp = await ctx.send("Pong! Loading...")
         diff = resp.created_at - ctx.message.created_at
-        await resp.edit(content=f"Pong! That took {}ms.".format((100*diff.total_seconds():1f)) 
+        await resp.edit(content=f"Pong! That took {1000*diff.total_seconds():.1f}ms.") 
         return
     if message.content.startswith("s.warn"):
         warninger = message.mentions
