@@ -1,4 +1,4 @@
-import discord
+    import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, os, csv
@@ -25,13 +25,19 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
-    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, hangman
+    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
     person = discord.utils.get(server.members, name="Government Guinea Pig")
     if person == None:
         await bottestingchat.send("Suhail has changed his username, please change it in the code")
     bot = discord.utils.get(server.members, name="Switchlings Bot")
+    defperson = discord.utils.get(server.members, name = "Đefmaster")
+    if defmaster == None:
+        try:
+            await person.send("Def changed his username - change it")
+        except:
+            await bottestingchat.send("Def changed his username - change it")
     ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
     grouprole = discord.utils.get(server.roles, name = "The Switchlings")
     welcomechat = discord.utils.get(server.channels, name = "welcome")
@@ -68,7 +74,7 @@ async def on_message(message):
         else:
             pass"""
     disallowedword = True
-    global badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords#, noexception
+    global badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
     for word in badwords1:
         for aword in allowedwords:
             if aword in message.content.lower():
@@ -431,6 +437,8 @@ Please note that some of these commands are a work in progress and may not work.
         return
     if message.content.startswith("s.print"):
         if "Mods" in [role.name for role in message.author.roles]:
+            if message.author == defmaster:
+                return None
             x = message.content.split(" ")
             textchannels = (message.channel_mentions)
             tosend = ""
@@ -478,7 +486,7 @@ Please note that some of these commands are a work in progress and may not work.
             hangmanstatus = 0
             hangmantime = 0
             hangperson = hangmanman[hangmanstatus]
-            await drawhangman(message.channel, dashedword, printguessedletters, hangperson)
+            await drawhangman(message.channel, printdashedword, printguessedletters, hangperson)
             await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
             hangman = [True, message.author.mention, word, dashedword, printdashedword, guessedletters, printguessedletters, hangmanstatus]
             while True:
@@ -513,7 +521,7 @@ Please note that some of these commands are a work in progress and may not work.
             if letter in hangman[2]:
                 for c in range(0, len(hangman[2])):
                     if hangman[2][c] == letter:
-                        hangman[4] = "{}{}{}".format(hangman[4][:3*c],letter,hangman[4][3*c+1:])
+                        hangman[4] = "{}{}{}".format(hangman[4][:(3*c)-1],letter,hangman[4][3*c:])
                         hangman[3] = "{}{}{}".format(hangman[3][:c],letter,hangman[3][c+1:])
                 if hangman[3] == hangman[2]:
                     await message.channel.send("Congratulations! You guessed the correct thing!")
