@@ -114,7 +114,7 @@ async def on_message(message):
             return
     if message.content.startswith("s.ping"):
         resp = await message.channel.send("Pong! Loading...")
-        diff = resp.created_at - ctx.message.created_at
+        diff = resp.created_at - message.created_at
         await resp.edit(content=f"Pong! That took {1000*diff.total_seconds():.1f}ms.") 
         return
     if message.content.startswith("s.warn"):
