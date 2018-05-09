@@ -1,7 +1,7 @@
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-import asyncio, random, os, csv
+import asyncio, random, os, csv, time
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords
@@ -25,14 +25,15 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
-    global server, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman
+    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman
+    starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
     person = discord.utils.get(server.members, name="Government Guinea Pig")
     if person == None:
         await bottestingchat.send("Suhail has changed his username, please change it in the code")
     bot = discord.utils.get(server.members, name="Switchlings Bot")
-    defperson = discord.utils.get(server.members, name = "Đefmaster")
+    defmaster = discord.utils.get(server.members, name = "Đefmaster")
     if defmaster == None:
         try:
             await person.send("Def changed his username - change it")
@@ -74,7 +75,7 @@ async def on_message(message):
         else:
             pass"""
     disallowedword = True
-    global badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
+    global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
     for word in badwords1:
         for aword in allowedwords:
             if aword in message.content.lower():
@@ -112,8 +113,9 @@ async def on_message(message):
                 await person.send(hangman)
             return
     if message.content.startswith("s.ping"):
-        await message.channel.send("Pong!")
-        await message.add_reaction("✅")
+        resp = await ctx.send("Pong! Loading...")
+        diff = resp.created_at - ctx.message.created_at
+        await resp.edit(content=f"Pong! That took {}ms.".format((100*diff.total_seconds():1f)) 
         return
     if message.content.startswith("s.warn"):
         warninger = message.mentions
@@ -177,6 +179,17 @@ async def on_message(message):
         else:
             await message.channel.send("Only works for Suhail6inkling")
         return
+    if message.content.startswith("s.botstatus"):
+        global start_time
+        second = time.time() - starttime
+        minute, second = divmod(second, 60)
+        hour, minute = divmod(minute, 60)
+        day, hour = divmod(hour, 24)
+        week, day = divmod(day, 7)
+        embed = discord.Embed(colour=0x20B2AA)
+        second = (int(second*100)/100)
+        embed = discord.Embed(name=":clock1:", description="Weeks: {},\nDays: {},\nHours: {},\nMinutes: {},\nSeconds: {}".format(week,day,hour,minute,second),colour = 0xff8800)
+        await message.channel.send(embed=embed)
     if message.content.startswith("s.leave"):
         if message.author == person:
             await person.remove_roles(ownrole)
