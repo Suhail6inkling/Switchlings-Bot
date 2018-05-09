@@ -487,7 +487,7 @@ Please note that some of these commands are a work in progress and may not work.
             hangmantime = 0
             hangperson = hangmanman[hangmanstatus]
             await drawhangman(message.channel, printdashedword, printguessedletters, hangperson)
-            await message.channel.send("Use `<s.guessletter (letter)>` to guess a letter and `<s.guessword (word)>` to guess the entire word!")
+            await message.channel.send("Use `<s.gl (letter)>` to guess a letter and `<s.gw (word)>` to guess the entire word!")
             hangman = [True, message.author.mention, word, dashedword, printdashedword, guessedletters, printguessedletters, hangmanstatus]
             while True:
                 await asyncio.sleep(1)
@@ -501,7 +501,7 @@ Please note that some of these commands are a work in progress and may not work.
                 
         return
             
-    if message.content.startswith("s.guessletter"):
+    if message.content.startswith("s.gl"):
         if hangman[0] == False:
             await message.channel.send("There is no hangman game going on!")
             return
@@ -510,7 +510,7 @@ Please note that some of these commands are a work in progress and may not work.
             return
         else:
             hangmantime = 0
-            letter = message.content.split("s.guessletter ")[1]
+            letter = message.content.split("s.gl ")[1]
             if len(letter) != 1:
                 await message.channel.send("Please only give one letter!")
                 return
@@ -546,7 +546,7 @@ Please note that some of these commands are a work in progress and may not work.
             hangperson = hangmanman[hangman[7]]
             await drawhangman(message.channel, hangman[4], hangman[6], hangperson)
             return
-    if message.content.startswith("s.guessword"):
+    if message.content.startswith("s.gw"):
         if hangman[0] == False:
             await message.channel.send("There is no hangman game going on!")
             return
@@ -555,7 +555,7 @@ Please note that some of these commands are a work in progress and may not work.
             return
         else:
             hangmantime = 0
-            wordguess = (message.content.split("s.guessword ")[1]).lower()
+            wordguess = (message.content.split("s.gw ")[1]).lower()
             if wordguess == hangman[2]:
                 await message.channel.send("Congratulations! You guessed the word!")
                 hangman = [False]
