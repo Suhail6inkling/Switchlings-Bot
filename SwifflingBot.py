@@ -190,6 +190,7 @@ async def on_message(message):
         second = (int(second*100)/100)
         embed = discord.Embed(title=":clock1:", description="Weeks: {},\nDays: {},\nHours: {},\nMinutes: {},\nSeconds: {}".format(week,day,hour,minute,second),colour = 0xff8800)
         await message.channel.send(embed=embed)
+        return
     if message.content.startswith("s.leave"):
         if message.author == person:
             await person.remove_roles(ownrole)
