@@ -695,7 +695,7 @@ Letters guessed: *{}*
 async def sql():
     global person
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
-    dbname = url..path[1:]
+    dbname = url.path[1:]
     user = url.username
     password = url.password
     host = url.hostname
