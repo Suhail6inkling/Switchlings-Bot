@@ -2,7 +2,7 @@ import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, os, csv, time, psycopg2
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import SQLAlchemy
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords
