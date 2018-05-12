@@ -2,7 +2,7 @@ import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, os, csv, time, psycopg2
-from flask import SQLAlchemy
+import urllib.parse as urlparse
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords
@@ -693,12 +693,17 @@ Letters guessed: *{}*
 
 
 async def sql():
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATAVASE_URI"] = os.environ["DATABASE_URL"]
-    db = SQLAlchemy(app)
-    from app import db
-    db.create_all()
-    await person.send("Success? Hopefully?")
+    global person
+    dburl = os.environ["DATABASE_URL"]
+
+    con = psycopg2.connect(dburl, sslmode="require")
+    await person.send(dburl)
+    await person.send(con)
+
+    cur = con.cursor()
+    cur.execute("SELECT * from df9qeu5nnhbo7c")
+    rows = cur.fetchall()
+    await person.send(rows)
 
 @client.event
 async def on_member_remove(member):
