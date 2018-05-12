@@ -357,7 +357,9 @@ Please note that some of these commands are a work in progress and may not work.
             await message.channel.send("You need to be a Mod to do this!")
         return
     if message.content.startswith("s.open"):
+       
         if "The Switchlings" in [role.name for role in message.author.roles]:
+            global permashut
             permashut = False
             await message.channel.send("Should be open now")
         return
