@@ -701,7 +701,8 @@ async def sql():
     await person.send(con)
 
     cur = con.cursor()
-    cur.execute("SELECT * FROM table")
+    cur.execute("CREATE TABLE warnings (mention varchar, num integer);")
+    cur.execute("SELECT * FROM warnings")
     rows = cur.fetchall()
     await person.send(rows)
 
