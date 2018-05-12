@@ -701,7 +701,7 @@ async def sql():
     await person.send(con)
 
     cur = con.cursor()
-    cur.execute("SELECT * from database")
+    cur.execute("SELECT * FROM table")
     rows = cur.fetchall()
     await person.send(rows)
 
