@@ -705,6 +705,11 @@ async def sql():
     await person.send(url)
     await person.send(con)
 
+    cur = con.cursor()
+    cur.execute("SELECT * from database")
+    rows = cur.fetchall()
+    await person.send(rows)
+
 @client.event
 async def on_member_remove(member):
     global welcomechat, swifflingbotchat
