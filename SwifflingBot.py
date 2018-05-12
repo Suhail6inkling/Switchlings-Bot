@@ -701,7 +701,7 @@ async def sql():
     await person.send(con)
 
     cur = con.cursor()
-    cur.execute("INSERT INTO warnings VALUES ({}, 1)".format(person.mention))
+    cur.execute("INSERT INTO warnings VALUES (%s, %s)",(person.mention,1))
     cur.execute("SELECT * FROM warnings")
     rows = cur.fetchall()
     await person.send(rows)
