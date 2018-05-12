@@ -112,6 +112,8 @@ async def on_message(message):
             if a == "hangman":
                 print(hangman)
                 await person.send(hangman)
+            if a == "sql":
+                await sql()
             return
     if message.content.startswith("s.ping"):
         resp = await message.channel.send("Pong! Loading...")
