@@ -1,7 +1,8 @@
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-import asyncio, random, os, csv, time
+import asyncio, random, os, csv, time, psycopg2
+import urllib.parse as urlparse
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords
@@ -687,6 +688,19 @@ Word: **{}**
 Letters guessed: *{}*
 
 {}""".format(dashedword, printguessedletters, hangperson))
+
+
+async def sql():
+    global person
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    dbname = url..path[1:]
+    user = url.username
+    password = url.password
+    host = url.hostname
+    port = url.port
+
+    con = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
+    await person.send(url, con)
 
 @client.event
 async def on_member_remove(member):
