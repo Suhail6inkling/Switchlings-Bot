@@ -701,10 +701,12 @@ async def sql():
     await person.send(con)
 
     cur = con.cursor()
+    cur.execute("CREATE TABLE warnings")
     cur.execute("INSERT INTO warnings VALUES (%s, %s)",(person.mention,1))
     cur.execute("SELECT * FROM warnings")
     rows = cur.fetchall()
     await person.send(rows)
+    cur.commit()
 
 @client.event
 async def on_member_remove(member):
