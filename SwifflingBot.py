@@ -702,7 +702,8 @@ async def sql():
     port = url.port
 
     con = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
-    await person.send(url, con)
+    await person.send(url)
+    await person.send(con)
 
 @client.event
 async def on_member_remove(member):
