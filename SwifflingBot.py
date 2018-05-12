@@ -694,19 +694,15 @@ Letters guessed: *{}*
 
 async def sql():
     global person
-    url = urlparse.urlparse(os.environ["DATABASE_URL"])
-    dbname = url.path[1:]
-    user = url.username
-    password = url.password
-    host = url.hostname
-    port = url.port
+    dburl = os.environ["DATABASE_URL"]
 
-    con = psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
-    await person.send(url)
+    con = psycopg2.connect(dburl, sslmode="require")
+    await person.send(dburl)
     await person.send(con)
 
     cur = con.cursor()
-    cur.execute("SELECT * from database")
+    cur.execute("CREATE DATABASE warnings")
+    cur.execute("SELECT * FROM warnings")
     rows = cur.fetchall()
     await person.send(rows)
 
