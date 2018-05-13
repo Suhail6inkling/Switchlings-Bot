@@ -52,7 +52,7 @@ async def onlinestuff():
     hangman = [False]
     await sql.open()
     cur.execute("SELECT * FROM warnings")
-    warnings = cur.fetchall()
+    warning = cur.fetchall()
     await sql.close()
 
 
