@@ -79,13 +79,16 @@ async def on_message(message):
     global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
     for aword in allowedwords:
         if aword in message.content.lower():
-            indexa = message.content.lower().index(aword[0])
-            indexb = message.content.lower().index(aword[(len(aword)-1)])
-            zyx = message.content.split(message.content[indexa:indexb+1])
-            q = ""
-            for x in zyx:
-                q = "{}{}".format(q,x)
-            message.content = q
+            if message.content.startswith("s."):
+                pass
+            else:
+                indexa = message.content.lower().index(aword[0])
+                indexb = message.content.lower().index(aword[(len(aword)-1)])
+                zyx = message.content.split(message.content[indexa:indexb+1])
+                q = ""
+                for x in zyx:
+                    q = "{}{}".format(q,x)
+                message.content = q
     for word in badwords1:
         if word in (message.content.lower()) and message.author != bot and disallowedword:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
