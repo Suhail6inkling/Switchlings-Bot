@@ -696,7 +696,7 @@ class sql():
                 cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
 
         else:
-            cur.execute("DELETE FROM warnings WHERE mention = {}".format(warningeelist[0]))        
+            cur.execute("DELETE FROM warnings WHERE mention = %s",warningeelist[0])        
         await sql.close()
 
 
