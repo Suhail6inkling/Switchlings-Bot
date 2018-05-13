@@ -1,7 +1,7 @@
 import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
-import asyncio, random, os, csv, time, psycopg2
+import asyncio, random, os, time, psycopg2
 import urllib.parse as urlparse
 
 try:
@@ -26,6 +26,9 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
+    await onlinestuff()
+
+async def onlinestuff():
     global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman
     starttime = time.time()
     server = client.get_guild(413113734303580171)
@@ -47,15 +50,10 @@ async def on_ready():
     warningschat = discord.utils.get(server.channels, name = "warnings")
     hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
     hangman = [False]
-    file = open("warning.csv","r")
-    reader = csv.reader(file)
-    warning = list(reader)
-    print(warning)
-    for x in warning:
-        if x == []:
-            warning.remove(x)
-        else:
-            x[1] = int(x[1])
+    await sql.open()
+    cur.execute("SELECT * FROM warnings")
+    warnings = cur.fetchall()
+    await sql.close()
 
 
 @client.event
@@ -104,16 +102,9 @@ async def on_message(message):
             if a == "warning":
                 print(warning)
                 await person.send(warning)
-            if a == "csv":
-                file = open("warning.csv", "r")
-                reader = csv.reader(file)
-                print(list(reader))
-                await person.send(list(reader))
             if a == "hangman":
                 print(hangman)
                 await person.send(hangman)
-            if a == "sql":
-                await sql()
             return
     if message.content.startswith("s.ping"):
         resp = await message.channel.send("Pong! Loading...")
@@ -156,16 +147,22 @@ async def on_message(message):
                     nowarnings = False
                     if num == 0:
                         warning.remove(w)
+                        boolean = False
                     else:
                         w[1] = num
+                        warningeelist = [warninger.mention,num]
+                        boolean = True
+                    await sqlwrite(warningeelist, boolean)
+                    
             if nowarnings:
                 if num == 0:
                     pass
                     await message.channel.send("This person didn't have any warnings to begin with!")
                 else:
                     warning.append([warninger.mention, num])
+                    warningeelist = [warninger.mention, nun]
+                    await sqlwrite(warningeelist, True)
             await message.add_reaction("✅")
-            await warningwrite()
             return
     if message.content.startswith("s.gimmeeveryrole"):
         if message.author == person:
@@ -621,6 +618,7 @@ async def givewarning(user, reason):
             firstwarning = False
             warningee[1]+=1
             num = warningee[1]
+            warningeelist = warningee
             if (str(num).endswith("1")) and ((str(num).endswith("11"))==False):
                 ending = "st"
             elif (str(num).endswith("2")) and ((str(num).endswith("12"))==False):
@@ -631,6 +629,7 @@ async def givewarning(user, reason):
                 ending = "th"
     if firstwarning:
         warningee = [user, 1]
+        warningeelist = warningee
         warning.append(warningee)
         ending = "st"
     if reason.endswith("[rape]"):
@@ -672,19 +671,25 @@ Reason:
     await swifflingbotchat.send(embed=embed)
     if warningee[1] == 3:
         await swifflingbotchat.send("```Would be banned at this point```")
-    await warningwrite()
+    await sqlwrite(warningeelist, True)
 
-async def warningwrite():
-    file = open("warning.csv","w")
-    writer = csv.writer(file)
-    for a in warning:
-        try:
-            a[0] = a[0].mention
-        except:
-            pass
-        writer.writerow(a)
-    file.close()
+async def sqlwrite(warningeelist, boolean):
+    await sql.open()
+    cur.execute("SELECT * FROM warnings")
+    a = cur.fetchall()
+    if boolean:
+        firstwarning = True
+        for x in a:
+            if x[0] == person:
+                firstwarning = False
+                cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
+        if firstwarning:
+            cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
 
+    else:
+        cur.execute("DELETE FROM warnings WHERE mention = %s",(warningeelist[0]))        
+    await sql.close()
+    
 async def drawhangman(messagechannel, dashedword, printguessedletters, hangperson):
     await messagechannel.send("""
 Word: **{}**
@@ -694,24 +699,17 @@ Letters guessed: *{}*
 {}""".format(dashedword, printguessedletters, hangperson))
 
 
-async def sql():
-    global person
+async def sqlopen():
+    global con, cur
     dburl = os.environ["DATABASE_URL"]
-
     con = psycopg2.connect(dburl, sslmode="require")
-    await person.send(dburl)
-    await person.send(con)
-
     cur = con.cursor()
-    """cur.execute("CREATE TABLE warnings (mention varchar, num integer)")
-    cur.execute("INSERT INTO warnings VALUES (%s, %s)",(person.mention,1))"""
-    cur.execute("SELECT * FROM warnings")
-    rows = cur.fetchall()
-    await person.send(rows)
+
+async def sqlclose():
     con.commit()
     cur.close()
     con.close()
-
+    
 @client.event
 async def on_member_remove(member):
     global welcomechat, swifflingbotchat
