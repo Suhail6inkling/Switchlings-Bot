@@ -157,12 +157,11 @@ async def on_message(message):
                     if num == 0:
                         warning.remove(w)
                         warningeelist = [warninger.mention,w[1]]
-                        boolean = False
+                        await sql.remove(warningeelist)
                     else:
                         w[1] = num
                         warningeelist = [warninger.mention,num]
-                        boolean = True
-                    await sql.write(warningeelist, boolean)
+                        await sql.edit(warningeelist)
                     
             if nowarnings:
                 if num == 0:
@@ -171,7 +170,7 @@ async def on_message(message):
                 else:
                     warning.append([warninger.mention, num])
                     warningeelist = [warninger.mention, num]
-                    await sql.write(warningeelist, True)
+                    await sql.add(warningeelist)
             await message.add_reaction("✅")
             return
     if message.content.startswith("s.gimmeeveryrole"):
@@ -684,24 +683,19 @@ Reason:
     await sql.write(warningeelist, True)
 
 class sql():
-    async def write(warningeelist, boolean):
+    async def edit(warningeelist):
         await sql.open()
-        cur.execute("SELECT * FROM warnings")
-        a = cur.fetchall()
-        if boolean:
-            firstwarning = True
-            for x in a:
-                if x[0] == warningeelist[1]:
-                    firstwarning = False
-                    cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
-            if firstwarning:
-                cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
-
-        else:
-            cur.execute("DELETE FROM warnings WHERE mention = %s AND num = %s",(warningeelist[0],warningeelist[1]))        
+        cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
         await sql.close()
-
-
+    async def add(warningeelist):
+        await sql.open()
+        cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
+        await sql.close()
+    async def remove(warningeelist):
+        await sql.open()
+        cur.execute("DELETE FROM warnings WHERE mention = %s AND num = %s",(warningeelist[0],warningeelist[1]))
+        await sql.close()
+    
     async def open():
         global con, cur
         dburl = os.environ["DATABASE_URL"]
