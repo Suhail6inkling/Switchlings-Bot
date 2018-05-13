@@ -84,7 +84,8 @@ async def on_message(message):
             indexb = q.lower().index(aword[(len(aword)-1)])
             print("indexb ",indexb)
             zyx = q.split(q[indexa:indexb+1])
-            print("zyx" + zyx)
+            print("zyx")
+            print(zyx)
             p = ""
             for x in zyx:
                 print("x" + x)
