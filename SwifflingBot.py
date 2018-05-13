@@ -53,8 +53,8 @@ async def onlinestuff():
     await sql.open()
     cur.execute("SELECT * FROM warnings")
     warning = cur.fetchall()
-    for a in warning:
-        a = list(a)
+    for x in range(0,len(warning)):
+        warning[x] = list(warning[x])
     await sql.close()
 
 
