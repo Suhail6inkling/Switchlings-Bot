@@ -708,7 +708,7 @@ async def sql():
     cur.execute("SELECT * FROM warnings")
     rows = cur.fetchall()
     await person.send(rows)
-    cur.commit()
+    con.commit()
     cur.close()
     con.close()
 
