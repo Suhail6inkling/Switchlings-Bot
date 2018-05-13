@@ -152,7 +152,7 @@ async def on_message(message):
                         w[1] = num
                         warningeelist = [warninger.mention,num]
                         boolean = True
-                    await sqlwrite(warningeelist, boolean)
+                    await sql.write(warningeelist, boolean)
                     
             if nowarnings:
                 if num == 0:
@@ -161,7 +161,7 @@ async def on_message(message):
                 else:
                     warning.append([warninger.mention, num])
                     warningeelist = [warninger.mention, nun]
-                    await sqlwrite(warningeelist, True)
+                    await sql.write(warningeelist, True)
             await message.add_reaction("✅")
             return
     if message.content.startswith("s.gimmeeveryrole"):
@@ -671,24 +671,37 @@ Reason:
     await swifflingbotchat.send(embed=embed)
     if warningee[1] == 3:
         await swifflingbotchat.send("```Would be banned at this point```")
-    await sqlwrite(warningeelist, True)
+    await sql.write(warningeelist, True)
 
-async def sqlwrite(warningeelist, boolean):
-    await sql.open()
-    cur.execute("SELECT * FROM warnings")
-    a = cur.fetchall()
-    if boolean:
-        firstwarning = True
-        for x in a:
-            if x[0] == person:
-                firstwarning = False
-                cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
-        if firstwarning:
-            cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
+class sql():
+    async def write(warningeelist, boolean):
+        await sql.open()
+        cur.execute("SELECT * FROM warnings")
+        a = cur.fetchall()
+        if boolean:
+            firstwarning = True
+            for x in a:
+                if x[0] == person:
+                    firstwarning = False
+                    cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
+            if firstwarning:
+                cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
 
-    else:
-        cur.execute("DELETE FROM warnings WHERE mention = %s",(warningeelist[0]))        
-    await sql.close()
+        else:
+            cur.execute("DELETE FROM warnings WHERE mention = %s",(warningeelist[0]))        
+        await sql.close()
+
+
+    async def open():
+        global con, cur
+        dburl = os.environ["DATABASE_URL"]
+        con = psycopg2.connect(dburl, sslmode="require")
+        cur = con.cursor()
+
+    async def close():
+        con.commit()
+        cur.close()
+        con.close()
     
 async def drawhangman(messagechannel, dashedword, printguessedletters, hangperson):
     await messagechannel.send("""
@@ -699,16 +712,7 @@ Letters guessed: *{}*
 {}""".format(dashedword, printguessedletters, hangperson))
 
 
-async def sqlopen():
-    global con, cur
-    dburl = os.environ["DATABASE_URL"]
-    con = psycopg2.connect(dburl, sslmode="require")
-    cur = con.cursor()
 
-async def sqlclose():
-    con.commit()
-    cur.close()
-    con.close()
     
 @client.event
 async def on_member_remove(member):
