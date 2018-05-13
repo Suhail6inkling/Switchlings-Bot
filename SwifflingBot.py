@@ -77,10 +77,14 @@ async def on_message(message):
             pass"""
     disallowedword = True
     global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
+    for aword in allowedwords:
+        if aword in message.content.lower():
+            zyx = message.content.lower.split(aword)
+            q = ""
+            for x in zyx:
+                q = "{}{}".format(q,x)
+            message.content = q
     for word in badwords1:
-        for aword in allowedwords:
-            if aword in message.content.lower():
-                diallowedword = False
         if word in (message.content.lower()) and message.author != bot and disallowedword:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
             message.delete()
@@ -88,9 +92,6 @@ async def on_message(message):
             await givewarning(message.author.mention, reason)
             return
     for word in badwords2:
-        for aword in allowedwords:
-            if aword in message.content.lower():
-                diallowedword = False
         if word in (message.content.lower()) and message.author != bot and disallowedword:# and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
             message.delete()
@@ -670,7 +671,7 @@ Reason:
 {}""".format(user,warningee[1],reason)),colour=0x0000ff)
     else:
         await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,reason))
-        embed = discord.Embed(title="Person Warned", description=("""
+        embed = discord.Embed(title="Person Warned", description=("""   
 User:
 {}
 
