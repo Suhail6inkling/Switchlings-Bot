@@ -75,31 +75,28 @@ async def on_message(message):
             return
         else:
             pass"""
-    disallowedword = True
     global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
+    q = message.content
     for aword in allowedwords:
-        if aword in message.content.lower():
-            if message.content.startswith("s."):
-                pass
-            else:
-                indexa = message.content.lower().index(aword[0])
-                indexb = message.content.lower().index(aword[(len(aword)-1)])
-                zyx = message.content.split(message.content[indexa:indexb+1])
-                q = ""
-                for x in zyx:
-                    q = "{}{}".format(q,x)
-                message.content = q
+        if aword in q.lower():
+            indexa = q.lower().index(aword[0])
+            indexb = q.lower().index(aword[(len(aword)-1)])
+            zyx = q.split(q[indexa:indexb+1)
+            p = ""
+            for x in zyx:
+                q = "{}{}".format(q,x)
+            q = p
     for word in badwords1:
-        if word in (message.content.lower()) and message.author != bot and disallowedword:#and noexception:
+        if word in q.lower() and message.author != bot:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
-            message.delete()
+            await message.delete()
             reason = "for talking about sensitive content [Automated Warning] [rape]"
             await givewarning(message.author.mention, reason)
             return
     for word in badwords2:
-        if word in (message.content.lower()) and message.author != bot and disallowedword:# and noexception:
+        if word in (q.lower()) and message.author != bot:# and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
-            message.delete()
+            await message.delete()
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
             await givewarning(message.author.mention, reason)
             return
