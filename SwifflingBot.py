@@ -636,11 +636,14 @@ async def givewarning(user, reason):
                 ending = "rd"
             else:
                 ending = "th"
+            warningeelist = warningee
+            await sql.edit(warningeelist)
     if firstwarning:
         warningee = [user, 1]
         warningeelist = warningee
         warning.append(warningee)
         ending = "st"
+        await sql.add(warningeelist)
     if reason.endswith("[rape]"):
         h = reason.split("[rape]")
         await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,h[0]))
