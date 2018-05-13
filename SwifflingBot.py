@@ -154,6 +154,7 @@ async def on_message(message):
                     nowarnings = False
                     if num == 0:
                         warning.remove(w)
+                        warningeelist = [warninger.mention,num]
                         boolean = False
                     else:
                         w[1] = num
