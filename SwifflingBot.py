@@ -105,6 +105,13 @@ async def on_message(message):
             if a == "hangman":
                 print(hangman)
                 await person.send(hangman)
+            if a == "sql":
+                await sql.open()
+                cur.execute("SELECT * FROM warnings")
+                p = cur.fetchall()
+                print(p)
+                await person.send(p)
+                await sql.close()
             return
     if message.content.startswith("s.ping"):
         resp = await message.channel.send("Pong! Loading...")
@@ -676,7 +683,7 @@ Reason:
 class sql():
     async def write(warningeelist, boolean):
         await sql.open()
-        cur.execute("SELECT * FROM warnings")
+        cur.execu * FROM warnings")
         a = cur.fetchall()
         if boolean:
             firstwarning = True
