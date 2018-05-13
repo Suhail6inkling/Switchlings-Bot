@@ -683,7 +683,6 @@ Reason:
     await swifflingbotchat.send(embed=embed)
     if warningee[1] == 3:
         await swifflingbotchat.send("```Would be banned at this point```")
-    await sql.write(warningeelist, True)
 
 class sql():
     async def edit(warningeelist):
