@@ -160,7 +160,7 @@ async def on_message(message):
                     await message.channel.send("This person didn't have any warnings to begin with!")
                 else:
                     warning.append([warninger.mention, num])
-                    warningeelist = [warninger.mention, nun]
+                    warningeelist = [warninger.mention, num]
                     await sql.write(warningeelist, True)
             await message.add_reaction("✅")
             return
