@@ -691,8 +691,7 @@ class sql():
         if boolean:
             firstwarning = True
             for x in a:
-                await person.send(x[0])
-                if x[0] == person:
+                if x[0] == warningeelist[1]:
                     firstwarning = False
                     cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
             if firstwarning:
