@@ -53,6 +53,8 @@ async def onlinestuff():
     await sql.open()
     cur.execute("SELECT * FROM warnings")
     warning = cur.fetchall()
+    for a in warning:
+        a = list(a)
     await sql.close()
 
 
@@ -154,7 +156,7 @@ async def on_message(message):
                     nowarnings = False
                     if num == 0:
                         warning.remove(w)
-                        warningeelist = [warninger.mention,num]
+                        warningeelist = [warninger.mention,w[1]]
                         boolean = False
                     else:
                         w[1] = num
