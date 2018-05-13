@@ -86,6 +86,7 @@ async def on_message(message):
             for x in zyx:
                 q = "{}{}".format(q,x)
             q = p
+            print(q)
     for word in badwords1:
         if word in q.lower() and message.author != bot:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
