@@ -683,7 +683,7 @@ Reason:
 class sql():
     async def write(warningeelist, boolean):
         await sql.open()
-        cur.execu * FROM warnings")
+        cur.execute("SELECT * FROM warnings")
         a = cur.fetchall()
         if boolean:
             firstwarning = True
