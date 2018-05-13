@@ -81,7 +81,7 @@ async def on_message(message):
         if aword in q.lower():
             indexa = q.lower().index(aword[0])
             indexb = q.lower().index(aword[(len(aword)-1)])
-            zyx = q.split(q[indexa:indexb+1)
+            zyx = q.split(q[indexa:indexb+1])
             p = ""
             for x in zyx:
                 q = "{}{}".format(q,x)
