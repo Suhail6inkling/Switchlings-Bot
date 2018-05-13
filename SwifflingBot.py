@@ -80,12 +80,18 @@ async def on_message(message):
     for aword in allowedwords:
         if aword in q.lower():
             indexa = q.lower().index(aword[0])
+            print("indexa ",indexa)
             indexb = q.lower().index(aword[(len(aword)-1)])
+            print("indexb ",indexb)
             zyx = q.split(q[indexa:indexb+1])
+            print("zyx")
+            print(zyx)
             p = ""
             for x in zyx:
+                print("x" + x)
                 p = "{}{}".format(p,x)
             q = p
+            print("q" + q)
     for word in badwords1:
         if word in q.lower() and message.author != bot:#and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
