@@ -80,9 +80,9 @@ async def on_message(message):
     for aword in allowedwords:
         if aword in q.lower():
             indexa = q.lower().index(aword[0])
-            print("indexa" + indexa)
+            print("indexa ",indexa)
             indexb = q.lower().index(aword[(len(aword)-1)])
-            print("indexb" + indexb)
+            print("indexb ",indexb)
             zyx = q.split(q[indexa:indexb+1])
             print("zyx" + zyx)
             p = ""
