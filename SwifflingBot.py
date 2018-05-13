@@ -79,7 +79,9 @@ async def on_message(message):
     global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
     for aword in allowedwords:
         if aword in message.content.lower():
-            zyx = message.content.lower.split(aword)
+            indexa = message.content.lower().index(aword[0])
+            indexb = message.content.lower().index(aword[(len(aword)-1)])
+            zyx = message.content.split(message.content[indexa:indexb+1])
             q = ""
             for x in zyx:
                 q = "{}{}".format(q,x)
