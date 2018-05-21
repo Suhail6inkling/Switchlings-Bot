@@ -53,7 +53,10 @@ async def onlinestuff():
         p = discord.Member(warning[x][0])
         warning[x][0]=str(p.id)
         await sql.add(warning[x])
+    await sql.close()
+    await person.send("PING!")
     await person.send(warning)
+    
         
 
 
