@@ -51,8 +51,7 @@ async def onlinestuff():
     cur.execute("DELETE FROM warnings")
     for x in range(0, len(warning)):
         a = warning[x][0]
-        print(a)
-        p = discord.Member(a)
+        p = discord.utils.get(server.members, mention=a)
         warning[x][0]=str(p.id)
         await sql.add(warning[x])
     await sql.close()
