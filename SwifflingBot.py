@@ -33,16 +33,9 @@ async def onlinestuff():
     starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
-    person = discord.utils.get(server.members, name="Suhail6inkling")
-    if person == None:
-        await bottestingchat.send("Suhail has changed his username, please change it in the code")
+    person = client.get_user(131131701148647424)
     bot = discord.utils.get(server.members, name="Switchlings Bot")
-    defmaster = discord.utils.get(server.members, name = "Đefmastxr")
-    if defmaster == None:
-        try:
-            await person.send("Def changed his username - change it")
-        except:
-            await bottestingchat.send("Def changed his username - change it")
+    defmaster = client.get_user(331501118939201536)
     ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
     grouprole = discord.utils.get(server.roles, name = "The Switchlings")
     welcomechat = discord.utils.get(server.channels, name = "welcome")
@@ -55,7 +48,13 @@ async def onlinestuff():
     warning = cur.fetchall()
     for x in range(0,len(warning)):
         warning[x] = list(warning[x])
-    await sql.close()
+    cur.execute("DELETE FROM warnings")
+    for x in range(0, len(warning)):
+        p = discord.Member(warning[x][0])
+        warning[x][0]=str(p.id)
+        await sql.add(warning[x])
+    await person.send(warning)
+        
 
 
 @client.event
@@ -91,14 +90,14 @@ async def on_message(message):
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
             await message.delete()
             reason = "for talking about sensitive content [Automated Warning] [rape]"
-            await givewarning(message.author.mention, reason)
+            await givewarning(message.author.id, reason)
             return
     for word in badwords2:
         if word in (q.lower()) and message.author != bot:# and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
             await message.delete()
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
-            await givewarning(message.author.mention, reason)
+            await givewarning(message.author.id, reason)
             return
     if message.content.startswith("s.test"):
         if message.author == person:
@@ -140,7 +139,7 @@ async def on_message(message):
                 await message.channe;send("You can't warn a Bot!")
                 return
             await message.add_reaction("✅")
-            await givewarning(member.mention, reason)
+            await givewarning(member.id, reason)
         else:
             await message.channel.send("You're not a Mod!")
         return
