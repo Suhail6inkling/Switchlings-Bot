@@ -33,11 +33,11 @@ async def onlinestuff():
     starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
-    person = discord.utils.get(server.members, name="Government Guinea Pig")
+    person = discord.utils.get(server.members, name="Suhail6inkling")
     if person == None:
         await bottestingchat.send("Suhail has changed his username, please change it in the code")
     bot = discord.utils.get(server.members, name="Switchlings Bot")
-    defmaster = discord.utils.get(server.members, name = "Đefmaster")
+    defmaster = discord.utils.get(server.members, name = "Đefmastxr")
     if defmaster == None:
         try:
             await person.send("Def changed his username - change it")
@@ -82,7 +82,6 @@ async def on_message(message):
             indexa = q.lower().index(aword)
             indexb = indexa+len(aword)
             zyx = q.split(q[indexa:indexb+1])
-            print(zyx)
             p = ""
             for x in zyx:
                 p = "{}{}".format(p,x)
