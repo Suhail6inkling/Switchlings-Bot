@@ -667,7 +667,7 @@ Turf War
         for tweet in tweets:
             if "League Battle" in tweet["text"]:
                 mode = tweet["text"].split("League Battle maps — ")[1]
-                mode = mode.split(": ")[1]
+                mode = mode.split(": ")[0]
                 map1 = tweet["text"].split(": ")[1]
                 map1 = map1.split(" &amp;")[0]
                 map2 = tweet["text"].split("&amp; ")[1]
@@ -694,7 +694,7 @@ Turf War
         t = api.GetUserTimeline(screen_name="splatoon2inkbot", count=12)
         tweets = [i.AsDict() for i in t]
         items = []
-        for tweet in tweet:
+        for tweet in tweets:
             if "SplatNet" in tweet["text"]:
                 q = tweet["text"].split("Up now on SplatNet: ")[1]
                 q = q.split(" #splatnet2")[0]
