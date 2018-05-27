@@ -3,9 +3,10 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, os, time, psycopg2
 import urllib.parse as urlparse
+import twitter
 
 try:
-    from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords
+    from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 except ModuleNotFoundError:
     TOKEN = os.environ['TOKEN']
     badwords1 = (os.environ['badwords1']).split(",")
@@ -15,6 +16,10 @@ except ModuleNotFoundError:
     SSinfo = (os.environ["SSinfo"]).split(",")
     hangmanwords = (os.environ["hangmanwords"]).split(",")
     allowedwords = (os.environ["allowedwords"]).split(",")
+    TCK = os.environ["TCK"]
+    TCS = os.environ["TCS"]
+    TATC = os.environ["TATC"]
+    TATS = os.environ["TATS"]
     
 Client = discord.Client()
 prefix = "s."
@@ -29,7 +34,7 @@ async def on_ready():
     await onlinestuff()
 
 async def onlinestuff():
-    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman
+    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman, tweets
     starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
@@ -43,23 +48,26 @@ async def onlinestuff():
     warningschat = discord.utils.get(server.channels, name = "warnings")
     hangmanman = ["https://cdn.discordapp.com/attachments/397821075150602242/443075712514261002/hangman0.png","https://cdn.discordapp.com/attachments/397821075150602242/443074582539141120/hangman1.png","https://cdn.discordapp.com/attachments/397821075150602242/443074585156386816/hangman2.png","https://cdn.discordapp.com/attachments/397821075150602242/443074587245412363/hangman3.png","https://cdn.discordapp.com/attachments/397821075150602242/443074588721545217/hangman4.png","https://cdn.discordapp.com/attachments/397821075150602242/443075307939954688/hangman5.png","https://cdn.discordapp.com/attachments/397821075150602242/443074594748760074/hangman6.png"]
     hangman = [False]
-    await sql.open()
-    cur.execute("SELECT * FROM warnings")
-    warning = cur.fetchall()
-    for x in range(0,len(warning)):
-        warning[x] = list(warning[x])
-    cur.execute("DELETE FROM warnings")
-    for x in range(0, len(warning)):
-        a = warning[x][0]
-        a = ((a.split("<")[1]).split(">")[0])
-        p = discord.Member(a)
-        warning[x][0]=str(p.id)
-        await sql.add(warning[x])
-    await sql.close()
-    await person.send("PING!")
-    await person.send(warning)
+##    await sql.open()
+##    cur.execute("SELECT * FROM warnings")
+##    warning = cur.fetchall()
+##    for x in range(0,len(warning)):
+##        warning[x] = list(warning[x])
+##    cur.execute("DELETE FROM warnings")
+##    for x in range(0, len(warning)):
+##        a = warning[x][0]
+##        a = ((a.split("<")[1]).split(">")[0])
+##        p = discord.Member(a)
+##        warning[x][0]=str(p.id)
+##        await sql.add(warning[x])
+    api = twitter.Api(
+        consumer_key=TCK,
+        consumer_secret=TCS,
+        access_token_key=TATC,
+        access_token_secret=TATS)
+    t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
+    tweets = [i.AsDict() for i in t]
     
-        
 
 
 @client.event
@@ -95,92 +103,92 @@ async def on_message(message):
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
             await message.delete()
             reason = "for talking about sensitive content [Automated Warning] [rape]"
-            await givewarning(message.author.id, reason)
+            #await givewarning(message.author.id, reason)
             return
     for word in badwords2:
         if word in (q.lower()) and message.author != bot:# and noexception:
             await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
             await message.delete()
             reason = "for talking about sensitive content [Automated Warning] [suicide]"
-            await givewarning(message.author.id, reason)
+            #await givewarning(message.author.id, reason)
             return
     if message.content.startswith("s.test"):
         if message.author == person:
             a = message.content.split("s.test ")
             a = a[1]
-            if a == "warning":
-                print(warning)
-                await person.send(warning)
+##            if a == "warning":
+##                print(warning)
+##                await person.send(warning)
             if a == "hangman":
                 print(hangman)
                 await person.send(hangman)
-            if a == "sql":
-                await sql.open()
-                cur.execute("SELECT * FROM warnings")
-                p = cur.fetchall()
-                print(p)
-                await person.send(p)
-                await sql.close()
+##            if a == "sql":
+##                await sql.open()
+##                cur.execute("SELECT * FROM warnings")
+##                p = cur.fetchall()
+##                print(p)
+##                await person.send(p)
+##                await sql.close()
             return
     if message.content.startswith("s.ping"):
         resp = await message.channel.send("Pong! Loading...")
         diff = resp.created_at - message.created_at
         await resp.edit(content=f"Pong! That took {1000*diff.total_seconds():.1f}ms.") 
         return
-    if message.content.startswith("s.warn"):
-        warninger = message.mentions
-        member = warninger[0]
-        a = message.content.split(" ")
-        a.remove(a[0])
-        a.remove(a[0])
-        reason = ""
-        for b in a:
-            reason = "{}{} ".format(reason,b)
-        if "Mods" in [a.name for a in message.author.roles]:
-            if "Mods" in [a.name for a in member.roles]:
-                await message.channel.send("You can't warn a fellow Mod!")
-                return
-            elif "NPCs" in [a.name for a in member.roles]:
-                await message.channe;send("You can't warn a Bot!")
-                return
-            await message.add_reaction("✅")
-            await givewarning(member.id, reason)
-        else:
-            await message.channel.send("You're not a Mod!")
-        return
+##    if message.content.startswith("s.warn"):
+##        warninger = message.mentions
+##        member = warninger[0]
+##        a = message.content.split(" ")
+##        a.remove(a[0])
+##        a.remove(a[0])
+##        reason = ""
+##        for b in a:
+##            reason = "{}{} ".format(reason,b)
+##        if "Mods" in [a.name for a in message.author.roles]:
+##            if "Mods" in [a.name for a in member.roles]:
+##                await message.channel.send("You can't warn a fellow Mod!")
+##                return
+##            elif "NPCs" in [a.name for a in member.roles]:
+##                await message.channe;send("You can't warn a Bot!")
+##                return
+##            await message.add_reaction("✅")
+##            await givewarning(member.id, reason)
+##        else:
+##            await message.channel.send("You're not a Mod!")
+##        return
 
-    if message.content.startswith("s.editwarningnumber"):
-        if "Mods" in [role.name for role in message.author.roles]:
-            warninger = message.mentions
-            warninger = warninger[0]
-            a = message.content.split(" ")
-            a.remove(a[0])
-            a.remove(a[0])
-            num = int(a[0])
-            nowarnings = True
-            for w in warning:
-                if warninger.mention in w:
-                    nowarnings = False
-                    if num == 0:
-                        warning.remove(w)
-                        warningeelist = [warninger.mention,w[1]]
-                        await sql.remove(warningeelist)
-                    else:
-                        w[1] = num
-                        warningeelist = [warninger.mention,num]
-                        await sql.edit(warningeelist)
-                    
-            if nowarnings:
-                if num == 0:
-                    pass
-                    await message.channel.send("This person didn't have any warnings to begin with!")
-                else:
-                    warning.append([warninger.mention, num])
-                    warningeelist = [warninger.mention, num]
-                    await sql.add(warningeelist)
-            await message.add_reaction("✅")
-            return
-    if message.content.startswith("s.gimmeeveryrole"):
+##    if message.content.startswith("s.editwarningnumber"):
+##        if "Mods" in [role.name for role in message.author.roles]:
+##            warninger = message.mentions
+##            warninger = warninger[0]
+##            a = message.content.split(" ")
+##            a.remove(a[0])
+##            a.remove(a[0])
+##            num = int(a[0])
+##            nowarnings = True
+##            for w in warning:
+##                if warninger.mention in w:
+##                    nowarnings = False
+##                    if num == 0:
+##                        warning.remove(w)
+##                        warningeelist = [warninger.mention,w[1]]
+##                        await sql.remove(warningeelist)
+##                    else:
+##                        w[1] = num
+##                        warningeelist = [warninger.mention,num]
+##                        await sql.edit(warningeelist)
+##                    
+##            if nowarnings:
+##                if num == 0:
+##                    pass
+##                    await message.channel.send("This person didn't have any warnings to begin with!")
+##                else:
+##                    warning.append([warninger.mention, num])
+##                    warningeelist = [warninger.mention, num]
+##                    await sql.add(warningeelist)
+##            await message.add_reaction("✅")
+##            return
+##    if message.content.startswith("s.gimmeeveryrole"):
         if message.author == person:
             roleid = []
             for a in noroles:
@@ -609,7 +617,102 @@ Please note that some of these commands are a work in progress and may not work.
 <s.playgame hangman> - Play a game of hangman!```
 More games along the way! Stay tuned!""")
         return
-                    
+
+    if message.content.startswith("s.stages regular"):
+        t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
+        tweets = [i.AsDict() for i in t]
+        for tweet in tweets:
+            if "Turf War" in tweet["text"]:
+                map1 = tweet["text"].split("Turf War maps: ")[1]
+                map1 = map1.split(" &amp;")[0]
+                map2 = tweet["text"].split("&amp; ")[1]
+                map2 = map2.split(" #Splatoon2")[0]
+                map1photo = tweet["media"][0]["media_url"]
+                map2photo = tweet["media"][1]["media_url"]
+                embed = discord.Embed(title = "Regular Battle", description="""
+**Mode:**
+Turf War
+
+**Maps:**
+{}
+{}""".format(map1,map2),colour=0x19D619)
+                await message.channel.send(embed=embed)
+                return
+    if message.content.startswith("s.stages ranked"):
+        t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
+        tweets = [i.AsDict() for i in t]
+        for tweet in tweets:
+            if "Ranked Battle" in tweet["text"]:
+                mode = tweet["text"].split("Ranked Battle maps — ")[1]
+                mode = mode.split(": ")[0]
+                map1 = tweet["text"].split(": ")[1]
+                map1 = map1.split(" &amp;")[0]
+                map2 = tweet["text"].split("&amp; ")[1]
+                map2 = map2.split(" #Splatoon2")[0]
+                map1photo = tweet["media"][0]["media_url"]
+                map2photo = tweet["media"][1]["media_url"]
+                embed = discord.Embed(title = "Ranked Battle", description="""
+**Mode:**
+{}
+
+**Maps:**
+{}
+{}""".format(mode,map1,map2),colour=0xF44910)
+                await message.channel.send(embed=embed)
+                return
+           
+    if message.content.startswith("s.stages league"):
+        t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
+        tweets = [i.AsDict() for i in t]
+        for tweet in tweets:
+            if "League Battle" in tweet["text"]:
+                mode = tweet["text"].split("League Battle maps — ")[1]
+                mode = mode.split(": ")[1]
+                map1 = tweet["text"].split(": ")[1]
+                map1 = map1.split(" &amp;")[0]
+                map2 = tweet["text"].split("&amp; ")[1]
+                map2 = map2.split(" #Splatoon2")[0]
+                map1photo = tweet["media"][0]["media_url"]
+                map2photo = tweet["media"][1]["media_url"]
+                embed = discord.Embed(title = "League Battle", description="""
+**Mode:**
+{}
+
+**Maps:**
+{}
+{}""".format(mode,map1,map2),colour=0xEE2D7C)
+                await message.channel.send(embed=embed)
+                return
+    if message.content.startswith("s.stages"):
+        await message.channel.send("""Stage Options:
+```md
+<s.stages regular>
+<s.stages league>
+<s.stages ranked>```""")
+        return
+    if message.content.startswith("s.splatnet"):
+        t = api.GetUserTimeline(screen_name="splatoon2inkbot", count=12)
+        tweets = [i.AsDict() for i in t]
+        items = []
+        for tweet in tweet:
+            if "SplatNet" in tweet["text"]:
+                q = tweet["text"].split("Up now on SplatNet: ")[1]
+                q = q.split(" #splatnet2")[0]
+                items.append(q)
+        description = """
+
+"""
+        for item in items:
+            if description == """
+
+""":
+                description = item
+            else:
+                description = """{}
+{}""".format(description,item)
+        embed = discord.Embed(title = "SplatNet Shop", description = description, colour = 0x202020)
+        await message.channel.send(embed=embed)
+                
     if message.content.startswith("s."):
         await message.add_reaction("❌")
         return
@@ -626,95 +729,95 @@ More games along the way! Stay tuned!""")
         
         
     
-async def givewarning(user, reason):
-    global warningschat, swifflingbotchat, warning
-    firstwarning = True
-    for warningee in warning:
-        if  warningee[0] == user:
-            firstwarning = False
-            warningee[1]+=1
-            num = warningee[1]
-            warningeelist = warningee
-            if (str(num).endswith("1")) and ((str(num).endswith("11"))==False):
-                ending = "st"
-            elif (str(num).endswith("2")) and ((str(num).endswith("12"))==False):
-                ending = "nd"
-            elif (str(num).endswith("3")) and ((str(num).endswith("13"))==False):
-                ending = "rd"
-            else:
-                ending = "th"
-            warningeelist = warningee
-            await sql.edit(warningeelist)
-    if firstwarning:
-        warningee = [user, 1]
-        warningeelist = warningee
-        warning.append(warningee)
-        ending = "st"
-        await sql.add(warningeelist)
-    if reason.endswith("[rape]"):
-        h = reason.split("[rape]")
-        await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,h[0]))
-        embed = discord.Embed(title="Person Warned", description=("""
-User:
-{}
-
-Warning No.:
-{}
-
-Reason:
-{}""".format(user,warningee[1],reason)),colour=0x0000ff)
-    elif reason.endswith("[suicide]"):
-        h = reason.split("[suicide]")
-        await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,h[0]))
-        embed = discord.Embed(title="Person Warned", description=("""
-User:
-{}
-
-Warning No.:
-{}
-
-Reason:
-{}""".format(user,warningee[1],reason)),colour=0x0000ff)
-    else:
-        await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,reason))
-        embed = discord.Embed(title="Person Warned", description=("""   
-User:
-{}
-
-Warning No.:
-{}
-
-Reason:
-{}""".format(user,warningee[1],reason)),colour=0x0000ff)
-        
-    await swifflingbotchat.send(embed=embed)
-    if warningee[1] == 3:
-        await swifflingbotchat.send("```Would be banned at this point```")
-
-class sql():
-    async def edit(warningeelist):
-        await sql.open()
-        cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
-        await sql.close()
-    async def add(warningeelist):
-        await sql.open()
-        cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
-        await sql.close()
-    async def remove(warningeelist):
-        await sql.open()
-        cur.execute("DELETE FROM warnings WHERE mention = %s AND num = %s",(warningeelist[0],warningeelist[1]))
-        await sql.close()
-    
-    async def open():
-        global con, cur
-        dburl = os.environ["DATABASE_URL"]
-        con = psycopg2.connect(dburl, sslmode="require")
-        cur = con.cursor()
-
-    async def close():
-        con.commit()
-        cur.close()
-        con.close()
+##async def givewarning(user, reason):
+##    global warningschat, swifflingbotchat, warning
+##    firstwarning = True
+##    for warningee in warning:
+##        if  warningee[0] == user:
+##            firstwarning = False
+##            warningee[1]+=1
+##            num = warningee[1]
+##            warningeelist = warningee
+##            if (str(num).endswith("1")) and ((str(num).endswith("11"))==False):
+##                ending = "st"
+##            elif (str(num).endswith("2")) and ((str(num).endswith("12"))==False):
+##                ending = "nd"
+##            elif (str(num).endswith("3")) and ((str(num).endswith("13"))==False):
+##                ending = "rd"
+##            else:
+##                ending = "th"
+##            warningeelist = warningee
+##            await sql.edit(warningeelist)
+##    if firstwarning:
+##        warningee = [user, 1]
+##        warningeelist = warningee
+##        warning.append(warningee)
+##        ending = "st"
+##        await sql.add(warningeelist)
+##    if reason.endswith("[rape]"):
+##        h = reason.split("[rape]")
+##        await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,h[0]))
+##        embed = discord.Embed(title="Person Warned", description=("""
+##User:
+##{}
+##
+##Warning No.:
+##{}
+##
+##Reason:
+##{}""".format(user,warningee[1],reason)),colour=0x0000ff)
+##    elif reason.endswith("[suicide]"):
+##        h = reason.split("[suicide]")
+##        await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,h[0]))
+##        embed = discord.Embed(title="Person Warned", description=("""
+##User:
+##{}
+##
+##Warning No.:
+##{}
+##
+##Reason:
+##{}""".format(user,warningee[1],reason)),colour=0x0000ff)
+##    else:
+##        await warningschat.send("{}{} warning for {} {}".format(warningee[1],ending,user,reason))
+##        embed = discord.Embed(title="Person Warned", description=("""   
+##User:
+##{}
+##
+##Warning No.:
+##{}
+##
+##Reason:
+##{}""".format(user,warningee[1],reason)),colour=0x0000ff)
+##        
+##    await swifflingbotchat.send(embed=embed)
+##    if warningee[1] == 3:
+##        await swifflingbotchat.send("```Would be banned at this point```")
+##
+##class sql():
+##    async def edit(warningeelist):
+##        await sql.open()
+##        cur.execute("UPDATE warnings SET num = %s WHERE mention = %s",(warningeelist[1],warningeelist[0]))
+##        await sql.close()
+##    async def add(warningeelist):
+##        await sql.open()
+##        cur.execute("INSERT INTO warnings VALUES (%s, %s)",(warningeelist[0],warningeelist[1]))
+##        await sql.close()
+##    async def remove(warningeelist):
+##        await sql.open()
+##        cur.execute("DELETE FROM warnings WHERE mention = %s AND num = %s",(warningeelist[0],warningeelist[1]))
+##        await sql.close()
+##    
+##    async def open():
+##        global con, cur
+##        dburl = os.environ["DATABASE_URL"]
+##        con = psycopg2.connect(dburl, sslmode="require")
+##        cur = con.cursor()
+##
+##    async def close():
+##        con.commit()
+##        cur.close()
+##        con.close()
     
 async def drawhangman(messagechannel, dashedword, printguessedletters, hangperson):
     await messagechannel.send("""
