@@ -38,7 +38,7 @@ async def onlinestuff():
     starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
-    person = client.get_member(131131701148647424)
+    person = server.get_member(131131701148647424)
     bot = discord.utils.get(server.members, name="Switchlings Bot")
     defmaster = client.get_user(331501118939201536)
     ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
