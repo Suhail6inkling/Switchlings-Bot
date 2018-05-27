@@ -34,7 +34,7 @@ async def on_ready():
     await onlinestuff()
 
 async def onlinestuff():
-    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman, tweets
+    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, hangmanman, defmaster, hangman, api
     starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
@@ -87,7 +87,7 @@ async def on_message(message):
             return
         else:
             pass"""
-    global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster#, noexception
+    global starttime, badwords1, swifflingbotchat, warningschat, bot, hangman, hangmanman, allowedwords, defmaster, api#, noexception
     q = message.content
     for aword in allowedwords:
         if aword in q.lower():
