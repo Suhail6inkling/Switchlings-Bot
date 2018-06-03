@@ -174,23 +174,7 @@ Please note that some of these commands are a work in progress and may not work.
                "Don't count on it.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Very doubtful."]
         await ctx.send(random.choice(results))
 
-    @commands.command(pass_context=True)
-    async def mute(self, ctx):
-        if "Mods" in [role.name for role in ctx.author.roles]:
-            members = ctx.message.mentions
-            for member in members:
-                if "Mods" not in [role.name for role in member.roles]:
-                    for ID in channels:
-                        channel = client.get_channel(int(ID))
-                        perms = discord.PermissionOverwrite()
-                        perms.send_messages = False
-                        await channel.set_permissions(member, overwrite=perms)
-                    await ctx.send("{} has been muted".format(member.mention))
-                else:
-                    await ctx.send("You can't mute a fellow mod!")
-        else:
-            await ctx.send("You need to be a Mod to do this!")
-
+    
     @commands.command(pass_context=True)
     async def rps(self, choice: str):
         a = choice
