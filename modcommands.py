@@ -26,7 +26,7 @@ class ModCommands():
             await ctx.send("You need to be a Mod to do this!")
 
 
-    @commands.commands(pass_context=True)
+    @commands.command(pass_context=True)
     async def unmute(self, ctx):
         if "Mods" in [role.name for role in ctx.author.roles]:
             members = ctx.message.mentions

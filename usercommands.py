@@ -10,7 +10,7 @@ class UserCommands():
 
 
 
-    @commands.commands(pass_context=True)
+    @commands.command(pass_context=True)
     async def ping(self, ctx):
         resp = await ctx.send("Pong! Loading...")
         diff = resp.created_at - message.created_at
