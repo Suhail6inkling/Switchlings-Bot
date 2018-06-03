@@ -36,6 +36,7 @@ async def on_ready():
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
     onlinestuff()
+    loadextensions()
 
 def onlinestuff():
     global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api#, hangmanman, hangman,
@@ -58,7 +59,7 @@ def onlinestuff():
     t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
     tweets = [i.AsDict() for i in t]
     return server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api
-
+    
 
 @client.event
 async def on_message(message):
@@ -109,15 +110,16 @@ async def KeepAwake():
     await asyncio.sleep(1500)
     print("Still awake")
 
-if __name__ == "__main__":
-    for extension in startup_extensions:
-        try:
-            client.load_extension(extension)
-        except Exception as e:
-            exc = '{}: {}'.format(type(e).__name__, e)
-            print('Failed to load extension {}\n{}'.format(extension, exc))
+def loadextensions():
+    if __name__ == "__main__":
+        for extension in startup_extensions:
+            try:
+                client.load_extension(extension)
+            except Exception as e:
+                exc = '{}: {}'.format(type(e).__name__, e)
+                print('Failed to load extension {}\n{}'.format(extension, exc))
 
-    client.loop.create_task(KeepAwake())
-    client.run(TOKEN)
+client.loop.create_task(KeepAwake())
+client.run(TOKEN)
 
     
