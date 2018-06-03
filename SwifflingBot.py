@@ -37,7 +37,7 @@ async def on_ready():
     await client.change_presence(activity = discord.Game(name="Say s.help"))
     onlinestuff()
 
-class onlinestuff(self):
+class onlinestuff():
     self.starttime = time.time()
     self.server = client.get_guild(413113734303580171)
     self.bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
