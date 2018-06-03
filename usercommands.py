@@ -296,8 +296,8 @@ Turf War
         embed = discord.Embed(title = "SplatNet Shop", description = description, colour = 0x202020)
         await ctx.send(embed=embed)
 
-    def setup(client):
-        client.add_cog(UserCommands(client))  
+def setup(client):
+     client.add_cog(UserCommands(client))  
                 
             
 

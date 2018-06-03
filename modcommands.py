@@ -150,5 +150,5 @@ class ModCommands():
                 await textchannel.send("{}".format(tosend))
             await ctx.message.add_reaction("✅")
   
-    def setup(client):
-        client.add_cog(ModCommands(client))
+def setup(client):
+    client.add_cog(ModCommands(client))
