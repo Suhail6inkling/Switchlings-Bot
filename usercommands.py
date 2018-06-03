@@ -2,9 +2,8 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-from SwifflingBot import onlinestuff, TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
+from SwifflingBot import *
 
-server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api = onlinestuff()
 class UserCommands():
     def __init__(self, client):
         self.client = client

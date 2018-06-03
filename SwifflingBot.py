@@ -36,22 +36,20 @@ async def on_ready():
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
     onlinestuff()
-    loadextensions()
 
-def onlinestuff():
-    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api#, hangmanman, hangman,
-    starttime = time.time()
-    server = client.get_guild(413113734303580171)
-    bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
-    person = server.get_member(131131701148647424)
-    bot = discord.utils.get(server.members, name="Switchlings Bot")
-    defmaster = client.get_user(331501118939201536)
-    ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
-    grouprole = discord.utils.get(server.roles, name = "The Switchlings")
-    welcomechat = discord.utils.get(server.channels, name = "welcome")
-    swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
-    warningschat = discord.utils.get(server.channels, name = "warnings")
-    api = twitter.Api(
+class onlinestuff(self):
+    self.starttime = time.time()
+    self.server = client.get_guild(413113734303580171)
+    self.bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
+    self.person = server.get_member(131131701148647424)
+    self.bot = discord.utils.get(server.members, name="Switchlings Bot")
+    self.defmaster = client.get_user(331501118939201536)
+    self.ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
+    self.grouprole = discord.utils.get(server.roles, name = "The Switchlings")
+    self.welcomechat = discord.utils.get(server.channels, name = "welcome")
+    self.swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
+    self.warningschat = discord.utils.get(server.channels, name = "warnings")
+    self.api = twitter.Api(
         consumer_key=TCK,
         consumer_secret=TCS,
         access_token_key=TATC,
@@ -60,6 +58,18 @@ def onlinestuff():
     tweets = [i.AsDict() for i in t]
     return server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api
     
+server = onlinestuff.server
+starttime = onlinestuff.starttime
+person = onlinestuff.person
+ownrole = onlinestuff.ownrole
+grouprole = onlinestuff.grouprole
+welcomechat = onlinestuff.welcomechat
+swifflingbotchat = onlinestuff.swifflingbotchat
+warningschat = onlinestuff.warningschat
+bot = onlinestuff.bot
+defmaster = onlinestuff.defmaster
+api = onlinestuff.api
+
 
 @client.event
 async def on_message(message):
@@ -110,16 +120,15 @@ async def KeepAwake():
     await asyncio.sleep(1500)
     print("Still awake")
 
-def loadextensions():
-    if __name__ == "__main__":
-        for extension in startup_extensions:
-            try:
-                client.load_extension(extension)
-            except Exception as e:
-                exc = '{}: {}'.format(type(e).__name__, e)
-                print('Failed to load extension {}\n{}'.format(extension, exc))
+if __name__ == "__main__":
+    for extension in startup_extensions:
+        try:
+            client.load_extension(extension)
+        except Exception as e:
+            exc = '{}: {}'.format(type(e).__name__, e)
+            print('Failed to load extension {}\n{}'.format(extension, exc))
 
-client.loop.create_task(KeepAwake())
-client.run(TOKEN)
+    client.loop.create_task(KeepAwake())
+    client.run(TOKEN)
 
     
