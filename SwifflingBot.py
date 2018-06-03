@@ -56,7 +56,6 @@ class onlinestuff(self):
         access_token_secret=TATS)
     t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
     tweets = [i.AsDict() for i in t]
-    return server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api
     
 server = onlinestuff.server
 starttime = onlinestuff.starttime
