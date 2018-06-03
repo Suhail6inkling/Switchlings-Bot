@@ -38,7 +38,7 @@ async def on_ready():
     onlinestuff()
 
 def onlinestuff():
-    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, defmaster, api#, hangmanman, hangman,
+    global server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api#, hangmanman, hangman,
     starttime = time.time()
     server = client.get_guild(413113734303580171)
     bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
@@ -57,7 +57,7 @@ def onlinestuff():
         access_token_secret=TATS)
     t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
     tweets = [i.AsDict() for i in t]
-    return server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, warning, bot, defmaster, api
+    return server, starttime, person, ownrole, grouprole, welcomechat, swifflingbotchat, warningschat, bot, defmaster, api
 
 
 @client.event
