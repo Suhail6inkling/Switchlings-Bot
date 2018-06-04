@@ -59,6 +59,7 @@ starttime = time.time()
 
 @client.event
 async def on_message(message):
+    server = client.get_guild(413113734303580171)
     bot = discord.utils.get(server.members, name="Switchlings Bot")
     q = message.content
     for aword in allowedwords:
