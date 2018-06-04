@@ -32,7 +32,7 @@ class UserCommands():
 
     @commands.command(pass_context=True)
     async def leave(self, ctx):
-        server = client.get_guild(413113734303580171)
+        server = ctx.guild
         ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
         grouprole = discord.utils.get(server.roles, name = "The Switchlings")
         person = server.get_member(131131701148647424) 
@@ -43,7 +43,7 @@ class UserCommands():
 
     @commands.command(pass_context=True)
     async def join(self, ctx):
-        server = client.get_guild(413113734303580171)
+        server = ctx.guild
         ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
         grouprole = discord.utils.get(server.roles, name = "The Switchlings")
         person = server.get_member(131131701148647424) 
