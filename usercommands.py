@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-from SwifflingBot import *
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS, starttime
 
 class UserCommands():
     def __init__(self, client):
@@ -18,6 +18,7 @@ class UserCommands():
 
     @commands.command(pass_context=True)
     async def botstatus(self, ctx):
+        
         second = time.time() - starttime
         minute, second = divmod(second, 60)
         hour, minute = divmod(minute, 60)
@@ -30,6 +31,10 @@ class UserCommands():
 
     @commands.command(pass_context=True)
     async def leave(self, ctx):
+        server = client.get_guild(413113734303580171)
+        ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
+        grouprole = discord.utils.get(server.roles, name = "The Switchlings")
+        person = server.get_member(131131701148647424) 
         if ctx.author == person:
            await person.remove_roles(ownrole)
            await person.remove_roles(grouprole)
@@ -37,6 +42,10 @@ class UserCommands():
 
     @commands.command(pass_context=True)
     async def join(self, ctx):
+        server = client.get_guild(413113734303580171)
+        ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
+        grouprole = discord.utils.get(server.roles, name = "The Switchlings")
+        person = server.get_member(131131701148647424) 
          if ctx.author == person:
            await person.add_roles(ownrole)
            await person.add_roles(grouprole)
@@ -206,6 +215,11 @@ Please note that some of these commands are a work in progress and may not work.
 
     @stages.command()
     async def regular(self, ctx):
+        api = twitter.Api(
+        consumer_key=TCK,
+        consumer_secret=TCS,
+        access_token_key=TATC,
+        access_token_secret=TATS)
         t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
         tweets = [i.AsDict() for i in t]
         for tweet in tweets:
@@ -227,6 +241,11 @@ Turf War
 
     @stages.command()
     async def ranked(self, ctx):
+            api = twitter.Api(
+            consumer_key=TCK,
+            consumer_secret=TCS,
+            access_token_key=TATC,
+            access_token_secret=TATS)
             t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
             tweets = [i.AsDict() for i in t]
             for tweet in tweets:
@@ -251,6 +270,11 @@ Turf War
 
     @stages.command()
     async def league(self, ctx):
+            api = twitter.Api(
+        consumer_key=TCK,
+        consumer_secret=TCS,
+        access_token_key=TATC,
+        access_token_secret=TATS)
             t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
             tweets = [i.AsDict() for i in t]
             for tweet in tweets:
@@ -274,6 +298,11 @@ Turf War
             
     @commands.command(pass_context=True)
     async def splatnet(self, ctx):
+        api = twitter.Api(
+        consumer_key=TCK,
+        consumer_secret=TCS,
+        access_token_key=TATC,
+        access_token_secret=TATS)
         t = api.GetUserTimeline(screen_name="splatoon2inkbot", count=12)
         tweets = [i.AsDict() for i in t]
         items = []

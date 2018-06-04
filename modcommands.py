@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-from SwifflingBot import *
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 
 class ModCommands():
     def __init__(self, client):
@@ -130,7 +130,7 @@ class ModCommands():
     @commands.command(pass_context=True)
     async def prune(self, ctx, number: int):
         if "Mods" in [role.name for role in ctx.author.roles]:
-            await message.delete()
+            await ctx.message.delete()
             await ctx.channel.purge(limit=number,check=None,bulk=True)
             await ctx.send("{} messages have been cleared".format(number),delete_after=3)
 
