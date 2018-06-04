@@ -50,7 +50,7 @@ class UserCommands():
         if ctx.author == person:
            await person.add_roles(ownrole)
            await person.add_roles(grouprole)
-           await ctx/message.add_reaction("✅")
+           await ctx.message.add_reaction("✅")
 
     @commands.command(pass_context=True)
     async def help(self, ctx):
