@@ -46,7 +46,7 @@ class UserCommands():
         ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
         grouprole = discord.utils.get(server.roles, name = "The Switchlings")
         person = server.get_member(131131701148647424) 
-         if ctx.author == person:
+        if ctx.author == person:
            await person.add_roles(ownrole)
            await person.add_roles(grouprole)
            await ctx/message.add_reaction("✅")
