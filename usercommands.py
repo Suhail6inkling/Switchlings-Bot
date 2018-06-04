@@ -151,11 +151,15 @@ Please note that some of these commands are a work in progress and may not work.
 
     @switchlings.command()
     async def Arca9inkling(self, ctx):
-            await ctx.send("WIP")
+            embed = discord.Embed(title="Arca9inkling:",description=SSinfo[3],color=0xaa2b11)
+            #embed.set_thumnail(url="")
+            await ctx.send(embed=embed)
 
     @switchlings.command()
     async def Minty12inkling(self, ctx):
-            await ctx.send("WIP")
+            embed = discord.Embed(title="Minty12inkling:",description=SSinfo[4],color=0x83ffcd)
+            #embed.set_thumbnail(url="")
+            await ctx.send(embed=embed)
 
 
     @commands.command(pass_context=True)
