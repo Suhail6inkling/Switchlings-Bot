@@ -15,7 +15,7 @@ class ModCommands():
             for member in members:
                 if "Mods" not in [role.name for role in member.roles]:
                     for ID in channels:
-                        channel = client.get_channel(int(ID))
+                        channel = self.client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = False
                         await channel.set_permissions(member, overwrite=perms)
@@ -33,7 +33,7 @@ class ModCommands():
             for member in members:
                 if "Mods" not in [role.name for role in member.roles]:
                     for ID in channels:
-                        channel = client.get_channel(int(ID))
+                        channel = self.client.get_channel(int(ID))
                         await channel.set_permissions(member, overwrite=None)
                     await ctx.send("{} has been unmuted".format(member.mention))
                 else:
@@ -57,7 +57,7 @@ class ModCommands():
             except:
                 pass
             for ID in channels:
-                        channel = client.get_channel(int(ID))
+                        channel = self.client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = False
                         await channel.set_permissions(ctx.guild.default_role, overwrite=perms)
@@ -74,7 +74,7 @@ class ModCommands():
                     if permashut == False:
                         break
             for ID in channels:
-                        channel = client.get_channel(int(ID))
+                        channel = self.client.get_channel(int(ID))
                         perms = discord.PermissionOverwrite()
                         perms.send_messages = True
                         await channel.set_permissions(ctx.guild.default_role, overwrite=perms)
@@ -85,7 +85,7 @@ class ModCommands():
         if "Mods" in [role.name for role in ctx.author.roles]:
             if "Mods" not in [role.name for role in timeouter.roles]:
                  for ID in channels:
-                   channel = client.get_channel(int(ID))
+                   channel = self.client.get_channel(int(ID))
                    perms = discord.PermissionOverwrite()
                    perms.send_messages = False
                    await channel.set_permissions(timeouter, overwrite=perms)
@@ -93,7 +93,7 @@ class ModCommands():
                  for i in range(0, secs):
                     await asyncio.sleep(1)
                  for ID in channels:
-                    channel = client.get_channel(int(ID))
+                    channel = self.client.get_channel(int(ID))
                     await channel.set_permissions(timeouter, overwrite=None)
                  await ctx.send("{} has been unmuted after a timeout".format(timeouter.mention))
             else:
