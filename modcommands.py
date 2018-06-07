@@ -134,21 +134,7 @@ class ModCommands():
             await ctx.channel.purge(limit=number,check=None,bulk=True)
             await ctx.send("{} messages have been cleared".format(number),delete_after=3)
 
-    @commands.command(pass_context=True)
-    async def print(self, ctx, x: str):
-        if "Mods" in [role.name for role in ctx.author.roles]:
-            if ctx.author == defmaster:
-                return None
-            textchannels = (ctx.message.channel_mentions)
-            tosend = ""
-            x = x.split(" ")
-            for a in range(0,len(textchannels)):
-                x.remove(x[0])
-            for y in x:
-                tosend = "{} {}".format(tosend,y)
-            for textchannel in textchannels:
-                await textchannel.send("{}".format(tosend))
-            await ctx.message.add_reaction("✅")
+
   
 def setup(client):
     client.add_cog(ModCommands(client))

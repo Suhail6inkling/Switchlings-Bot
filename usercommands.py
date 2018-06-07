@@ -30,85 +30,40 @@ class UserCommands():
         embed = discord.Embed(title=":clock1:", description="Weeks: {},\nDays: {},\nHours: {},\nMinutes: {},\nSeconds: {}".format(week,day,hour,minute,second),colour = 0xff8800)
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True)
-    async def leave(self, ctx):
-        server = ctx.guild
-        ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
-        grouprole = discord.utils.get(server.roles, name = "The Switchlings")
-        person = server.get_member(131131701148647424) 
-        if ctx.author == person:
-           await person.remove_roles(ownrole)
-           await person.remove_roles(grouprole)
-           await ctx.message.add_reaction("✅")
-
-    @commands.command(pass_context=True)
-    async def join(self, ctx):
-        server = ctx.guild
-        ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
-        grouprole = discord.utils.get(server.roles, name = "The Switchlings")
-        person = server.get_member(131131701148647424) 
-        if ctx.author == person:
-           await person.add_roles(ownrole)
-           await person.add_roles(grouprole)
-           await ctx.message.add_reaction("✅")
 
     @commands.command(pass_context=True)
     async def help(self, ctx):
         await ctx.message.add_reaction("✅")
-        if "Mods" in [role.name for role in ctx.author.roles]:
-            try:
-                await ctx.author.send("""Hello there, moderator! Thanks again for being an amazing mod! As you're aware, I'm the **Switchling Bot**, designed for the **Switchlings Plaza!** This is what I can do for everyone:
-```md
-<s.help> - That... just displays... this... mess- oh never mind.
-<s.userinfo (@mention)> - Gives you information about the specific user.
-<s.randomfact (Switchling name)> - Gives you a random fact about one of us! {In Progress}
-<s.switchling (Switchling name)> - Gives you the basic facts about one of us!
+        try:
+            await ctx.author.send("""Hello there! My name is **Switchlings Bot**, made specifically for the **Switchlings Plaza!**. Here is what I can do. [Please note that I'm a WIP so not all commands work]
 
+```md
+
+Splatoon
+<s.stages regular> - See what Turf War maps are on for the next three rotations
+<s.stages ranked> - See what's on Ranked Battle for the next three rotations
+<s.stages league> - See what's on League Battle for the next three rotations
+<s.splatnet> - See what's in the SplatNet shop!```""")
+
+            await ctx.author.send("""```md
+Fun
+<s.rps (Rock, Paper or Scissors)> - Challenge me IF YOU DARE!
 <s.randomchoice (comma-separated values)> - Randomly chooses from given options.
 <s.flip (number of coins)> - Flips a specific amount of coins.
-<s.magic8ball> - Ask me a question!
-<s.playgame (game)> - Let's play a game!```
+<s.magic8ball> - Ask me a question!```""")
+            
+            await ctx.author.send("""```md
 
+Other
+<s.help> - Displays this message
+<s.ping> - Check how long this bot takes to respond
+<s.botstatus> - Check how long the bot's been running for!
+<s.userinfo @mention> - Check generic user information for a specific person
+<s.switchlings Switchling> - Gain more information about one of the 5 Switchlings!```""")
+            await ctx.send("Documentation has been sent to your DMs!")
+        except:
+            await ctx.send("Please enable Direct Messages from server members!")
 
-And this is what I can do exclusively for you guys:""")
-                await ctx.author.send("""
-```md
-<s.mute (@mention(s))> - Mutes a specific person / specific people.
-<s.unmute (@mention(s))> - Unmutes a specific person / specific people.
-<s.timeout (@mention seconds)> - Mutes a specific person for a period of time.
-<s.warn (@mention reason)> - Warns a specific person and sends a message to warnings.
-<s.editwarningnumber (@mention, number)> - Edits the amount of warnings that specific person has, removes all warnings if the number is 0.
-<s.kick (@mention)> - Kicks a specific person.
-<s.ban (@mention)> - Bans a specific person.
-<s.prune (number of messages)> - Deletes a select number of messages.
-<s.print (#channel message)> - Prints said message to the desired channel.```
-
-
-
-Please note that some of these commands are a work in progress and may not work.""")
-##To add##
-#<s.giveroles (@mention, role1, role2, etc)> - Gives a specific person a role / roles.
-#<s.removeroles (@mention, role1, role2, etc)> - Removes a role / roles from a specific person
-            except discord.errors.Forbidden:
-                await ctx.send("You must have DMs from server members allowed!")
-        else:
-            try:
-                await ctx.author.send("""Hello there! My name is **Switchling Bot**! I'm the bot designed for the **Switchlings Plaza!**. This is what I *should be able to* do: [I'm a WIP so apologies if things may not work]
-```md
-<s.help> - That... just displays... this... mess- oh never mind.
-<s.userinfo (@mention)> - Gives you information about the specific user.
-<s.randomfact (Switchling name)> - Gives you a random fact about one of us! {In Progress}
-<s.switchling (Switchling name)> - Gives you the basic facts about one of us!
-
-<s.randomchoice (comma-separated values)> - Randomly chooses from given options.
-<s.flip (number of coins)> - Flips a specific amount of coins.
-<s.magic8ball> - Ask me a question!```
-        
-
-
-Please note that some of these commands are a work in progress and may not work.""")
-            except discord.errors.Forbidden:
-                await ctx.send("You must have DMs from server members allowed!")
 
     @commands.command(pass_context=True)
     async def userinfo(self, member: discord.Member):
