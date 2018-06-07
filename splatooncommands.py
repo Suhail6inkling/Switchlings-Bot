@@ -134,7 +134,7 @@ Turf War
             timenow = time.time()
             starttime_relative=starttime-timenow
             endtime_relative=endtime-timenow
-            if time == regularbattle[0]:
+            if a == regularbattle[0]:
                 beginningmessage = "Now"
                 endingmessage="Finishes in "
                 hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
@@ -183,7 +183,7 @@ Turf War
             timenow = time.time()
             starttime_relative=starttime-timenow
             endtime_relative=endtime-timenow
-            if time == regularbattle[0]:
+            if a == regularbattle[0]:
                 beginningmessage = "Now"
                 endingmessage="Finishes in "
                 hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
