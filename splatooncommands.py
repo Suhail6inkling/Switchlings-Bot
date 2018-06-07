@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import random
 import json
+import time
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
@@ -67,14 +68,14 @@ class SplatoonCommands():
         allmodes = json.loads(webpage)
         regularbattle = allmodes["regular"]
         for x in range(0,3):
-            time = regularbattle[x]
-            starttime = time["start_time"]
-            endtime = time["end_time"]
-            stages = [time["stage_a"]["name"],time["stage_b"]["name"]]
+            a = regularbattle[x]
+            starttime = a["start_time"]
+            endtime = a["end_time"]
+            stages = [a["stage_a"]["name"],a["stage_b"]["name"]]
             timenow = time.time()
             starttime_relative=starttime-timenow
             endtime_relative=endtime-timenow
-            if time == regularbattle[0]:
+            if a == regularbattle[0]:
                 beginningmessage = "Now"
                 endingmessage="Finishes in "
                 hour = int(time.strftime("%H", endtime_relative))
@@ -125,11 +126,11 @@ Turf War
         allmodes = json.loads(webpage)
         regularbattle = allmodes["gachi"]
         for x in range(0,3):
-            time = regularbattle[x]
-            starttime = time["start_time"]
-            endtime = time["end_time"]
-            stages = [time["stage_a"]["name"],time["stage_b"]["name"]]
-            mode = time["rule"]["name"]
+            a = regularbattle[x]
+            starttime = a["start_time"]
+            endtime = a["end_time"]
+            stages = [a["stage_a"]["name"],a["stage_b"]["name"]]
+            mode = a["rule"]["name"]
             timenow = time.time()
             starttime_relative=starttime-timenow
             endtime_relative=endtime-timenow
@@ -174,11 +175,11 @@ Turf War
         allmodes = json.loads(webpage)
         regularbattle = allmodes["league"]
         for x in range(0,3):
-            time = regularbattle[x]
-            starttime = time["start_time"]
-            endtime = time["end_time"]
-            stages = [time["stage_a"]["name"],time["stage_b"]["name"]]
-            mode = time["rule"]["name"]
+            a = regularbattle[x]
+            starttime = a["start_time"]
+            endtime = a["end_time"]
+            stages = [a["stage_a"]["name"],a["stage_b"]["name"]]
+            mode = a["rule"]["name"]
             timenow = time.time()
             starttime_relative=starttime-timenow
             endtime_relative=endtime-timenow
