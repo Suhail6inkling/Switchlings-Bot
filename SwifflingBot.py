@@ -24,7 +24,7 @@ except ModuleNotFoundError:
 Client = discord.Client()
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
-startup_extensions=["usercommands","modcommands"]
+startup_extensions=["usercommands","modcommands","splatooncommands"]
 client.remove_command("help")
 
 
