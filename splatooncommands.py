@@ -78,20 +78,20 @@ class SplatoonCommands():
             if a == regularbattle[0]:
                 beginningmessage = "Now"
                 endingmessage="Finishes in "
-                hour = int(time.strftime("%H", endtime_relative))
-                minute = int(time.strftime("%M", endtime_relative))
-                second = int(time.strftime("%S", endtime_relative))
+                hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+                second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
             else:
                 beginningmessage = "In "
-                hour = int(time.strftime("%H", starttime_relative))
-                minute = int(time.strftime("%M", starttime_relative))
-                second = int(time.strftime("%S", starttime_relative))
+                hour = int(time.strftime("%H", time.gmtime(starttime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(starttime_relative)))
+                second = int(time.strftime("%S", time.gmtime(starttime_relative)))
                 beginningmessage = em(beginningmessage, hour, minute, second)
                 endingmessage = "Finishes in "
-                hour = int(time.strftime("%H", endtime_relative))
-                minute = int(time.strftime("%M", endtime_relative))
-                second = int(time.strftime("%S", endtime_relative))
+                hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+                second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
             embed = discord.Embed(title="Regular Battle", description="""
 
@@ -137,20 +137,20 @@ Turf War
             if time == regularbattle[0]:
                 beginningmessage = "Now"
                 endingmessage="Finishes in "
-                hour = int(time.strftime("%H", endtime_relative))
-                minute = int(time.strftime("%M", endtime_relative))
-                second = int(time.strftime("%S", endtime_relative))
+                hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+                second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
             else:
                 beginningmessage = "In "
-                hour = int(time.strftime("%H", starttime_relative))
-                minute = int(time.strftime("%M", starttime_relative))
-                second = int(time.strftime("%S", starttime_relative))
+                hour = int(time.strftime("%H", time.gmtime(starttime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(starttime_relative)))
+                second = int(time.strftime("%S", time.gmtime(starttime_relative)))
                 beginningmessage = em(beginningmessage, hour, minute, second)
                 endingmessage = "Finishes in "
-                hour = int(time.strftime("%H", endtime_relative))
-                minute = int(time.strftime("%M", endtime_relative))
-                second = int(time.strftime("%S", endtime_relative))
+                hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+                second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
             embed = discord.Embed(title="Ranked Battle", description="""
 
@@ -186,22 +186,22 @@ Turf War
             if time == regularbattle[0]:
                 beginningmessage = "Now"
                 endingmessage="Finishes in "
-                hour = int(time.strftime("%H", endtime_relative))
-                minute = int(time.strftime("%M", endtime_relative))
-                second = int(time.strftime("%S", endtime_relative))
+                hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+                second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
             else:
                 beginningmessage = "In "
-                hour = int(time.strftime("%H", starttime_relative))
-                minute = int(time.strftime("%M", starttime_relative))
-                second = int(time.strftime("%S", starttime_relative))
+                hour = int(time.strftime("%H", time.gmtime(starttime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(starttime_relative)))
+                second = int(time.strftime("%S", time.gmtime(starttime_relative)))
                 beginningmessage = em(beginningmessage, hour, minute, second)
                 endingmessage = "Finishes in "
-                hour = int(time.strftime("%H", endtime_relative))
-                minute = int(time.strftime("%M", endtime_relative))
-                second = int(time.strftime("%S", endtime_relative))
+                hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+                second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title="Ranked Battle", description="""
+            embed = discord.Embed(title="League Battle", description="""
 
 {}
 
