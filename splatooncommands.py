@@ -61,7 +61,7 @@ class SplatoonCommands():
 
     @stages.command()
     async def regular(self, ctx):
-        req = Request(url, headers={"User-Agent: Mozilla/5.0"})
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
@@ -119,7 +119,7 @@ Turf War
             
     @stages.command()
     async def ranked(self, ctx):
-        req = Request(url, headers={"User-Agent: Mozilla/5.0"})
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
@@ -168,7 +168,7 @@ Turf War
 
     @stages.command()
     async def league(self, ctx):
-        req = Request(url, headers={"User-Agent: Mozilla/5.0"})
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
