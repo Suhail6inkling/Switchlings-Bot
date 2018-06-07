@@ -4,7 +4,7 @@ import asyncio
 import random
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 
-class SuhailCommands(self, client):
+class SuhailCommands():
     def __init__(self, client):
         self.client = client
     @commands.command(pass_context=True)
