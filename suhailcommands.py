@@ -30,7 +30,7 @@ class SuhailCommands():
            await ctx.message.add_reaction("✅")
 
     @commands.command(pass_context=True)
-    async def print(self, ctx, x: str):
+    async def print(self, ctx, *, x: str):
         server = ctx.guild
         person = server.get_member(131131701148647424)
         if ctx.author == person:
