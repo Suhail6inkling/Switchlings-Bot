@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-from json import loads
+import json
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
