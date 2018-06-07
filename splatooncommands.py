@@ -16,7 +16,7 @@ def em(endingmessage, hour, minute, second):
         if hour ==1:
             endingmessage = "{}{} {}".format(endingmessage, hour, "hour")
         else:
-            endingmessae = "{}{} {}".format(endingmessage, hour, "hours")
+            endingmessage = "{}{} {}".format(endingmessage, hour, "hours")
     if minute!= 0:
         if second == 0 and hour !=0:
             if minute == 1:
@@ -105,7 +105,7 @@ Turf War
 {}
 
 {}""".format(beginningmessage,stages[0],stages[1],endingmessage),colour=0x19D619)
-            embed.set_thumbnail(url="https://splatoonwiki.org/wiki/File:Mode_Icon_Regular_Battle_2.png")
+            embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png")
             await ctx.send(embed=embed)
            
            
@@ -164,7 +164,7 @@ Turf War
 {}
 
 {}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xF44910)
-            embed.set_thumbnail(url="https://splatoonwiki.org/wiki/File:Mode_Icon_Ranked_Battle_2.png")
+            embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png")
             await ctx.send(embed=embed)
 
     @stages.command()
@@ -213,7 +213,7 @@ Turf War
 {}
 
 {}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xEE2D7C)
-            embed.set_thumbnail(url="https://splatoonwiki.org/wiki/File:Symbol_LeagueF.png")
+            embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png")
             await ctx.send(embed=embed)
 
 
