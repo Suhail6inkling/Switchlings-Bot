@@ -76,7 +76,7 @@ Other
         await ctx.send(embed=embed)
 
     @commands.group(pass_context=True)
-    async def switchlings(self, ctx):
+    async def switchling(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send("""Please select with one of the following:
 ```md
@@ -86,31 +86,31 @@ Other
 <s.switchling Arca9inkling>
 <s.switchling Minty12inkling>```""")
 
-    @switchlings.command()
+    @switchling.command()
     async def Seven19inkling(self, ctx):
             embed = discord.Embed(title="Seven19inkling:",description=SSinfo[0],colour=0x3470db)
             embed.set_thumbnail(url="https://media.discordapp.net/attachments/380910479276638225/380914087262945280/Seven_4.0.png?width=888&height=500")
             await ctx.send(embed=embed)
 
-    @switchlings.command()
+    @switchling.command()
     async def Smol4inkling(self, ctx):
             embed = discord.Embed(title="Smol4inkling:",description=SSinfo[1],color=0xff8e8e)
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/380910479276638225/380914146960605184/Smol4.png")
             await ctx.send(embed=embed)
 
-    @switchlings.command()
+    @switchling.command()
     async def Suhail6inkling(self, ctx):
             embed = discord.Embed(title="Suhail6inkling:",description=SSinfo[2],color=0x00ff00)
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/380910479276638225/380914198240034841/Suhail_2.png")
             await ctx.send(embed=embed)
 
-    @switchlings.command()
+    @switchling.command()
     async def Arca9inkling(self, ctx):
             embed = discord.Embed(title="Arca9inkling:",description=SSinfo[3],color=0xaa2b11)
             #embed.set_thumnail(url="")
             await ctx.send(embed=embed)
 
-    @switchlings.command()
+    @switchling.command()
     async def Minty12inkling(self, ctx):
             embed = discord.Embed(title="Minty12inkling:",description=SSinfo[4],color=0x83ffcd)
             #embed.set_thumbnail(url="")
