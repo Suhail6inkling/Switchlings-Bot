@@ -293,7 +293,8 @@ Turf War
 **SHOES**
 {} with {} Main
 *Subs:* {}, {} and {}""".format(personlist[1],personlist[2],personlist[3],personlist[4],personlist[5],personlist[6],personlist[7],personlist[8],personlist[9],personlist[10],personlist[11],personlist[12],personlist[13],personlist[14],personlist[15],personlist[16],personlist[17],personlist[18],personlist[19],personlist[20],personlist[21],personlist[22]))
-
+        await ctx.send(embed=embed)
+            
     @commands.command(pass_context=True)
     async def set(self, ctx, varchar, *, variable):
         member = ctx.author.id

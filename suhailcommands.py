@@ -37,8 +37,13 @@ class SuhailCommands():
         if ctx.author == person:
             if x == "sql":
                 sql.open()
-                await person.send(sql.read())
+                a = sql.read()
                 sql.close()
+                for y in range(0,len(a),3):
+                    try:
+                        await ctx.send(a[y],a[y+1],a[y+2])
+                    except:
+                        await ctx.send(a[y])
     
     @commands.command(pass_context=True)
     async def print(self, ctx, *, x: str):
