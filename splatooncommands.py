@@ -24,6 +24,7 @@ subs = ['Bomb Defense Up', 'Cold-Blooded', 'Ink Recovery Up', 'Ink Resistance Up
 
 
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
+global people
 from SwifflingBot import people
 
 
@@ -416,7 +417,6 @@ Turf War
                     await ctx.send("That ability doesn't exist or is restricted to the first slot only!")
         else:
             await ctx.send("That's not a variable you can change!")
-        global people
         sql.open()
         people = sql.read()
         sql.close()
