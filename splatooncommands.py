@@ -231,6 +231,7 @@ Turf War
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
         oneofeach = [allmodes["regular"][0],allmodes["gachi"][0],allmodes["league"][0]]
+        battlename = ["Regular Battle","Ranked Battle","League Battle"]
         colours = [0x19D619,0xF44910,0xEE2D7C]
         urls=["https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png","https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png","https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png"]
         for x in range(0,3):
@@ -248,7 +249,7 @@ Turf War
             minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
             second = int(time.strftime("%S", time.gmtime(endtime_relative)))
             endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title="League Battle", description="""
+            embed = discord.Embed(title=battlename[x], description="""
 
 {}
 
