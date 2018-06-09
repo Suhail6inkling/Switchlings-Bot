@@ -263,7 +263,11 @@ Turf War
 
 
     @commands.command(pass_context=True)
-    async def profile(self, ctx, person: discord.Member):
+    async def profile(self, ctx, person=""):
+            if person=="":
+                person=ctx.author
+            else:
+                person=discord.Member(person)
             member = person.id
             global people
             for x in people:
