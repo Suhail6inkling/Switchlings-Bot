@@ -36,7 +36,6 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
-    await sqlstuff()
     await onlinestuff()
 
 """
