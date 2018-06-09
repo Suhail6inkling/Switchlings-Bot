@@ -9,7 +9,7 @@ from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
 sqlstuff = ["switchcode","gender","skincolour","eyecolour","hairstyle","trousers","weapon","level","sz","tc","rm","cb","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
-rankmodes = ["sz","tz","rm","cb"]
+rankmodes = ["sz","tc","rm","cb"]
 genders = ["Inkling Boy","Inkling Girl","Octoling Boy","Octoling Girl"]
 skincolours=["White","Pale","Yellow","Light Brown","Middle Brown","Dark Brown","Black"]
 eyecolours=["Blue","Green","Yellow","Orange","Red","Pink","Purple","Black","White","Grey","Lime Green","Brown","Dark Purple","Dark Blue"]
