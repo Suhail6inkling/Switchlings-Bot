@@ -47,37 +47,7 @@ Splatoon Commands:
 
 For a full documentation please visit http://bit.ly/SwitchlingsBot""")
 
-"""
-        try:
-            await ctx.author.send("Hello there! My name is **Switchlings Bot**, made specifically for the **Switchlings Plaza!**. Here is what I can do. [Please note that I'm a WIP so not all commands work]
 
-```md
-
-Splatoon
-<s.stages regular> - See what Turf War maps are on for the next three rotations
-<s.stages ranked> - See what's on Ranked Battle for the next three rotations
-<s.stages league> - See what's on League Battle for the next three rotations
-<s.splatnet> - See what's in the SplatNet shop!```")
-
-            await ctx.author.send("```md
-Fun
-<s.rps (Rock, Paper or Scissors)> - Challenge me IF YOU DARE!
-<s.randomchoice (comma-separated values)> - Randomly chooses from given options.
-<s.flip (number of coins)> - Flips a specific amount of coins.
-<s.magic8ball> - Ask me a question!```")
-            
-            await ctx.author.send("```md
-
-Other
-<s.help> - Displays this message
-<s.ping> - Check how long this bot takes to respond
-<s.botstatus> - Check how long the bot's been running for!
-<s.userinfo @mention> - Check generic user information for a specific person
-<s.switchlings Switchling> - Gain more information about one of the 5 Switchlings!```")
-            await ctx.send("Documentation has been sent to your DMs!")
-        except:
-            await ctx.send("Please enable Direct Messages from server members!")
-"""
 
     @commands.command(pass_context=True)
     async def userinfo(self, member: discord.Member):
