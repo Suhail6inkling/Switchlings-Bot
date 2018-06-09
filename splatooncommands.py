@@ -481,7 +481,7 @@ Main: {}
                     elif varchar == "shoessub2":
                         cur.execute("UPDATE people SET shoessub2=%s WHERE id=%s",(variable,member))
                     elif varchar == "shoessub3":
-                        cur.execute("UPDATE people SET shoessub3=%s WHERE id=%s",(variable,member))
+                        cur.execute("UPDATE people SET shooesub3=%s WHERE id=%s",(variable,member))
                     sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
