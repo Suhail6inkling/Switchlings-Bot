@@ -267,7 +267,7 @@ Turf War
             if person=="":
                 person=ctx.author
             else:
-                person=discord.Member(person)
+                person = ctx.message.mentions[0]
             member = person.id
             global people
             for x in people:
