@@ -125,17 +125,7 @@ Turf War
 {}""".format(beginningmessage,stages[0],stages[1],endingmessage),colour=0x19D619)
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png")
             await ctx.send(embed=embed)
-           
-           
-           
-                
-                
-                
-        
-
-
-            
-            
+    
     @stages.command()
     async def ranked(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -234,8 +224,46 @@ Turf War
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png")
             await ctx.send(embed=embed)
 
+    @stages.command()
+    async def all(self, ctx):
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        oneofeach = [allmodes["regular"][0],allmodes["gachi"][0],allmodes["league"][0]]
+        colours = [0x19D619,0xF44910,0xEE2D7C]
+        urls=["https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png","https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png","https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png"]
+         for x in range(0,3):
+            a = oneofeach[x]
+            starttime = a["start_time"]
+            endtime = a["end_time"]
+            stages = [a["stage_a"]["name"],a["stage_b"]["name"]]
+            mode = a["rule"]["name"]
+            timenow = time.time()
+            starttime_relative=starttime-timenow
+            endtime_relative=endtime-timenow
+            beginningmessage = "Now"
+            endingmessage="Finishes in "
+            hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+            minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+            second = int(time.strftime("%S", time.gmtime(endtime_relative)))
+            endingmessage = em(endingmessage, hour, minute, second)
+            embed = discord.Embed(title="League Battle", description="""
 
-            
+{}
+
+**MODE**
+{}
+
+**STAGES**
+{}
+{}
+
+{}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=colours[x])
+            embed.set_thumbnail(url=urls[x])
+            await ctx.send(embed=embed)
+
+
     @commands.command(pass_context=True)
     async def splatnet(self, ctx):
         api = twitter.Api(
