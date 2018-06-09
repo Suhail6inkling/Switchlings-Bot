@@ -67,6 +67,7 @@ async def sqlstuff():
     cur.execute("CREATE TABLE people (id integer, switchcode varchar, gender varchar, skincolour varchar, eyecolour varchar, hairstyle varchar, trousers varchar, weapon varchar, hat varchar, hatmain varchar, hatsub1 varchar, hatsub2 varchar, hatsub3 varchar, shirt varchar, shirtmain varchar, shirtsub1 varchar, shirtsub2 varchar, shirtsub3 varchar, shoes varchar, shoesmain varchar, shoessub1 varchar, shoessub2 varchar, shoessub3 varchar);")
     server = client.get_guild(413113734303580171)
     for x in server.members:
+        await person.send(x.id)
         cur.execute("INSERT INTO people (id) VALUES (%s)",[x.id])
     await sql.close()
     await sql.open()
