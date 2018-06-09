@@ -7,18 +7,14 @@ async def open():
     cur = con.cursor()
     return cur
 
-async def run(task):
+def run(task):
     cur.execute(task)
 
-async def read():
+def read():
     cur.execute("SELECT * FROM people")
     return cur.fetchall()
 
-async def add(eyedee):
-    cur.execute("INSERT INTO payday (id) VALUES (%s)",(eyedee))
-    return
-
-async def close():
+def close():
     con.commit()
     cur.close()
     con.close()

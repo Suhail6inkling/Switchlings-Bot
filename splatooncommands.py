@@ -301,49 +301,49 @@ Turf War
         if varchar in sqlstuff:
             if varchar == "hat":
                 if variable in hats:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET hat=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("This hat doesn't exist. Please look online for the list of headgear. If this item is new or is spelt incorrectly, please contact Suhail6inkling")
             elif varchar == "switchcode":
                 if variable.startswith("SW-") and len(variable)==17:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET switchcode=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("Please put your switch code in the format `SW-xxxx-xxxx-xxxx`.")
             elif varchar == "shirt":
                 if variable in shirts:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET shirt=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("This shirt doesn't exist. Please look online for the list of clothing. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
             elif varchar == "shoes":
                 if variable in shoes:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET shoes=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("These shoes don't exist. Please look online for the list of footwear. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
             elif varchar == "gender":
                 if variable in genders:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET gender=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That gender doesn't exist!")
             elif varchar == "eyecolour":
                 if variable in eyecolours:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET eyecolour=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That isn't an eye colour!")
@@ -351,25 +351,25 @@ Turf War
                 if personlist[2]==None or personlist[2]=="None":
                     await ctx.send("Choose a gender first!")
                 elif variable in hairstyles[personlist[2]]:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET hairstyle=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("Your gender doesn't have that hairstyle or that hairstyle doesn't exist!")
             elif varchar == "skincolour":
                 if variable in eyecolours:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET skincolour=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That isn't a skin colour!")
             elif varchar == "weapon":
                 if variable in weapons:
-                    cur = await sql.open()
+                    cur = sql.open()
                     cur.execute("UPDATE people SET weapon=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That weapon doesn't exist!")
@@ -377,20 +377,20 @@ Turf War
                 await ctx.send("WIP")
             elif varchar.endswith("main"):
                 if variable in abilities:
-                    cur = await sql.open()
+                    cur = sql.open()
                     if varchar == "hatmain":
                         cur.execute("UPDATE people SET hatmain=%s WHERE id=%s",(variable,member))
                     elif varchar == "shirtmain":
                         cur.execute("UPDATE people SET shirtmain=%s WHERE id=%s",(variable,member))
                     elif varchar == "shoesmain":
                         cur.execute("UPDATE people SET shoesmain=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That ability doesn't exist!")
             else:
                 if variable in subs:
-                    cur = await sql.open()
+                    cur = sql.open()
                     if varchar == "hatsub1":
                         cur.execute("UPDATE people SET hatsub1=%s WHERE id=%s",(variable,member))
                     elif varchar == "hatsub2":
@@ -409,15 +409,15 @@ Turf War
                         cur.execute("UPDATE people SET shoessub2=%s WHERE id=%s",(variable,member))
                     elif varchar == "shoessub3":
                         cur.execute("UPDATE people SET shoessub3=%s WHERE id=%s",(variable,member))
-                    await sql.close()
+                    sql.close()
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That ability doesn't exist or is restricted to the first slot only!")
         else:
             await ctx.send("That's not a variable you can change!")
-        await sql.open()
-        people = await sql.read()
-        await sql.close()
+        sql.open()
+        people = sql.read()
+        sql.close()
             
         
 def setup(client):
