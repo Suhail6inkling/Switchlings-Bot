@@ -371,7 +371,7 @@ Turf War
                 else:
                     await ctx.send("Your gender doesn't have that hairstyle or that hairstyle doesn't exist!")
             elif varchar == "skincolour":
-                if variable in eyecolours:
+                if variable in skincolours:
                     cur = sql.open()
                     cur.execute("UPDATE people SET skincolour=%s WHERE id=%s",(variable,member))
                     sql.close()
