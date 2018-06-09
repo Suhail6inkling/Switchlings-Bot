@@ -431,6 +431,7 @@ Main: {}
                         cur = sql.open()
                         cur.execute("UPDATE people SET level=%s WHERE id=%s",(int(variable),member))
                         sql.close()
+                        await ctx.message.add_reaction("✅")
                     else:
                         await ctx.send("Levels don't go up that high/low!")
                 except:
