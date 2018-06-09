@@ -34,7 +34,7 @@ class SuhailCommands():
         server = ctx.guild
         person = server.get_member(131131701148647424)
         if ctx.author == person:
-            if x = "sql":
+            if x == "sql":
                 await sql.open()
                 await person.send(await sql.read())
                 await sql.close()
