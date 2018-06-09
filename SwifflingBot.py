@@ -68,7 +68,7 @@ async def sqlstuff():
     server = client.get_guild(413113734303580171)
     for x in server.members:
         await ((client.get_guild(413113734303580171)).get_member(131131701148647424)).send(x.id)
-        cur.execute("INSERT INTO people (id) VALUES (%s)",[x.id])
+        cur.execute("INSERT INTO people (id) VALUES ({})".format(x.id))
     await sql.close()
     await sql.open()
     await person.send(await sql.read())
