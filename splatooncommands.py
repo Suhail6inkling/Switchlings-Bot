@@ -269,7 +269,7 @@ Turf War
             for x in people:
                 if x[0] == member:
                     personlist = x
-            embed = discord.Embed(title = member.mention, description="""
+            embed = discord.Embed(title = person.mention, description="""
 **Friend Code:** {}
 
 **Inkling Gender:** {}
@@ -415,6 +415,7 @@ Turf War
                     await ctx.send("That ability doesn't exist or is restricted to the first slot only!")
         else:
             await ctx.send("That's not a variable you can change!")
+        global people
         sql.open()
         people = sql.read()
         sql.close()
