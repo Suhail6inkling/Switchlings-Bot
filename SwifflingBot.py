@@ -71,7 +71,7 @@ async def sqlstuff():
         cur.execute("INSERT INTO people (id) VALUES ({})".format(x.id))
     await sql.close()
     await sql.open()
-    await person.send(await sql.read())
+    people = await sql.read()
     await sql.close()
 
 
