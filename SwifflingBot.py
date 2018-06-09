@@ -4,6 +4,7 @@ from discord.ext import commands
 import asyncio, random, os, time#, psycopg2
 import urllib.parse as urlparse
 import twitter
+import sql
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
@@ -35,7 +36,43 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     await client.change_presence(activity = discord.Game(name="Say s.help"))
+    await sqlstuff()
     await onlinestuff()
+
+"""
+id
+switch_code
+gender
+eye_colour
+hairstyle
+weapon
+
+hat
+hatsub1
+hatsub2
+hatsub3
+
+shirt
+shirtsub1
+shirtsub2
+shirtsub3
+
+shoes
+shoessub1
+shoessub2
+shoessub3"""
+
+async def sqlstuff():
+    cur = await sql.open()
+    cur.execute("CREATE TABLE people (id integer, switchcode varchar, gender varchar, skincolour varchar, eyecolour varchar, hairstyle varchar, trousers varchar, weapon varchar, hat varchar, hatmain varchar, hatsub1 varchar, hatsub2 varchar, hatsub3 varchar, shirt varchar, shirtmain varchar, shirtsub1 varchar, shirtsub2 varchar, shirtsub3 varchar, shoes varchar, shoesmain varchar, shoessub1 varchar, shoessub2 varchar, shoessub3 varchar);")
+    server = client.get_guild(413113734303580171)
+    for x in server.members:
+        cur.execute("INSERT INTO people (id) VALUES (%s)",(x.id))
+    await sql.close()
+    await sql.open()
+    await person.send(await sql.read())
+    await sql.close()
+
 
 async def onlinestuff():
     starttime = time.time()
@@ -94,6 +131,9 @@ async def on_member_remove(member):
     avatar = member.avatar_url_as(format="jpg",size=512)
     embed.set_thumbnail(url=avatar)
     await swifflingbotchat.send(embed=embed)
+    cur = await sql.open()
+    cur.execute("DELETE FROM people WHERE id = (%s)",(member.id))
+    await sql.close()
 
 @client.event
 async def on_member_join(member):
@@ -105,6 +145,9 @@ async def on_member_join(member):
     avatar = member.avatar_url_as(format="jpg",size=512)
     embed.set_thumbnail(url=avatar) 
     await swifflingbotchat.send(embed=embed)
+    cur = await sql.open()
+    cur.execute("INSERT INTO people (id) VALUES (%s)",(member.id))
+    await sql.close()
     
 
 async def KeepAwake():
