@@ -40,11 +40,19 @@ async def on_ready():
 
 """
 id
-switch_code
+switchcode
 gender
-eye_colour
+skincolour
+eyecolour
 hairstyle
+trousers
 weapon
+
+level
+sz
+tc
+rm
+cb
 
 hat
 hatsub1
@@ -61,6 +69,12 @@ shoessub1
 shoessub2
 shoessub3"""
 
+cur = sql.open()
+cur.execute("DELETE TABLE people")
+cur.execute("CREATE TABLE people (id bigint, switchcode varchar, gender varchar, skincolour varchar, eyecolour varchar, hairstyle varchar, trousers varchar, weapon varchar, level integer, sz varchar, tc varchar, rm varchar, cb varchar, hat varchar, hatmain varchar, hatsub1 varchar, hatsub2 varchar, hatsub3 varchar, shirt varchar, shirtmain varchar, shirtsub1 varchar, shirtsub2 varchar, shirtsub3 varchar, shoes varchar, shoesmain varchar, shoessub1 varchar, shoessub2 varchar, shooesub3 varchar);")
+for x in server.members:
+    cur.execute("INSERT INTO people (id) VALUES (%s)",[x.id])
+sql.close()
 sql.open()
 people = sql.read()
 sql.close()

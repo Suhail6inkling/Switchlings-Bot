@@ -8,7 +8,8 @@ import sql
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
-sqlstuff = ["switchcode","gender","skincolour","eyecolour","hairstyle","trousers","weapon","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
+sqlstuff = ["switchcode","gender","skincolour","eyecolour","hairstyle","trousers","weapon","level","sz","tc","rm","cb","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
+rankmodes = ["sz","tz","rm","cb"]
 genders = ["Inkling Boy","Inkling Girl","Octoling Boy","Octoling Girl"]
 skincolours=["White","Pale","Yellow","Light Brown","Middle Brown","Dark Brown","Black"]
 eyecolours=["Blue","Green","Yellow","Orange","Red","Pink","Purple","Black","White","Grey","Lime Green","Brown","Dark Purple","Dark Blue"]
@@ -21,7 +22,7 @@ shoes = ["Acerola Rain Boots","Amber Sea Slug Hi-Tops","Angry Rain Boots","Annak
 mains = ["Comeback","Last-Ditch Effort","Opening Gambit","Tenacity","Ability Doubler","Haunt","Ninja Squid","Respawn Punisher","Thermal Ink","Drop Roller","Object Shredder","Stealth Jump"]
 abilities = ["Ability Doubler","Bomb Defense Up","Cold-Blooded","Comeback","Drop Roller","Haunt","Ink Recovery Up","Ink Resistance Up","Ink Saver (Main)","Ink Saver (Sub)","Last-Ditch Effort","Ninja Squid","Object Shredder","Opening Gambit","Quick Respawn","Quick Super Jump","Respawn Punisher","Run Speed Up","Special Charge Up","Special Power Up","Special Saver","Stealth Jump","Sub Power Up","Swim Speed Up","Tenacity","Thermal Ink"]
 subs = ['Bomb Defense Up', 'Cold-Blooded', 'Ink Recovery Up', 'Ink Resistance Up', 'Ink Saver (Main)', 'Ink Saver (Sub)', 'Quick Respawn', 'Quick Super Jump', 'Run Speed Up', 'Special Charge Up', 'Special Power Up', 'Special Saver', 'Sub Power Up', 'Swim Speed Up']
-
+ranks = ["C-","C","C+","B-","B","B+","A-","A","A+","S","S+0","S+1","S+2","S+3","S+4","S+5","S+6","S+7","S+8","S+9","X"]
 
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 global people
@@ -250,13 +251,9 @@ Turf War
                 q = tweet["text"].split("Up now on SplatNet: ")[1]
                 q = q.split(" #splatnet2")[0]
                 items.append(q)
-        description = """   
-
-"""
+        description = ""
         for item in items:
-            if description == """
-
-""":
+            if description == "":
                 description = item
             else:
                 description = """{}
@@ -272,7 +269,7 @@ Turf War
             for x in people:
                 if x[0] == member:
                     personlist = x
-            embed = discord.Embed(title = person.mention, description="""
+            embed = discord.Embed(title = person.name, description="""
 **Friend Code:** {}
 
 **Gender & Species:** {}
@@ -282,6 +279,13 @@ Turf War
 **Trousers:** {}
 
 **WEAPON:** {}
+
+**STATS**
+*Level:* {}
+*Splat Zone Rank:* {}
+*Tower Control Rank:* {}
+*Rainmaker Rank:* {}
+*Clam Blitz Rank:* {}
 
 **HAT**
 {} with {} Main
@@ -293,7 +297,7 @@ Turf War
 
 **SHOES**
 {} with {} Main
-*Subs:* {}, {} and {}""".format(personlist[1],personlist[2],personlist[3],personlist[4],personlist[5],personlist[6],personlist[7],personlist[8],personlist[9],personlist[10],personlist[11],personlist[12],personlist[13],personlist[14],personlist[15],personlist[16],personlist[17],personlist[18],personlist[19],personlist[20],personlist[21],personlist[22]))
+*Subs:* {}, {} and {}""".format(personlist[1],personlist[2],personlist[3],personlist[4],personlist[5],personlist[6],personlist[7],personlist[8],personlist[9],personlist[10],personlist[11],personlist[12],personlist[13],personlist[14],personlist[15],personlist[16],personlist[17],personlist[18],personlist[19],personlist[20],personlist[21],personlist[22],personlist[23],personlist[24],personlist[25],personlist[26],personlist[27]))
             await ctx.send(embed=embed)
             
     @commands.command(pass_context=True)
@@ -380,6 +384,29 @@ Turf War
                     await ctx.send("That weapon doesn't exist!")
             elif varchar == "trousers":
                 await ctx.send("WIP")
+            elif varchar == "level":
+                try:
+                    if int(variable) > 0  and int(variable) < 100:
+                        cur = sql.open()
+                        cur.execute("UPDATE people SET level=%s WHERE id=%s",(int(variable),member))
+                        sql.close()
+                    else:
+                        await ctx.send("Levels don't go up that high/low!")
+                except:
+                    await ctx.send("Please input a number")
+            elif varchar in rankmodes:
+                if variable in ranks:
+                    cur = sql.open()
+                    if varchar == "sz":
+                        cur.execute("UPDATE people SET sz=%s WHERE id=%s",(variable,member))
+                    elif varchar=="tc":
+                        cur.execute("UPDATE people SET tc=%s WHERE id=%s",(variable,member))
+                    elif varchar=="rm":
+                        cur.execute("UPDATE people SET rm=%s WHERE id=%s",(variable,member))
+                    elif varchar=="cb":
+                        cur.execute("UPDATE people SET cb=%s WHERE id=%s",(variable,member))
+                    sql.close()
+                    await ctx.message.add_reaction("✅")
             elif varchar.endswith("main"):
                 if variable in abilities:
                     cur = sql.open()
