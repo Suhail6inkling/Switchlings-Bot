@@ -263,7 +263,7 @@ Turf War
         await ctx.send(embed=embed)
 
 
-    @client.commands(pass_context=True)
+    @commands.commands(pass_context=True)
     async def profile(self, ctx, person: discord.Member):
             member = person.id
             for x in people:
