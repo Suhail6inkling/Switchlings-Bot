@@ -268,13 +268,14 @@ Turf War
     @commands.command(pass_context=True)
     async def profile(self, ctx, person: discord.Member):
             member = person.id
+            global people
             for x in people:
                 if x[0] == member:
                     personlist = x
             embed = discord.Embed(title = person.mention, description="""
 **Friend Code:** {}
 
-**Inkling Gender:** {}
+**Gender & Species:** {}
 **Skin Colour:** {}
 **Eye Colour:** {}
 **Hairstyle:** {}
