@@ -299,6 +299,7 @@ Turf War
     @commands.command(pass_context=True)
     async def set(self, ctx, varchar, *, variable):
         member = ctx.author.id
+        global people
         for x in people:
             if x[0] == member:
                 personlist = x
