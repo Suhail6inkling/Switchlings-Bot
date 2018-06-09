@@ -47,9 +47,12 @@ class SuhailCommands():
     
     @commands.command(pass_context=True)
     async def print(self, ctx, *, x: str):
-        server = ctx.guild
-        person = server.get_member(131131701148647424)
-        if ctx.author == person:
+        server = self.client.get_guild(413113734303580171)
+        if ctx.guild == server:
+            roleneeded = "Suhail6inkling"
+        else:
+            roleneeded = "Mods"
+        if roleneeded in [role.name for role in ctx.author.roles]:
             textchannels = (ctx.message.channel_mentions)
             tosend = ""
             x = x.split(" ")
