@@ -449,6 +449,8 @@ Main: {}
                         cur.execute("UPDATE people SET cb=%s WHERE id=%s",(variable,member))
                     sql.close()
                     await ctx.message.add_reaction("✅")
+                else:
+                    await ctx.send("That's not a valid rank!")
             elif varchar.endswith("main"):
                 if variable in abilities:
                     cur = sql.open()
