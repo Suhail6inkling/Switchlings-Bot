@@ -97,7 +97,7 @@ class Music:
         """Summons the bot to join your voice channel."""
         summoned_channel = ctx.author.voice.channel
         if summoned_channel is None:
-            await ctx.send("Error. Not in a Voice Channel"')
+            await ctx.send("Error. Not in a Voice Channel")
             return False
 
         state = self.get_voice_state(ctx.message.server)
@@ -204,7 +204,7 @@ class Music:
             await ctx.send('Not playing anything.')
         else:
             skip_count = len(state.skip_votes)
-            await ctx.('Now playing {} [skips: {}/3]'.format(state.current, skip_count))
+            await ctx.send('Now playing {} [skips: {}/3]'.format(state.current, skip_count))
             
 def setup(bot):
     bot.add_cog(Music(bot))
