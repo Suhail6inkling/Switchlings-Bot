@@ -99,7 +99,7 @@ async def on_message(message):
     server = client.get_guild(413113734303580171)
     bot = discord.utils.get(server.members, name="Switchlings Bot")
     if message.guild == server:
-        q = message.content
+        q = message.content.lower()
         for aword in allowedwords:
             if aword in q.lower():
                 indexa = q.lower().index(aword)
@@ -110,7 +110,7 @@ async def on_message(message):
                     p = "{}{}".format(p,x)
                 q = p
         for word in badwords1:
-            if word in q.lower() and message.author != bot:#and noexception:
+            if word in (q.lower()) and message.author != bot:#and noexception:
                 await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
                 await message.delete()
                 return
@@ -121,7 +121,7 @@ async def on_message(message):
                 return
     noservercommands=["s.mute","s.unmute","s.kick","s.ban","s.timeout","s.lockdown","s.open","s.test","s.leave","s.join","s.prune"]
     if message.content.split(" ")[0] in noservercommands and message.guild!=server:
-        await message.channel.send("Those commands can only be used in **Switchlings Plaza!")
+        await message.channel.send("Those commands can only be used in **Switchlings Plaza!**")
         return
     await client.process_commands(message)
     return
