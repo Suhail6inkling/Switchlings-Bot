@@ -118,7 +118,11 @@ async def on_message(message):
             if word in (q.lower()) and message.author != bot:# and noexception:
                 await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
                 await message.delete()
-                return                
+                return
+    noservercommands=["s.mute","s.unmute","s.kick","s.ban","s.timeout","s.lockdown","s.open","s.test","s.leave","s.join","s.prune"]
+    if message.content.split(" ")[0] in noservercommands and message.guild!=server:
+        await ctx.send("Those commands can only be used in **Switchlings Plaza!")
+        return
     await client.process_commands(message)
     return
          
