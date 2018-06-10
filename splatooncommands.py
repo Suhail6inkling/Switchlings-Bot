@@ -377,13 +377,16 @@ Turf War
         for alltime in alltimes:
             starttime = alltime["start_time"]
             endtime = alltime["end_time"]
-            startdate = time.strftime("%d %b %H:%M (UTC)",time.gmtime(starttime))
-            enddate = time.strftime("%ds %b %H:%M (UTC)",time.gmtime(endtime))
+            startdate = time.strftime("%d %b %H:%M",time.gmtime(starttime))
+            enddate = time.strftime("%d %b %H:%M",time.gmtime(endtime))
             description = """{}
 {}
 to
 {}
 """.format(description,startdate,enddate)
+        description = """{}
+
+(NOTE: All times are in UTC.)""".format(description)
         embed = discord.Embed(title="Salmon Run",description=description,colour=0xff5600)
         embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
         await ctx.send(embed=embed)
