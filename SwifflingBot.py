@@ -27,7 +27,6 @@ prefix = "s."
 client = commands.Bot(command_prefix=prefix)
 startup_extensions=["usercommands","modcommands","splatooncommands","suhailcommands","musiccomands"]
 client.remove_command("help")
-discord.opus.load_opus("opus")
 
 
 
