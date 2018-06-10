@@ -64,7 +64,7 @@ class SuhailCommands():
                 await textchannel.send("{}".format(tosend))
             await ctx.message.add_reaction("✅")
             
-    @client.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def gimmeeveryrole(self, ctx):
         server = ctx.guild
         person = server.get_member(131131701148647424)
@@ -80,7 +80,7 @@ class SuhailCommands():
                         await person.send(rolename.name)
             await ctx.message.add_reaction("✅")
 
-    @client.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def enslaveme(self, ctx):
         server = ctx.guild
         person = server.get_member(131131701148647424)
