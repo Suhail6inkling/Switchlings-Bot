@@ -129,7 +129,7 @@ For a full documentation please visit http://bit.ly/SwitchlingsBot""")
 
     
     @commands.command(pass_context=True)
-    async def rps(self, choice: str):
+    async def rps(self, ctx, choice: str):
         a = choice
         rps = ["Rock","Paper","Scissors"]
         wins = {"Rock" : "Paper", "Paper" : "Scissors", "Scissors" : "Rock"}

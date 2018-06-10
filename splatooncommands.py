@@ -5,6 +5,7 @@ import random
 import json
 import time
 import sql
+import twitter
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
