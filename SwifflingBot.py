@@ -121,7 +121,7 @@ async def on_message(message):
                 return
     noservercommands=["s.mute","s.unmute","s.kick","s.ban","s.timeout","s.lockdown","s.open","s.test","s.leave","s.join","s.prune"]
     if message.content.split(" ")[0] in noservercommands and message.guild!=server:
-        await ctx.send("Those commands can only be used in **Switchlings Plaza!")
+        await message.channel.send("Those commands can only be used in **Switchlings Plaza!")
         return
     await client.process_commands(message)
     return
