@@ -43,7 +43,7 @@ Random Commands:
 `s.rps` `s.randomchoice` `s.flip` `s.magic8ball`
 
 Splatoon Commands:
-`s.stages` `s.splatnet` `s.profile` `s.set`
+`s.stages` `s.salmon` `s.splatnet` `s.profile` `s.set`
 
 For a full documentation please visit http://bit.ly/SwitchlingsBot""")
 

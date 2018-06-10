@@ -22,7 +22,7 @@ except ModuleNotFoundError:
     TATC = os.environ["TATC"]
     TATS = os.environ["TATS"]
     
-Client = discord.Client()
+Client = discord.Client()   
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
 startup_extensions=["usercommands","modcommands","splatooncommands","suhailcommands"]
@@ -136,9 +136,9 @@ async def on_member_remove(member):
     avatar = member.avatar_url_as(format="jpg",size=512)
     embed.set_thumbnail(url=avatar)
     await swifflingbotchat.send(embed=embed)
-    cur = await sql.open()
+    cur = sql.open()
     cur.execute("DELETE FROM people WHERE id = (%s)",[member.id])
-    await sql.close()
+    sql.close()
 
 @client.event
 async def on_member_join(member):
@@ -150,9 +150,9 @@ async def on_member_join(member):
     avatar = member.avatar_url_as(format="jpg",size=512)
     embed.set_thumbnail(url=avatar) 
     await swifflingbotchat.send(embed=embed)
-    cur = await sql.open()
+    cur = sql.open()
     cur.execute("INSERT INTO people (id) VALUES (%s)",[member.id])
-    await sql.close()
+    sql.close()
     
 
 async def KeepAwake():
