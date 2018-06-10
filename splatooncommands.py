@@ -343,13 +343,13 @@ Turf War
                 beginningmessage = "Now"
             else:
                 beginningmessage = "In "
-                day = int(time.strftime("%d", time.gmtime(starttime_relative))-1)
+                day = int(time.strftime("%d", time.gmtime(starttime_relative)))-1
                 hour = int(time.strftime("%H", time.gmtime(starttime_relative)))
                 minute = int(time.strftime("%M", time.gmtime(starttime_relative)))
                 second = int(time.strftime("%S", time.gmtime(starttime_relative)))
                 beginningmessage = salmonem(beginningmessage, day, hour, minute, second)
             endingmessage = "Finishes in "
-            day = int(time.strftime("%d", time.gmtime(endtime_relative))-1)
+            day = int(time.strftime("%d", time.gmtime(endtime_relative)))-1
             hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
             minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
             second = int(time.strftime("%S", time.gmtime(endtime_relative)))
