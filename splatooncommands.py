@@ -9,6 +9,7 @@ import twitter
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
+salmonurl="https://splatoon2.ink/data/coop-schedules.json"
 sqlstuff = ["switchcode","gender","skincolour","eyecolour","hairstyle","trousers","weapon","level","sz","tc","rm","cb","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
 rankmodes = ["sz","tc","rm","cb"]
 genders = ["Inkling Boy","Inkling Girl","Octoling Boy","Octoling Girl"]
@@ -28,6 +29,61 @@ ranks = ["C-","C","C+","B-","B","B+","A-","A","A+","S","S+0","S+1","S+2","S+3","
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 global people
 from SwifflingBot import people
+
+
+def salmonem(endingmessage, day, hour, minute, second):
+    if day != 0:
+        if day ==1:
+            endingmessage = "{}{} {}".format(endingmessage, day, "day")
+        else:
+            endingmessage = "{}{} {}".format(endingmessage, day, "days")
+    if hour != 0:
+        if minute==0 and second==0 and day!=0:
+            if hour == 1:
+                endingmessage = "{} and {} {}".format(endingmessage, hour, "hour")
+            else:
+                endingmessage = "{} and {} {}".format(endingmessage, hour, "hours")
+        elif day!=0 and (minute!=0 or second!=0):
+            if hour == 1:
+                endingmessage = "{}, {} {}".format(endingmessage,hour,"hour")
+            else:
+                endingmessage = "{}, {} {}".format(endingmessage,hour,"hours")
+        else:
+            if hour == 1:
+                endingmessage = "{}{} {}".format(endingmessage,hour,"hour")
+            else:
+                endingmessage = "{}{} {}".format(endingmessage,hour,"hours")
+    if minute != 0:
+        if second==0 and (day!=0 or hour!=0):
+            if minute==1:
+                endingmessage = "{} and {} {}".format(endingmessage, minute, "minute")
+            else:
+                endingmessage = "{} and {} {}".format(endingmessage, minute, "minutes")
+        elif second!=0 and (day!=0 or hour!=0):
+            if minute==1:
+                endingmessage = "{}, {} {}".format(endingmessage, minute, "minute")
+            else:
+                endingmessage = "{}, {} {}".format(endingmessage, minute,"minutes")
+        else:
+            if minute == 1:
+                endingmessage = "{}{} {}".format(endingmessage, minute, "minute")
+            else:
+                endingmessage = "{}{} {}".format(endingmessage, minute, "minutes")
+    if second!=0:
+        if hour==0 and minute==0 and day==0:
+            if second == 1:
+                endingmessage = "{}{} {}".format(endingmessage, second, "second")
+            else:
+                endingmessage = "{}{} {}".format(endingmessage, second, "seconds")
+        else:
+            if second == 1:
+                endingmessage = "{} and {} {}".format(endingmessage, second, "second")
+            else:
+                endingmessage = "{} and {} {}".format(endingmessage, second, "seconds")
+    return endingmessage
+
+    
+
 
 
 def em(endingmessage, hour, minute, second):
@@ -267,6 +323,75 @@ Turf War
 
 
     @commands.command(pass_context=True)
+    async def salmon(self, ctx):
+        req = Request(salmonurl, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        salmonrun = json.loads(webpage)
+        salmonruna = salmonrun["details"]
+        for x in salmonruna:
+            starttime = x["start_time"]
+            endtime = x["end_time"]
+            stage = x["stage"]["name"]
+            timenow = time.time()
+            weapons=[]
+            for y in x["weapons"]:
+                weapons.append(y["name"])
+            starttime_relative = starttime-timenow
+            endtime_relative = endtime-timenow
+            if starttime_relative < 0:
+                beginningmessage = "Now"
+            else:
+                beginningmessage = "In "
+                day = int(time.strftime("%d", time.gmtime(starttime_relative)))
+                hour = int(time.strftime("%H", time.gmtime(starttime_relative)))
+                minute = int(time.strftime("%M", time.gmtime(starttime_relative)))
+                second = int(time.strftime("%S", time.gmtime(starttime_relative)))
+                beginningmessage = salmonem(beginningmessage, day, hour, minute, second)
+            endingmessage = "Finishes in "
+            day = int(time.strftime("%d", time.gmtime(endtime_relative)))
+            hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+            minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+            second = int(time.strftime("%S", time.gmtime(endtime_relative)))
+            endingmessage = salmonem(endingmessage, day, hour, minute, second)
+            embed = discord.Embed(title="Salmon Run",description="""
+
+{}
+
+**STAGE**
+{}
+
+**WEAPONS**
+{}
+{}
+{}
+{}
+
+{}""".format(beginningmessage,stage,weapons[0],weapons[1],weapons[2],weapons[3],endingmessage),colour=0xff5600)
+            embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
+            await ctx.send(embed=embed)
+        alltimes = salmonrun["schedules"]
+        alltimes = alltimes[2:]
+        descripton="""FUTURE SCHEDULES:
+"""
+        for alltime in alltimes:
+            starttime = alltime["start_time"]
+            endtime = alltime["end_time"]
+            startdate = time.strftime("%d %b %H:%M (UTC)",time.gmtime(starttime))
+            enddate = time.strftime("%ds %b %H:%M (UTC)",time.gmtime(endtime))
+            description = """{}
+{}
+to
+{}
+""".format(description,startdate,enddate)
+        embed = discord.Embed(title="Salmon Run",description=description,colour=0xff5600)
+        embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
+        await ctx.send(embed=embed)
+
+            
+        
+
+    @commands.command(pass_context=True)
     async def splatnet(self, ctx):
         api = twitter.Api(
         consumer_key=TCK,
@@ -498,5 +623,8 @@ Main: {}
         sql.close()
             
         
+
+        
+
 def setup(client):
     client.add_cog(SplatoonCommands(client))
