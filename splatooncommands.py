@@ -323,7 +323,12 @@ Turf War
 
 
     @commands.command(pass_context=True)
-    async def salmon(self, ctx):
+    async def salmon(self, ctx, choice="UTC"):
+        timezones = {"UTC": 0, "BST": 3600, "PDT": -25200, "EDT": -14400, "CET": 3600, "PST": -28800, "EST": -18000, "CEST": 7200}
+        number = timezones[choice]
+        if number is None:
+            choice = "UTC"
+            number = timezones[choice]
         req = Request(salmonurl, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
@@ -377,8 +382,8 @@ Turf War
         for alltime in alltimes:
             starttime = alltime["start_time"]
             endtime = alltime["end_time"]
-            startdate = time.strftime("%d %b %H:%M",time.gmtime(starttime))
-            enddate = time.strftime("%d %b %H:%M",time.gmtime(endtime))
+            startdate = time.strftime("%d %b %H:%M",time.gmtime(starttime+number))
+            enddate = time.strftime("%d %b %H:%M",time.gmtime(endtime+number))
             description = """{}
 {}
 to
@@ -386,7 +391,9 @@ to
 """.format(description,startdate,enddate)
         description = """{}
 
-(NOTE: All times are in UTC.)""".format(description)
+(NOTE: All times are in {}.)
+(NOTE: For countries with a Daylight Savings Time equivalent,
+please ensure you are aware whether DST is active or not.)""".format(description,choice)
         embed = discord.Embed(title="Salmon Run",description=description,colour=0xff5600)
         embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
         await ctx.send(embed=embed)
