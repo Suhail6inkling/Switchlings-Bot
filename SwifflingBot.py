@@ -141,7 +141,7 @@ async def on_member_remove(member):
         cur.execute("DELETE FROM people WHERE id = (%s)",[member.id])
         sql.close()
 
-    @client.event
+@client.event
 async def on_member_join(member):
     server = client.get_guild(413113734303580171)
     if member.guild == server:
