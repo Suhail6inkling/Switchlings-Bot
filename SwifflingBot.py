@@ -68,9 +68,7 @@ shoes
 shoessub1
 shoessub2
 shoessub3"""
-cur = sql.open()
-cur.execute("INSERT INTO people (id) VALUES (%s)",(320366423052386334))
-sql.close()
+
 sql.open()
 people = sql.read()
 sql.close()
