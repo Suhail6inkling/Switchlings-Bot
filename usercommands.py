@@ -50,7 +50,7 @@ For a full documentation please visit http://bit.ly/SwitchlingsBot""")
 
 
     @commands.command(pass_context=True)
-    async def userinfo(self, member: discord.Member):
+    async def userinfo(self, ctx, member: discord.Member):
         embed = discord.Embed(description=("""**Username:**           {}
 **ID:**                    {}
 **Status**                {}
@@ -102,12 +102,12 @@ For a full documentation please visit http://bit.ly/SwitchlingsBot""")
 
 
     @commands.command(pass_context=True)
-    async def randomchoice(self, options: str):
+    async def randomchoice(self, ctx, options: str):
         options = options.split(", ")
         await ctx.send("**{}**".format(random.choice(options)))
 
     @commands.command(pass_context=True)
-    async def flip(self, number: int):
+    async def flip(self, ctx, number: int):
         number = int(criteria)
         result=""
         for c in range(0,number):
