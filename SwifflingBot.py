@@ -129,30 +129,32 @@ async def on_message(message):
 @client.event
 async def on_member_remove(member):
     server = client.get_guild(413113734303580171)
-    welcomechat = discord.utils.get(server.channels, name = "welcome")
-    swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
-    await welcomechat.send("**{}** has been splatted and has left the server. :(".format(member.name))
-    embed = discord.Embed(title="Member leave",description=("{}, [ID = {}]".format(member.mention,member.id)),colour=0xff0000)
-    avatar = member.avatar_url_as(format="jpg",size=512)
-    embed.set_thumbnail(url=avatar)
-    await swifflingbotchat.send(embed=embed)
-    cur = sql.open()
-    cur.execute("DELETE FROM people WHERE id = (%s)",[member.id])
-    sql.close()
+    if member.guild == server:
+        welcomechat = discord.utils.get(server.channels, name = "welcome")
+        swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
+        await welcomechat.send("**{}** has been splatted and has left the server. :(".format(member.name))
+        embed = discord.Embed(title="Member leave",description=("{}, [ID = {}]".format(member.mention,member.id)),colour=0xff0000)
+        avatar = member.avatar_url_as(format="jpg",size=512)
+        embed.set_thumbnail(url=avatar)
+        await swifflingbotchat.send(embed=embed)
+        cur = sql.open()
+        cur.execute("DELETE FROM people WHERE id = (%s)",[member.id])
+        sql.close()
 
-@client.event
+    @client.event
 async def on_member_join(member):
     server = client.get_guild(413113734303580171)
-    welcomechat = discord.utils.get(server.channels, name = "welcome")
-    swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
-    await welcomechat.send("{}, Welcome to the Switchlings Server! Make sure you read the #rules and have an amazing time here!".format(member.mention))
-    embed = discord.Embed(title="Member join", description=("{}, [ID = {}]".format(member.mention,member.id)),colour=0x00ff00)
-    avatar = member.avatar_url_as(format="jpg",size=512)
-    embed.set_thumbnail(url=avatar) 
-    await swifflingbotchat.send(embed=embed)
-    cur = sql.open()
-    cur.execute("INSERT INTO people (id) VALUES (%s)",[member.id])
-    sql.close()
+    if member.guild == server:
+        welcomechat = discord.utils.get(server.channels, name = "welcome")
+        swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
+        await welcomechat.send("{}, Welcome to the Switchlings Server! Make sure you read the #rules and have an amazing time here!".format(member.mention))
+        embed = discord.Embed(title="Member join", description=("{}, [ID = {}]".format(member.mention,member.id)),colour=0x00ff00)
+        avatar = member.avatar_url_as(format="jpg",size=512)
+        embed.set_thumbnail(url=avatar) 
+        await swifflingbotchat.send(embed=embed)
+        cur = sql.open()
+        cur.execute("INSERT INTO people (id) VALUES (%s)",[member.id])
+        sql.close()
     
 
 async def KeepAwake():
