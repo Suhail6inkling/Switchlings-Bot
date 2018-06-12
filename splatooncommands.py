@@ -634,7 +634,26 @@ Main: {}
             
         
 
-        
-
+    @commands.command(pass_context=True)
+    async def getfc(self, ctx, person=""):
+            if person=="":
+                person=ctx.author
+            else:
+                person = ctx.message.mentions[0]
+            if person==ctx.author:
+                pronoun="Your"
+                pronouna="You"
+            else:
+                pronoun="Their"
+                pronouna="They"
+            member = person.id
+            global people
+            for x in people:
+                if x[0] == member:
+                    personlist = x
+            if personlist[1] is None:
+                await ctx.send("{} have not entered their FC.".format(pronouna))
+            else:
+                await ctx.send("{} FC is {}".format(pronoun,personlist[1]))
 def setup(client):
     client.add_cog(SplatoonCommands(client))
