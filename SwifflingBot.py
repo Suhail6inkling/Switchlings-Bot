@@ -68,7 +68,9 @@ shoes
 shoessub1
 shoessub2
 shoessub3"""
-
+cur = sql.open()
+cur.execute("INSERT INTO people (id) VALUES (%s)",[320366423052386334])
+sql.close()
 sql.open()
 people = sql.read()
 sql.close()
@@ -145,6 +147,8 @@ async def on_member_remove(member):
 async def on_member_join(member):
     server = client.get_guild(413113734303580171)
     if member.guild == server:
+        if member.id == 320366423052386334:
+            return
         welcomechat = discord.utils.get(server.channels, name = "welcome")
         swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
         await welcomechat.send("{}, Welcome to the Switchlings Server! Make sure you read the #rules and have an amazing time here!".format(member.mention))
