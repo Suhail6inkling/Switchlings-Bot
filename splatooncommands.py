@@ -652,7 +652,7 @@ Main: {}
                 if x[0] == member:
                     personlist = x
             if personlist[1] is None:
-                await ctx.send("{} have not entered their FC.".format(pronouna))
+                await ctx.send("{} have not entered {} FC.".format(pronouna,pronoun))
             else:
                 await ctx.send("{} FC is {}".format(pronoun,personlist[1]))
 def setup(client):
