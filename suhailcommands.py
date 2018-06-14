@@ -30,20 +30,6 @@ class SuhailCommands():
            await person.remove_roles(grouprole)
            await ctx.message.add_reaction("✅")
 
-    @commands.command(pass_context=True)
-    async def test(self, ctx, x: str):
-        server = ctx.guild
-        person = server.get_member(131131701148647424)
-        if ctx.author == person:
-            if x == "sql":
-                sql.open()
-                a = sql.read()
-                sql.close()
-                for y in range(0,len(a),3):
-                    try:
-                        await ctx.send(a[y],a[y+1],a[y+2])
-                    except:
-                        await ctx.send(a[y])
     
     @commands.command(pass_context=True)
     async def print(self, ctx, *, x: str):
@@ -66,9 +52,9 @@ class SuhailCommands():
             
     @commands.command(pass_context=True)
     async def gimmeeveryrole(self, ctx):
-        server = ctx.guild
+        server = self.client.get_guild(413113734303580171)
         person = server.get_member(131131701148647424)
-        if ctx.author == person:
+        if ctx.author == person and ctx.guild==server:
             roleid = []
             for a in noroles:
                 roleid.append(discord.utils.get(server.roles, name = a))
@@ -82,9 +68,9 @@ class SuhailCommands():
 
     @commands.command(pass_context=True)
     async def enslaveme(self, ctx):
-        server = ctx.guild
+        server = self.client.get_guild(413113734303580171)
         person = server.get_member(131131701148647424)
-        if ctx.author==person:
+        if ctx.author==person and ctx.guild==server:
             for role in ctx.author.roles:
                 try:
                     await person.remove_roles(role)

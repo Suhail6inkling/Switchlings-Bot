@@ -27,7 +27,9 @@ prefix = "s."
 client = commands.Bot(command_prefix=prefix)
 startup_extensions=["usercommands","modcommands","splatooncommands","suhailcommands"]
 client.remove_command("help")
-
+global successful_extensions, failed_extensions
+successful_extensions = []
+failed_extensions = []
 
 
 @client.event
@@ -77,23 +79,18 @@ sql.close()
 
 
 async def onlinestuff():
-    starttime = time.time()
-    server = client.get_guild(413113734303580171)
-    bottestingchat = discord.utils.get(server.channels, name = "bot-testing")
-    bot = discord.utils.get(server.members, name="Switchlings Bot")
-    defmaster = client.get_user(331501118939201536)
-    ownrole = discord.utils.get(server.roles, name = "Suhail6inkling")
-    grouprole = discord.utils.get(server.roles, name = "The Switchlings")
-    welcomechat = discord.utils.get(server.channels, name = "welcome")
-    swifflingbotchat = discord.utils.get(server.channels, name = "swifflingbotchat")
-    warningschat = discord.utils.get(server.channels, name = "warnings")
-    api = twitter.Api(
-        consumer_key=TCK,
-        consumer_secret=TCS,
-        access_token_key=TATC,
-        access_token_secret=TATS)
-    t = api.GetUserTimeline(screen_name="splatoon2maps", count=3)
-    tweets = [i.AsDict() for i in t]
+    sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
+    person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
+    await sbschat.send("{} Online!".format(client.user.mention))
+    global successful_extensions, failed_extensions
+    if successful_extensions!=[]:
+        for x in successful_extensions:
+            await sbschat.send("Successfully loaded {}.py".format(x))
+    if failed_extensions!=[]:
+        for x in failed_extensions:
+            await sbschat.send("""{} Failed to load {}.py
+```{}: {}```""".format(person.mention, x[0], x[1], x[2]))
+                
 starttime = time.time()
 
 @client.event
@@ -114,19 +111,29 @@ async def on_message(message):
         for word in badwords1:
             if word in (q.lower()) and message.author != bot:#and noexception:
                 await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
+                sbcchat = (client.get_guild(413357189931991060)).get_channel(456769518753021963)
+                await sbcchat.send("{}: {}".format(message.author, message.content))
                 await message.delete()
                 return
         for word in badwords2:
             if word in (q.lower()) and message.author != bot:# and noexception:
                 await message.channel.send("{}, Please don't joke about sensitive topics. It could lead to a perm ban. If you're serious about this, don't hesitate to DM a Switchling and they can help you.".format(message.author.mention))
+                sbcchat = (client.get_guild(413357189931991060)).get_channel(456769518753021963)
+                await sbcchat.send("{}: {}".format(message.author, message.content))
                 await message.delete()
                 return
     noservercommands=["s.mute","s.unmute","s.kick","s.ban","s.timeout","s.lockdown","s.open","s.test","s.leave","s.join","s.prune"]
     if message.content.split(" ")[0] in noservercommands and message.guild!=server:
         await message.channel.send("Those commands can only be used in **Switchlings Plaza!**")
         return
-    await client.process_commands(message)
-    return
+    try:
+        await client.process_commands(message)
+    except Exception as e:
+        sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
+        await sbschat.send("{}: {}\n{}: {}".format(type(e).__name__,e,message.author, message.content))
+    
+        
+        
          
 @client.event
 async def on_member_remove(member):
@@ -169,8 +176,10 @@ if __name__ == "__main__":
     for extension in startup_extensions:
         try:
             client.load_extension(extension)
+            successful_extensions.append(extension)
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
+            failed_extensions.append([extension, (type(e).__name__), e])
             print('Failed to load extension {}\n{}'.format(extension, exc))
 
     client.loop.create_task(KeepAwake())

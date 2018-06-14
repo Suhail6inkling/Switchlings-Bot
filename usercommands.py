@@ -102,7 +102,7 @@ For a full documentation please visit http://bit.ly/SwitchlingsBot""")
 
 
     @commands.command(pass_context=True)
-    async def randomchoice(self, ctx, options: str):
+    async def randomchoice(self, ctx, *, options: str):
         options = options.split(", ")
         await ctx.send("**{}**".format(random.choice(options)))
 
