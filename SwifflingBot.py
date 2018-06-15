@@ -101,7 +101,6 @@ sheet = client.open("Switchlings Bot Profile").sheet1
 values=["ID", "Friend Code","Gender & Species","Skin Colour","Eye Colour","Hairstyle","Trousers","Weapon","Level","Splat Zone Rank","Tower Control Rank","Rainmaker Rank","Clam Blitz Rank","Hat Main","Hat Sub 1","Hat Sub 2","Hat Sub 3","Shirt Main","Shirt Sub 1","Shirt Sub 2","Shirt Sub 3","Shoes Main","Shoes Sub 1","Shoes Sub 2","Shoes Sub 3"]
 sheet.insert_row(values,index=1)
 for x in people:
-    x = list[x]
     sheet.appendrow(x)
 
 
