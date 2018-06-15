@@ -441,8 +441,7 @@ please ensure you are aware whether DST is active or not.)""".format(description
             people = gsheets.read()
             for x in people:
                 if x["ID"] == member:
-                    personlist = x
-            await ctx.send(personlist)            
+                    personlist = x       
             embed = discord.Embed(title = person.name, description="""
 **Friend Code:** {}
 
