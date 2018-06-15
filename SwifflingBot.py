@@ -103,8 +103,7 @@ sheet.insert_row(values,index=1)
 a = []
 for x in people:
     v = []
-    i = people[x]
-    j = list[i]
+    j = list[x]
     for y in range(0, len(j)):
         v.append(str(people[x][y]))
     a.append(v)
