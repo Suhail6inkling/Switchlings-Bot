@@ -4,7 +4,7 @@ import asyncio
 import random
 import json
 import time
-import sql
+import gsheets
 import twitter
 from urllib.request import Request
 from urllib.request import urlopen
@@ -29,6 +29,9 @@ ranks = ["C-","C","C+","B-","B","B+","A-","A","A+","S","S+0","S+1","S+2","S+3","
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 global people
 from SwifflingBot import people
+
+
+
 
 
 def salmonem(endingmessage, day, hour, minute, second):
@@ -434,130 +437,114 @@ please ensure you are aware whether DST is active or not.)""".format(description
             else:
                 person = ctx.message.mentions[0]
             member = person.id
-            global people
+            gsheets.open()
+            people = gsheets.read()
             for x in people:
-                if x[0] == member:
+                if x["ID"] == member:
                     personlist = x
             embed = discord.Embed(title = person.name, description="""
-**Friend Code:** {}
+**Friend Code:** {personlist["Friend Code"]}
 
-**Gender & Species:** {}
-**Skin Colour:** {}
-**Eye Colour:** {}
-**Hairstyle:** {}
-**Trousers:** {}
+**Gender & Species:** {personlist["Gender & Species"]}
+**Skin Colour:** {personlist["Skin Colour"]}
+**Eye Colour:** {personlist["Eye Colour"]}
+**Hairstyle:** {personlist["Hairstyle"]}
+**Trousers:** {personlist["Trousers"]}
 
-**WEAPON:** {}
+**WEAPON:** {personlist["Weapon"]}
 
 **STATS**
-*Level:* {}
-*Splat Zone Rank:* {}
-*Tower Control Rank:* {}
-*Rainmaker Rank:* {}
-*Clam Blitz Rank:* {}
+*Level:* {personlist["Level"]}
+*Splat Zone Rank:* {personlist["Splat Zone Rank"]}
+*Tower Control Rank:* {personlist["Tower Control Rank"]}
+*Rainmaker Rank:* {personlist["Rainmaker Rank"]}
+*Clam Blitz Rank:* {personlist["Clam Blitz Rank"]}
 
 **HAT**
-{}
-Main: {}
-*Sub1:* {}
-*Sub2:* {}
-*Sub3:* {}
+{personlist["Hat"]}
+Main: {personlist["Hat Main"]}
+*Sub1:* {personlist["Hat Sub 1"]}
+*Sub2:* {personlist["Hat Sub 2"]}
+*Sub3:* {personlist["Hat Sub 3"]}
 
 **SHIRT**
-{}
-Main: {}
-*Sub1:* {}
-*Sub2:* {}
-*Sub3:* {}
+{personlist["Shirt"]}
+Main: {personlist["Shirt Main"]}
+*Sub1:* {personlist["Shirt Sub 1"]}
+*Sub2:* {personlist["Shirt Sub 2"]}
+*Sub3:* {personlist["Shirt Sub 3"]}
 
 **SHOES**
-{}
-Main: {}
-*Sub1:* {}
-*Sub2:* {}
-*Sub3:* {}""".format(personlist[1],personlist[2],personlist[3],personlist[4],personlist[5],personlist[6],personlist[7],personlist[8],personlist[9],personlist[10],personlist[11],personlist[12],personlist[13],personlist[14],personlist[15],personlist[16],personlist[17],personlist[18],personlist[19],personlist[20],personlist[21],personlist[22],personlist[23],personlist[24],personlist[25],personlist[26],personlist[27]))
+{personlist["Shoes"]}
+Main: {personlist["Shoes Main"]}
+*Sub1:* {personlist["Shoes Sub 1"]}
+*Sub2:* {personlist["Shoes Sub 2"]}
+*Sub3:* {personlist["Shoes Sub 3"]}""")
             await ctx.send(embed=embed)
             
     @commands.command(pass_context=True)
     async def set(self, ctx, varchar, *, variable):
         member = ctx.author.id
-        global people
+        gsheets.open()
+        people = gsheets.read()
         for x in people:
-            if x[0] == member:
+            if x["ID"] == member:
                 personlist = x
         if varchar in sqlstuff:
             if varchar == "hat":
                 if variable in hats:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET hat=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+    
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("This hat doesn't exist. Please look online for the list of headgear. If this item is new or is spelt incorrectly, please contact Suhail6inkling")
             elif varchar == "switchcode":
                 if variable.startswith("SW-") and len(variable)==17:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET switchcode=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("Please put your switch code in the format `SW-xxxx-xxxx-xxxx`.")
             elif varchar == "shirt":
                 if variable in shirts:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET shirt=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("This shirt doesn't exist. Please look online for the list of clothing. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
             elif varchar == "shoes":
                 if variable in shoes:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET shoes=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("These shoes don't exist. Please look online for the list of footwear. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
             elif varchar == "gender":
                 if variable in genders:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET gender=%s WHERE id=%s",(variable,member))
-                    cur.execute("UPDATE people SET hairstyle=%s WHERE id=%s",(None,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That gender doesn't exist!")
             elif varchar == "eyecolour":
                 if variable in eyecolours:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET eyecolour=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That isn't an eye colour!")
             elif varchar == "hairstyle":
-                if personlist[2]==None or personlist[2]=="None":
+                if personlist["Gender & Species"]==None or personlist["Gender & Species"]=="None":
                     await ctx.send("Choose a gender first!")
                 elif variable in hairstyles[personlist[2]]:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET hairstyle=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("Your gender doesn't have that hairstyle or that hairstyle doesn't exist!")
             elif varchar == "skincolour":
                 if variable in skincolours:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET skincolour=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That isn't a skin colour!")
             elif varchar == "weapon":
                 if variable in weapons:
-                    cur = sql.open()
-                    cur.execute("UPDATE people SET weapon=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That weapon doesn't exist!")
@@ -565,73 +552,35 @@ Main: {}
                 await ctx.send("WIP")
             elif varchar == "level":
                 try:
-                    if int(variable) > 0  and int(variable) < 100:
-                        cur = sql.open()
-                        cur.execute("UPDATE people SET level=%s WHERE id=%s",(int(variable),member))
-                        sql.close()
+                    if int(variable) > 0  and int(variable) < 200:
+                        gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                         await ctx.message.add_reaction("✅")
                     else:
                         await ctx.send("Levels don't go up that high/low!")
                 except:
-                    await ctx.send("Please input a number")
+                    await ctx.send("Please input a number (for prestige, input a number between 100-200)")
             elif varchar in rankmodes:
                 if variable in ranks:
-                    cur = sql.open()
-                    if varchar == "sz":
-                        cur.execute("UPDATE people SET sz=%s WHERE id=%s",(variable,member))
-                    elif varchar=="tc":
-                        cur.execute("UPDATE people SET tc=%s WHERE id=%s",(variable,member))
-                    elif varchar=="rm":
-                        cur.execute("UPDATE people SET rm=%s WHERE id=%s",(variable,member))
-                    elif varchar=="cb":
-                        cur.execute("UPDATE people SET cb=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That's not a valid rank!")
             elif varchar.endswith("main"):
                 if variable in abilities:
-                    cur = sql.open()
-                    if varchar == "hatmain":
-                        cur.execute("UPDATE people SET hatmain=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shirtmain":
-                        cur.execute("UPDATE people SET shirtmain=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shoesmain":
-                        cur.execute("UPDATE people SET shoesmain=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That ability doesn't exist!")
             else:
                 if variable in subs:
-                    cur = sql.open()
-                    if varchar == "hatsub1":
-                        cur.execute("UPDATE people SET hatsub1=%s WHERE id=%s",(variable,member))
-                    elif varchar == "hatsub2":
-                        cur.execute("UPDATE people SET hatsub2=%s WHERE id=%s",(variable,member))
-                    elif varchar == "hatsub3":
-                        cur.execute("UPDATE people SET hatsub3=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shirtsub1":
-                        cur.execute("UPDATE people SET shirtsub1=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shirtsub2":
-                        cur.execute("UPDATE people SET shirtsub2=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shirtsub3":
-                        cur.execute("UPDATE people SET shirtsub3=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shoessub1":
-                        cur.execute("UPDATE people SET shoessub1=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shoessub2":
-                        cur.execute("UPDATE people SET shoessub2=%s WHERE id=%s",(variable,member))
-                    elif varchar == "shoessub3":
-                        cur.execute("UPDATE people SET shooesub3=%s WHERE id=%s",(variable,member))
-                    sql.close()
+                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That ability doesn't exist or is restricted to the first slot only!")
         else:
             await ctx.send("That's not a variable you can change!")
-        sql.open()
-        people = sql.read()
-        sql.close()
+        gsheets.open()
+        people = gsheets.read()
             
         
 
@@ -650,11 +599,11 @@ Main: {}
             member = person.id
             global people
             for x in people:
-                if x[0] == member:
+                if x["ID"] == member:
                     personlist = x
-            if personlist[1] is None:
-                await ctx.send("{} have not entered {} FC.".format(pronouna,pronoun))
+            if personlist["Friend Code"] is None or personlist["Friend Code"] == "None":
+                await ctx.send("{} have not entered {} FC.".format(pronouna,pronoun.lower()))
             else:
-                await ctx.send("{} FC is {}".format(pronoun,personlist[1]))
+                await ctx.send("{} FC is {}".format(pronoun,personlist["Friend Code"]))
 def setup(client):
     client.add_cog(SplatoonCommands(client))

@@ -6,7 +6,7 @@ from discord.ext import commands
 import asyncio, random, os, time#, psycopg2
 import urllib.parse as urlparse
 import twitter
-import sql
+import gsheets
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
@@ -75,9 +75,8 @@ shoessub3"""
 #cur = sql.open()
 #cur.execute("INSERT INTO people (id) VALUES (%s)",[320366423052386334])
 #sql.close()
-sql.open()
-people = sql.read()
-sql.close()
+gsheets.open()
+people = gsheets.read()
 
 
 async def onlinestuff():
@@ -99,17 +98,6 @@ creds = SAC.from_json_keyfile_name("SwifflingBot.json", scope)
 cliente = gspread.authorize(creds)
 sheet = cliente.open("Switchlings Bot Profile").sheet1
 values=["ID", "Friend Code","Gender & Species","Skin Colour","Eye Colour","Hairstyle","Trousers","Weapon","Level","Splat Zone Rank","Tower Control Rank","Rainmaker Rank","Clam Blitz Rank","Hat Main","Hat Sub 1","Hat Sub 2","Hat Sub 3","Shirt Main","Shirt Sub 1","Shirt Sub 2","Shirt Sub 3","Shoes Main","Shoes Sub 1","Shoes Sub 2","Shoes Sub 3"]
-
-a = people[199]
-for x in a:
-    x = str(x)
-sheet.append_row(a)
-a = people[200]
-for x in a:
-    x = str(x)
-
-
-
 
         
 starttime = time.time()
@@ -167,9 +155,12 @@ async def on_member_remove(member):
         avatar = member.avatar_url_as(format="jpg",size=512)
         embed.set_thumbnail(url=avatar)
         await swifflingbotchat.send(embed=embed)
-        cur = sql.open()
-        cur.execute("DELETE FROM people WHERE id = (%s)",[member.id])
-        sql.close()
+        gsheets.open()
+        people = gsheets.read()
+        for x in people:
+            if x["ID"] = member.id:
+                personlist = x
+        gsheets.delrow(personlist["Place in Queue"])
 
 @client.event
 async def on_member_join(member):
@@ -184,9 +175,10 @@ async def on_member_join(member):
         avatar = member.avatar_url_as(format="jpg",size=512)
         embed.set_thumbnail(url=avatar) 
         await swifflingbotchat.send(embed=embed)
-        cur = sql.open()
-        cur.execute("INSERT INTO people (id) VALUES (%s)",[member.id])
-        sql.close()
+        values = [member.id]
+        for x in range(0, 28):
+            values.append("None")
+        gsheets.addrow(values)
     
 
 async def KeepAwake():
