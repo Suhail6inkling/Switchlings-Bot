@@ -158,7 +158,7 @@ async def on_member_remove(member):
         gsheets.open()
         people = gsheets.read()
         for x in people:
-            if x["ID"] = member.id:
+            if x["ID"] == member.id:
                 personlist = x
         gsheets.delrow(personlist["Place in Queue"])
 
