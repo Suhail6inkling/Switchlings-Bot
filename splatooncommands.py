@@ -443,43 +443,43 @@ please ensure you are aware whether DST is active or not.)""".format(description
                 if x["ID"] == member:
                     personlist = x
             embed = discord.Embed(title = person.name, description="""
-**Friend Code:** {personlist["Friend Code"]}
+**Friend Code:** {["Friend Code"]}
 
-**Gender & Species:** {personlist["Gender & Species"]}
-**Skin Colour:** {personlist["Skin Colour"]}
-**Eye Colour:** {personlist["Eye Colour"]}
-**Hairstyle:** {personlist["Hairstyle"]}
-**Trousers:** {personlist["Trousers"]}
+**Gender & Species:** {["Gender & Species"]}
+**Skin Colour:** {["Skin Colour"]}
+**Eye Colour:** {["Eye Colour"]}
+**Hairstyle:** {["Hairstyle"]}
+**Trousers:** {["Trousers"]}
 
-**WEAPON:** {personlist["Weapon"]}
+**WEAPON:** {["Weapon"]}
 
 **STATS**
-*Level:* {personlist["Level"]}
-*Splat Zone Rank:* {personlist["Splat Zone Rank"]}
-*Tower Control Rank:* {personlist["Tower Control Rank"]}
-*Rainmaker Rank:* {personlist["Rainmaker Rank"]}
-*Clam Blitz Rank:* {personlist["Clam Blitz Rank"]}
+*Level:* {["Level"]}
+*Splat Zone Rank:* {["Splat Zone Rank"]}
+*Tower Control Rank:* {["Tower Control Rank"]}
+*Rainmaker Rank:* {["Rainmaker Rank"]}
+*Clam Blitz Rank:* {["Clam Blitz Rank"]}
 
 **HAT**
-{personlist["Hat"]}
-Main: {personlist["Hat Main"]}
-*Sub1:* {personlist["Hat Sub 1"]}
-*Sub2:* {personlist["Hat Sub 2"]}
-*Sub3:* {personlist["Hat Sub 3"]}
+{["Hat"]}
+Main: {["Hat Main"]}
+*Sub1:* {["Hat Sub 1"]}
+*Sub2:* {["Hat Sub 2"]}
+*Sub3:* {["Hat Sub 3"]}
 
 **SHIRT**
-{personlist["Shirt"]}
-Main: {personlist["Shirt Main"]}
-*Sub1:* {personlist["Shirt Sub 1"]}
-*Sub2:* {personlist["Shirt Sub 2"]}
-*Sub3:* {personlist["Shirt Sub 3"]}
+{["Shirt"]}
+Main: {["Shirt Main"]}
+*Sub1:* {["Shirt Sub 1"]}
+*Sub2:* {["Shirt Sub 2"]}
+*Sub3:* {["Shirt Sub 3"]}
 
 **SHOES**
-{personlist["Shoes"]}
-Main: {personlist["Shoes Main"]}
-*Sub1:* {personlist["Shoes Sub 1"]}
-*Sub2:* {personlist["Shoes Sub 2"]}
-*Sub3:* {personlist["Shoes Sub 3"]}""")
+{["Shoes"]}
+Main: {["Shoes Main"]}
+*Sub1:* {["Shoes Sub 1"]}
+*Sub2:* {["Shoes Sub 2"]}
+*Sub3:* {["Shoes Sub 3"]}""".format(personlist))
             await ctx.send(embed=embed)
             
     @commands.command(pass_context=True)
