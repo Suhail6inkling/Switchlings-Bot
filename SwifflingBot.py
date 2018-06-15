@@ -1,6 +1,6 @@
 import discord
 import gspread
-from oath2client.service_account import ServiceAccountCredentials as SAC
+from oauth2client.service_account import ServiceAccountCredentials as SAC
 from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, os, time#, psycopg2
