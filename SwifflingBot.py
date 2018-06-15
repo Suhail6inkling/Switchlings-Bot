@@ -107,7 +107,7 @@ for x in people:
     for y in range(0, len(x)):
         v.append(str(x[y]))
     a.append(v)
-for x in range(100,200):
+for x in range(200,len(people)):
     sheet.append_row(a[x])
 
 
