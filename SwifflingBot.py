@@ -1,4 +1,6 @@
 import discord
+import gspread
+from oath2clientservice_account import ServiceAccountCredentials as SAC
 from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio, random, os, time#, psycopg2
@@ -90,7 +92,21 @@ async def onlinestuff():
         for x in failed_extensions:
             await sbschat.send("""{} Failed to load {}.py
 ```{}: {}```""".format(person.mention, x[0], x[1], x[2]))
-                
+
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+creds = SAC.from_json_keyfile_name("SwifflingBot.json", scope)
+client = gspread.authorize(creds)
+sheet = client.open("Switchlings Bot Profile").sheet1
+values=["ID", "Friend Code","Gender & Species","Skin Colour","Eye Colour","Hairstyle","Trousers","Weapon","Level","Splat Zone Rank","Tower Control Rank","Rainmaker Rank","Clam Blitz Rank","Hat Main","Hat Sub 1","Hat Sub 2","Hat Sub 3","Shirt Main","Shirt Sub 1","Shirt Sub 2","Shirt Sub 3","Shoes Main","Shoes Sub 1","Shoes Sub 2","Shoes Sub 3"]
+sheet.insert_row(values,index=1)
+for x in people:
+    x = list[x]
+    sheet.appendrow(x)
+
+
+
+        
 starttime = time.time()
 
 @client.event
