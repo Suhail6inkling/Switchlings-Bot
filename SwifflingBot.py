@@ -96,19 +96,17 @@ async def onlinestuff():
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 creds = SAC.from_json_keyfile_name("SwifflingBot.json", scope)
-client = gspread.authorize(creds)
-sheet = client.open("Switchlings Bot Profile").sheet1
+cliente = gspread.authorize(creds)
+sheet = cliente.open("Switchlings Bot Profile").sheet1
 values=["ID", "Friend Code","Gender & Species","Skin Colour","Eye Colour","Hairstyle","Trousers","Weapon","Level","Splat Zone Rank","Tower Control Rank","Rainmaker Rank","Clam Blitz Rank","Hat Main","Hat Sub 1","Hat Sub 2","Hat Sub 3","Shirt Main","Shirt Sub 1","Shirt Sub 2","Shirt Sub 3","Shoes Main","Shoes Sub 1","Shoes Sub 2","Shoes Sub 3"]
-sheet.insert_row(values,index=1)
-a = []
-print(len(people))
-for x in people:
-    v = []
-    for y in range(0, len(x)):
-        v.append(str(x[y]))
-    a.append(v)
-for x in range(200,len(people)):
-    sheet.append_row(a[x])
+
+a = people[199]
+for x in a:
+    x = str(x)
+sheet.append_row(a)
+a = people[200]
+for x in a:
+    x = str(x)
 
 
 
