@@ -1,4 +1,4 @@
-import asyncio, random, os, gpsread, discord
+import asyncio, random, os, gspread, discord
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 
 def open():
