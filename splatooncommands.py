@@ -480,11 +480,11 @@ Main: {}
 Main: {}
 *Sub1:* {}
 *Sub2:* {}
-*Sub3:* {}""".format(personlist["Friend Code"],personlist["Gender & Species"],personlist["Skin Colour"],personlist["Eye Colour",personlist["Hairstyle"],personlist["Trousers"],personlist["Weapon"],
+*Sub3:* {}""".format(personlist["Friend Code"],personlist["Gender & Species"],personlist["Skin Colour"],personlist["Eye Colour"],personlist["Hairstyle"],personlist["Trousers"],personlist["Weapon"],
                    personlist["Level"],personlist["Splat Zone Rank"],personlist["Tower Control Rank"],personlist["Rainmaker Rank"],personlist["Clam Blitz Rank"],
                    personlist["Hat"],personlist["Hat Main"],personlist["Hat Sub 1"],personlist["Hat Sub 2"],personlist["Hat Sub 3"],
                    personlist["Shirt"],personlist["Shirt Main"],personlist["Shirt Sub 1"],personlist["Shirt Sub 2"],personlist["Shirt Sub 3"],
-                   personlist["Shoes"],personlistp"Shoes Main"], personlist["Shoes Sub 1"],personlist["Shoes Sub 2"],personlist["Shoes Sub 3"]))
+                   personlist["Shoes"],personlist["Shoes Main"], personlist["Shoes Sub 1"],personlist["Shoes Sub 2"],personlist["Shoes Sub 3"]))
             await ctx.send(embed=embed)
             
     @commands.command(pass_context=True)
