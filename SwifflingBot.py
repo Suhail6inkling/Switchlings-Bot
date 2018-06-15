@@ -105,7 +105,7 @@ for x in people:
     v = []
     i = people[x]
     j = list[i]
-    for y in range(0, len(j):
+    for y in range(0, len(j)):
         v.append(str(people[x][y]))
     a.append(v)
 for x in range(0,100):
