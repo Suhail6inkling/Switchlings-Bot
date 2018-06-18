@@ -37,7 +37,7 @@ shoes = ["Acerola Rain Boots","Amber Sea Slug Hi-Tops","Angry Rain Boots","Annak
 newshoes = ["Neo Octoling Boots","Null Boots Replica","Old-Timey Shoes"]
 
 for shoe in newshoes:
-    shoes.appned(shoes)
+    shoes.append(shoes)
 
 
 mains = ["Comeback","Last-Ditch Effort","Opening Gambit","Tenacity","Ability Doubler","Haunt","Ninja Squid","Respawn Punisher","Thermal Ink","Drop Roller","Object Shredder","Stealth Jump"]
