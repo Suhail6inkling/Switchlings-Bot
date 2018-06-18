@@ -16,6 +16,14 @@ def lenrows():
     return sheet.row_count
 
 
+def redoplaceinqueue():
+    global sheet
+    for x in range(0,lenrows()):
+        placebat="{}{}".format("A",str(x))
+        sheet.update_acell(placebat,str(x))
+        
+
+
 def updatecell(varchar, place: str, variable):
     global sheet
     listie = {"switchcode" : "C", "gender" : "D", "skincolour" : "E", "eyecolour" : "F", "hairstyle": "G", "trousers": "H", "weapon": "I", "level": "J", "sz": "K", "tc": "L", "rm": "M", "cb": "N",

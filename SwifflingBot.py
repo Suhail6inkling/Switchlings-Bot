@@ -161,6 +161,7 @@ async def on_member_remove(member):
             if x["ID"] == member.id:
                 personlist = x
         gsheets.delrow(personlist["Place in Queue"])
+        gsheets.redoplaceinqueue()
 
 @client.event
 async def on_member_join(member):
