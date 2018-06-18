@@ -346,9 +346,10 @@ Turf War
 
     @commands.command(pass_context=True)
     async def salmon(self, ctx, choice="UTC"):
-        timezones = {"UTC": 0, "BST": 3600, "PDT": -25200, "EDT": -14400, "CET": 3600, "PST": -28800, "EST": -18000, "CEST": 7200}
-        number = timezones[choice]
-        if number is None:
+        timezones = {"GMT": 0,"UTC": 0, "BST": 3600, "PDT": -25200, "EDT": -14400, "CET": 3600, "PST": -28800, "EST": -18000, "CEST": 7200}
+        try:
+            number = timezones[choice]
+        except:
             choice = "UTC"
             number = timezones[choice]
         req = Request(salmonurl, headers={'User-Agent': 'Mozilla/5.0'})
@@ -356,7 +357,8 @@ Turf War
         webpage = web_byte.decode("utf-8")
         salmonrun = json.loads(webpage)
         salmonruna = salmonrun["details"]
-        for x in salmonruna:
+        for y in range(0,3):
+            x = salmonruna[y]
             starttime = x["start_time"]
             endtime = x["end_time"]
             stage = x["stage"]["name"]
@@ -364,7 +366,7 @@ Turf War
             weapons=[]
             for y in x["weapons"]:
                 try:
-                    weapons.append(y["name"])
+                    weapons.append(y["weapon"]["name"])
                 except:
                     weapons.append("Random")
             starttime_relative = starttime-timenow
