@@ -175,7 +175,8 @@ async def on_member_join(member):
         avatar = member.avatar_url_as(format="jpg",size=512)
         embed.set_thumbnail(url=avatar) 
         await swifflingbotchat.send(embed=embed)
-        values = [member.id]
+        gsheets.open()
+        values = [gsheets.lenrows(),str(member.id)]
         for x in range(0, 28):
             values.append("None")
         gsheets.addrow(values)

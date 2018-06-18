@@ -12,6 +12,10 @@ def open():
 def read():
     return sheet.get_all_records()
 
+def lenrows():
+    return sheet.row_count
+
+
 def updatecell(varchar, place: str, variable):
     global sheet
     listie = {"switchcode" : "C", "gender" : "D", "skincolour" : "E", "eyecolour" : "F", "hairstyle": "G", "trousers": "H", "weapon": "I", "level": "J", "sz": "K", "tc": "L", "rm": "M", "cb": "N",
