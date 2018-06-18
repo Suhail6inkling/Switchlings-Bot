@@ -557,7 +557,7 @@ Main: {}
             elif varchar == "hairstyle":
                 if personlist["Gender & Species"]==None or personlist["Gender & Species"]=="None":
                     await ctx.send("Choose a gender first!")
-                elif variable in hairstyles[personlist[2]]:
+                elif variable in hairstyles[personlist["Gender & Species"]]:
                     gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
