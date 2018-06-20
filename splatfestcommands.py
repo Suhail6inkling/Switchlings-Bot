@@ -48,16 +48,17 @@ jp -> Japan""")
         allmodes = json.loads(webpage)
         splatfest = allmodes[region]["festivals"][0]
         timenow = time.time()
-        if splatfest["end-time"] < timenow:
+        if splatfest["times"]["end"] < timenow:
             await ctx.send("There are no upcoming Splatfests for this region")
             return
-        if splatfest["start-time"] < timenow:
+        if splatfest["times"]["start"] < timenow:
             beg = "Now"
         else:
             beg = ""
     
-        starttime = splatfest["start-time"]
-        endtime = splatfest["end-time"]
+        starttime = splatfest["times"]["start"]
+        endtime = splatfest["times"]["end"]
+        results = splatfest["times"]["result"]
         alphashort = splatfest["alpha-short"]
         bravoshort = splatfest["bravo-short"]
         alphalong = splatfest["alpha-long"]
@@ -91,17 +92,26 @@ NOW"""
 START TIME:"""
             for x in regiontimezones[region]:
                 timestructure = "%d %b %H:%M:00 {}".format(x[0])
-                starttime = time.strftime(timestructure,time.gmtime(starttime+x[1]))
+                start_converted = time.strftime(timestructure,time.gmtime(starttime+x[1]))
                 description="""{}
-{}""".format(description,starttime)
+{}""".format(description,start_converted)
         description="""{}
        
 END TIME:""".format(description)
         for x in regiontimezones[region]:
            timestructure = "%d %b %H:%M:00 {}".format(x[0])
-           endtime = time.strftime(timestructure,time.gmtime(starttime+x[1]))
+           end_converted = time.strftime(timestructure,time.gmtime(endtime+x[1]))
            description="""{}
-{}""".format(description,starttime)
+        
+{}""".format(description,end_converted)
+        description="""{}
+       
+RESULTS:""".format(description)
+        for x in regiontimezones[region]:
+           timestructure = "%d %b %H:%M:00 {}".format(x[0])
+           results_converted = time.strftime(timestructure,time.gmtime(results+x[1]))
+           description="""{}
+{}""".format(description,results_converted)
         embed = discord.Embed(title="Timings",description=description,colour=middlehex)
         embed.set_thumbnail(url=mainimage)
         await ctx.send(embed=embed)
