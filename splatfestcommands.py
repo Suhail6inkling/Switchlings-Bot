@@ -120,7 +120,7 @@ class SplatfestCommands():
         for x in range(1,lenalpha):
             aformat+=" "
         bformat= str(bravocount)
-        for x in rage(1,lenbravo):
+        for x in range(1,lenbravo):
             bformat+=" "
         tableformat6 = "{}        {}        {}".format(alphacount,"   Total  ",bravocount)
         description = "{}\n{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(tableformat1,tableformat2,tableformat3,tableformat4,tableformat5,tableformat6,winner)
