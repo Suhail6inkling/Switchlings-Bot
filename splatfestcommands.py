@@ -21,7 +21,7 @@ def hexcolor(colourdict):
     b255 = b*255
 
     hexnumber = (r255*(16**4))+(g255*(16**2))+b255
-    return int(hex(int(hexnumber)))
+    return int(hex(int(hexnumber)),16)
 
 
 
