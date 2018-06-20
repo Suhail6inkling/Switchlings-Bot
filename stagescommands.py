@@ -314,7 +314,7 @@ Turf War
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
-        oneofeach = [allmodes["regular"][1],allmodes["gachi"][q],allmodes["league"][1]]
+        oneofeach = [allmodes["regular"][1],allmodes["gachi"][1],allmodes["league"][1]]
         battlename = ["Regular Battle","Ranked Battle","League Battle"]
         colours = [0x19D619,0xF44910,0xEE2D7C]
         urls=["https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png","https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png","https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png"]
