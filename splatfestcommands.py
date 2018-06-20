@@ -61,7 +61,7 @@ jp -> Japan""")
         middlehex = hexcolor(splatfest["colors"]["middle"])
         mainimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["panel"])
         results = allmodes[region]["results"]
-        ourresult = [d for d in results in d["festival_id"]==eyedee
+        ourresult = [d for d in results in d["festival_id"]==eyedee]
         if ourresult==[]:
             await ctx.send("There was an error processing your request")
             return
