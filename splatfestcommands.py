@@ -99,7 +99,6 @@ class SplatfestCommands():
         bformat = ourresult["rates"]["vote"]["bravo"]
         for x in range(4,lenbravo):
             bformat+=" "
-        for x in range()
         tableformat3 = "{}        {}        {}".format(aformat,"Popularity",bformat)
         
         aformat = ourresult["rates"]["solo"]["alpha"]
