@@ -67,10 +67,10 @@ class SplatfestCommands():
                     if x != "total":
                         bravocount+=1
             description = "{desc}{a:20} {aas:5}-{bs:5} {b:20}\n".format(desc=description, a=alpha, aas=alphacount,bs=bravocount,b=bravo)
-       description="{}`".format(description)
-       embed = discord.Embed(title="Recent Splatfests",colour=0x2d6092,description=description)
-       embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/thumb/9/9a/S2_Splatfest_Logo.svg/512px-S2_Splatfest_Logo.svg.png")
-       await ctx.send(embed=embed)
+        description="{}`".format(description)
+        embed = discord.Embed(title="Recent Splatfests",colour=0x2d6092,description=description)
+        embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/thumb/9/9a/S2_Splatfest_Logo.svg/512px-S2_Splatfest_Logo.svg.png")
+        await ctx.send(embed=embed)
        
     @splatfest.command(pass_context=True)
     async def recent(self, ctx, region=""):
