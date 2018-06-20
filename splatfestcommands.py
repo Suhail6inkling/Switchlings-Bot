@@ -35,7 +35,7 @@ class SplatfestCommands():
     async def nextsplatfest(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]
-        if region = "" or region.lower() not in regions:
+        if region == "" or region.lower() not in regions:
             await ctx.send("""Please select either:
 na -> North America (& Oceania)
 eu -> Europe
@@ -48,21 +48,26 @@ jp -> Japan""")
         allmodes = json.loads(webpage)
         splatfest = allmodes[region]["festivals"][0]
         timenow = time.time()
-        if splatfest["start-time"] < timenow:
+        if splatfest["end-time"] < timenow:
             await ctx.send("There are no upcoming Splatfests for this region")
+            return
+        if splatfest["start-time"] < timenow:
+            beg = "Now"
         else:
-            starttime = splatfest["start-time"]
-            endtime = splatfest["end-time"]
-            alphashort = splatfest["alpha-short"]
-            bravoshort = splatfest["bravo-short"]
-            alphalong = splatfest["alpha-long"]
-            bravolong = splatfest["bravo-long"]
-            alphahex = hexcolor[splatfest["colours"]["alpha"]]
-            bravohex = hexcolor[splatfest["colours"]["bravo"]]
-            middlehex = hexcolor[splatfest["colours"]["middle"]]
-            alphaimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["alpha"])
-            bravoimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["bravo"])
-            mainimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["panel"])
+            beg = ""
+    
+        starttime = splatfest["start-time"]
+        endtime = splatfest["end-time"]
+        alphashort = splatfest["alpha-short"]
+        bravoshort = splatfest["bravo-short"]
+        alphalong = splatfest["alpha-long"]
+        bravolong = splatfest["bravo-long"]
+        alphahex = hexcolor[splatfest["colours"]["alpha"]]
+        bravohex = hexcolor[splatfest["colours"]["bravo"]]
+        middlehex = hexcolor[splatfest["colours"]["middle"]]
+        alphaimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["alpha"])
+        bravoimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["bravo"])
+        mainimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["panel"])
         embed = discord.Embed(title="Alpha Team",description="""
         
 TEAM {}
@@ -78,13 +83,16 @@ TEAM {}
 {}""".format(bravoshort,bravolong),colour=bravohex)
        embed.set_thumbnail(url=bravoimage)
        await ctx.send(embed=embed)
-
-       description = """
+       if beg == "Now":
+           description = """START TIME:
+NOW""""
+       else:
+            description = """
 START TIME:"""
-       for x in regiontimezones[region]:
-           timestructure = "%d %b %H:%M:00 {}".format(x[0])
-           starttime = time.strftime(timestructure,time.gmtime(starttime+x[1]))
-           description="""{}
+            for x in regiontimezones[region]:
+                timestructure = "%d %b %H:%M:00 {}".format(x[0])
+                starttime = time.strftime(timestructure,time.gmtime(starttime+x[1]))
+                description="""{}
 {}""".format(description,starttime)
        description="""{}
        
@@ -100,4 +108,6 @@ END TIME:""".format(description)
            
 
 
-                
+def setup(client):
+    client.add_cog(SplatfestCommands(client))
+                    

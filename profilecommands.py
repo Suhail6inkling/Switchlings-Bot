@@ -241,4 +241,4 @@ Main: {}
             else:
                 await ctx.send("{} FC is {}".format(pronoun,personlist["Friend Code"]))
 def setup(client):
-    client.add_cog(SplatoonCommands(client))
+    client.add_cog(ProfileCommands(client))
