@@ -78,18 +78,18 @@ class SplatfestCommands():
                     winner = bravoshort
         t = ourresult["rates"]
         if len(alphashort) < 5:
-            format = "%-5s        %-10s        %"
+            format = "{:{5}}        {:^20}}        {:>"
         else:
-            format = "%-{}s        %-10s        %".format(len(alphashort))
+            format = "{:{la}}        {:^20}}        {:>".format(la=len(alphashort))
         if len(bravoshort) < 5:
-            format = "{}-5s".format(format)
+            format = "{f}5}".format(f=format)
         else:
-            format = "{}-{}s".format(format,len(bravoshort))
-        t1 = format % (alphashort,"",bravoshort)
-        t2 = format % (str(float(t["vote"]["alpha"])/100),"Popularity",str(float(t["vote"]["bravo"])/100))
-        t3 = format % (str(float(t["solo"]["alpha"])/100),"Solo Wins",str(float(t["solo"]["bravo"])/100))
-        t4 = format % (str(float(t["team"]["alpha"])/100),"Team Wins",str(float(t["team"]["bravo"])/100))
-        t5 = format % (alphacount,"Total",bravocount)
+            format = "{f}{lb}}".format(f=format,lb=len(bravoshort))
+        t1 = format.format(alphashort,"",bravoshort)
+        t2 = format.format(str(float(t["vote"]["alpha"])/100),"Popularity",str(float(t["vote"]["bravo"])/100))
+        t3 = format.format(str(float(t["solo"]["alpha"])/100),"Solo Wins",str(float(t["solo"]["bravo"])/100))
+        t4 = format.format(str(float(t["team"]["alpha"])/100),"Team Wins",str(float(t["team"]["bravo"])/100))
+        t5 = format.format(alphacount,"Total",bravocount)
         
         description = "{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(t1,t2,t3,t4,t5,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
