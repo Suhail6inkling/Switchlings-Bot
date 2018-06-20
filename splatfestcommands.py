@@ -37,10 +37,7 @@ class SplatfestCommands():
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
-            await ctx.send("""Please select eitherL
-na -> North America (& Oceania)
-eu -> Europe
-jp -> Japan""")
+            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
             return
         region = region.lower()
         req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -61,7 +58,7 @@ jp -> Japan""")
         middlehex = hexcolor(splatfest["colors"]["middle"])
         mainimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["panel"])
         results = allmodes[region]["results"]
-        ourresult = [d for d in results in d["festival_id"]==eyedee]
+        ourresult = [d for d in results if d["festival_id"]==eyedee]
         if ourresult==[]:
             await ctx.send("There was an error processing your request")
             return
@@ -99,10 +96,7 @@ jp -> Japan""")
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
-            await ctx.send("""Please select either:
-na -> North America (& Oceania)
-eu -> Europe
-jp -> Japan""")
+            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
             return
         region = region.lower()
         req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -132,51 +126,32 @@ jp -> Japan""")
         alphaimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["alpha"])
         bravoimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["bravo"])
         mainimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["panel"])
-        embed = discord.Embed(title="Pearl's Team",description="""
-        
-TEAM {}
-
-{}""".format(alphashort, alphalong),colour=alphahex)
+        embed = discord.Embed(title="Pearl's Team",description="\n\nTEAM {}\n\n{}".format(alphashort, alphalong),colour=alphahex)
         embed.set_thumbnail(url=alphaimage)
         await ctx.send(embed=embed)
 
-        embed = discord.Embed(title="Marina's Team",description="""
-        
-TEAM {}
-       
-{}""".format(bravoshort,bravolong),colour=bravohex)
+        embed = discord.Embed(title="Marina's Team",description="\n\nTEAM {}\n\n{}".format(bravoshort,bravolong),colour=bravohex)
         embed.set_thumbnail(url=bravoimage)
         await ctx.send(embed=embed)
         if beg == "Now":
-           description = """START TIME:
-NOW"""
+           description = "START TIME:\nNOW"
         else:
-            description = """
-START TIME:"""
+            description = "START TIME:"
             for x in regiontimezones[region]:
                 timestructure = "%d %b %H:%M:00 {}".format(x[0])
                 start_converted = time.strftime(timestructure,time.gmtime(starttime+x[1]))
-                description="""{}
-{}""".format(description,start_converted)
-        description="""{}
-       
-END TIME:""".format(description)
+                description="{}\n{}".format(description,start_converted)
+        description="{}\n\nEND TIME:".format(description)
         for x in regiontimezones[region]:
            timestructure = "%d %b %H:%M:00 {}".format(x[0])
            end_converted = time.strftime(timestructure,time.gmtime(endtime+x[1]))
-           description="""{}
-{}""".format(description,end_converted)
-        description="""{}
-       
-RESULTS:""".format(description)
+           description="""{}\n{}""".format(description,end_converted)
+        description="""{}\n\nRESULTS:""".format(description)
         for x in regiontimezones[region]:
            timestructure = "%d %b %H:%M:00 {}".format(x[0])
            results_converted = time.strftime(timestructure,time.gmtime(results+x[1]))
-           description="""{}
-{}""".format(description,results_converted)
-        description = """{}
-
-(NOTE: Times may be 1 hr ahead due to Daylight Savings Time)""".format(description)
+           description="""{}\n{}""".format(description,results_converted)
+        description = """{}\n\n(NOTE: Times may be 1 hr ahead due to Daylight Savings Time)""".format(description)
         embed = discord.Embed(title="Timings",description=description,colour=middlehex)
         embed.set_thumbnail(url=mainimage)
         await ctx.send(embed=embed)

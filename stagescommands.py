@@ -114,13 +114,7 @@ class StagesCommands():
     @commands.group(pass_context=True)
     async def stages(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send("""Choose one from the following:
-```md
-<s.stages regular>
-<s.stages ranked>
-<s.stages league>
-<s.stages all>
-<s.stages next>```""")
+            await ctx.send("""Choose one from the following:\n```md\n<s.stages regular>\n<s.stages ranked>\n<s.stages league>\n<s.stages all>\n<s.stages next>```""")
 
     @stages.command()
     async def regular(self, ctx):
@@ -155,18 +149,7 @@ class StagesCommands():
                 minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
                 second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title="Regular Battle", description="""
-
-{}
-
-**MODE**
-Turf War
-
-**STAGES**
-{}
-{}
-
-{}""".format(beginningmessage,stages[0],stages[1],endingmessage),colour=0x19D619)
+            embed = discord.Embed(title="Regular Battle", description="\n\n{}\n\n**MODE**\nTurf War\n\n**STAGES**\n{}\n{}\n\n{}".format(beginningmessage,stages[0],stages[1],endingmessage),colour=0x19D619)
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png")
             await ctx.send(embed=embed)
     
@@ -204,18 +187,7 @@ Turf War
                 minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
                 second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title="Ranked Battle", description="""
-
-{}
-
-**MODE**
-{}
-
-**STAGES**
-{}
-{}
-
-{}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xF44910)
+            embed = discord.Embed(title="Ranked Battle", description="\n\n{}\n\n**MODE**\n{}\n\n**STAGES**\n{}\n{}\n\n{}".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xF44910)
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png")
             await ctx.send(embed=embed)
 
@@ -253,18 +225,7 @@ Turf War
                 minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
                 second = int(time.strftime("%S", time.gmtime(endtime_relative)))
                 endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title="League Battle", description="""
-
-{}
-
-**MODE**
-{}
-
-**STAGES**
-{}
-{}
-
-{}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xEE2D7C)
+            embed = discord.Embed(title="League Battle", description="\n\n{}\n\n**MODE**\n{}\n\n**STAGES**\n{}\n{}\n\n{}".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xEE2D7C)
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png")
             await ctx.send(embed=embed)
 
@@ -293,18 +254,7 @@ Turf War
             minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
             second = int(time.strftime("%S", time.gmtime(endtime_relative)))
             endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title=battlename[x], description="""
-
-{}
-
-**MODE**
-{}
-
-**STAGES**
-{}
-{}
-
-{}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=colours[x])
+            embed = discord.Embed(title=battlename[x], description="\n\n{}\n\n**MODE**\n{}\n\n**STAGES**\n{}\n{}\n\n{}".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=colours[x])
             embed.set_thumbnail(url=urls[x])
             await ctx.send(embed=embed)
 
@@ -337,18 +287,7 @@ Turf War
             minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
             second = int(time.strftime("%S", time.gmtime(endtime_relative)))
             endingmessage = em(endingmessage, hour, minute, second)
-            embed = discord.Embed(title=battlename[x], description="""
-
-{}
-
-**MODE**
-{}
-
-**STAGES**
-{}
-{}
-
-{}""".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=colours[x])
+            embed = discord.Embed(title=battlename[x], description="\n\n{}\n\n**MODE**\n{}\n\n**STAGES**\n{}\n{}\n\n{}".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=colours[x])
             embed.set_thumbnail(url=urls[x])
             await ctx.send(embed=embed)
 
@@ -360,7 +299,7 @@ Turf War
             number = timezones[choice]
         except:
             choice = "UTC"
-            number = timezones[choice]
+            number = timezones[choice]  
         req = Request(salmonurl, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
@@ -395,41 +334,19 @@ Turf War
             minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
             second = int(time.strftime("%S", time.gmtime(endtime_relative)))
             endingmessage = salmonem(endingmessage, day, hour, minute, second)
-            embed = discord.Embed(title="Salmon Run",description="""
-
-{}
-
-**STAGE**
-{}
-
-**WEAPONS**
-{}
-{}
-{}
-{}
-
-{}""".format(beginningmessage,stage,weapons[0],weapons[1],weapons[2],weapons[3],endingmessage),colour=0xff5600)
+            embed = discord.Embed(title="Salmon Run",description="\n\n{}\n\n**STAGE*\n{}\n\n**WEAPONS**\n{}\n{}\n{}\n{}\n\n{}".format(beginningmessage,stage,weapons[0],weapons[1],weapons[2],weapons[3],endingmessage),colour=0xff5600)
             embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
             await ctx.send(embed=embed)
         alltimes = salmonrun["schedules"]
         alltimes = alltimes[2:]
-        description="""FUTURE SCHEDULES:
-"""
+        description="FUTURE SCHEDULES:\n"
         for alltime in alltimes:
             starttime = alltime["start_time"]
             endtime = alltime["end_time"]
             startdate = time.strftime("%d %b %H:%M:00",time.gmtime(starttime+number))
             enddate = time.strftime("%d %b %H:%M:00",time.gmtime(endtime+number))
-            description = """{}
-{}
-to
-{}
-""".format(description,startdate,enddate)
-        description = """{}
-
-(NOTE: All times are in {}.)
-(NOTE: For countries with a Daylight Savings Time equivalent,
-please ensure you are aware whether DST is active or not.)""".format(description,choice)
+            description = {}\n{}\nto\n{}\n".format(description,startdate,enddate)
+        description = "{}\n\n(NOTE: All times are in {}.)\n(NOTE: For countries with a Daylight Savings Time equivalent,\nplease ensure you are aware whether DST is active or not.).format(description,choice)
         embed = discord.Embed(title="Salmon Run",description=description,colour=0xff5600)
         embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
         await ctx.send(embed=embed)
@@ -457,8 +374,7 @@ please ensure you are aware whether DST is active or not.)""".format(description
             if description == "":
                 description = item
             else:
-                description = """{}
-{}""".format(description,item)
+                description = """{}\n{}""".format(description,item)
         embed = discord.Embed(title = "SplatNet Shop", description = description, colour = 0x202020)
         await ctx.send(embed=embed)
 
