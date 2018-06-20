@@ -6,7 +6,6 @@ import json
 import time
 import gsheets
 import twitter
-from prettytable import PrettyTable as table
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/festivals.json"
@@ -78,12 +77,20 @@ class SplatfestCommands():
                 else:
                     winner = bravoshort
         t = ourresult["rates"]
-        tablee = table([alphashort,"",bravoshort])
-        tablee.add_row([t["vote"]["alpha"],"Popularity",t["vote"]["bravo"]])
-        tablee.add_row([t["solo"]["alpha"],"Solo Wins",t["solo"]["bravo"]])
-        tablee.add_row([t["team"]["alpha"],"Team Wins",t["team"]["bravo"]])
-        tablee.add_row([alphacount,"Total",bravocount])
-        description = "{}\n\nTeam {} wins!".format(tablee,winner)
+        if len(alphashort) < 5:
+            format = "%-5s        %-20s        %"
+        else:
+            format = "%-{}s        %-20s        %".format(len(alphashort))
+        if len(bravoshort) < 5:
+            format = "{}-5s".format(format)
+        else:
+            format = "{}-{}s".format(format,len(bravoshort))
+        t1 = format % (alphashort,"",bravoshort)
+        t2 = format % (str(float(t["vote"]["alpha"])),"Popularity",str(float(t["vote"]["bravo"]))
+        t3 = format % (str(float(t["solo"]["alpha"])),"Solo Wins",str(float(t["solo"]["bravo"])))
+        t4 = format % (str(float(t["team"]["alpha"])),"Team Wins",str(float(t["team"]["bravo"])))
+        t5 = format % (alphacount,"Total",bravocount)
+        description = "{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(t1,t2,t3,t4,t5,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
         embed.set_thumbnail(url=mainimage)
         await ctx.send(description)
