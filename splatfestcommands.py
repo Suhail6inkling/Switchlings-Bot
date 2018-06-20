@@ -95,7 +95,7 @@ class SplatfestCommands():
         description = "`{}\n{}\n{}\n{}\n{}`\n\nTeam {} wins!".format(t1,t2,t3,t4,t5,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
         embed.set_thumbnail(url=mainimage)
-        await ctx.send(embed=embed))
+        await ctx.send(embed=embed)
 
 
 
