@@ -86,7 +86,7 @@ class SplatfestCommands():
         else:
             format = "{}-{}s".format(format,len(bravoshort))
         t1 = format % (alphashort,"",bravoshort)
-        t2 = format % (str(float(t["vote"]["alpha"])),"Popularity",str(float(t["vote"]["bravo"]))
+        t2 = format % (str(float(t["vote"]["alpha"])),"Popularity",str(float(t["vote"]["bravo"])))
         t3 = format % (str(float(t["solo"]["alpha"])),"Solo Wins",str(float(t["solo"]["bravo"])))
         t4 = format % (str(float(t["team"]["alpha"])),"Team Wins",str(float(t["team"]["bravo"])))
         t5 = format % (alphacount,"Total",bravocount)
