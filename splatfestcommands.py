@@ -34,7 +34,7 @@ class SplatfestCommands():
     @commands.command(pass_context=True)
     async def nextsplatfest(self, ctx, region=""):
         regions = ["na","eu","jp"]
-        regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]
+        regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
             await ctx.send("""Please select either:
 na -> North America (& Oceania)
@@ -110,4 +110,4 @@ END TIME:""".format(description)
 
 def setup(client):
     client.add_cog(SplatfestCommands(client))
-                    
+
