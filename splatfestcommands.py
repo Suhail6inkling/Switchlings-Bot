@@ -77,12 +77,12 @@ class SplatfestCommands():
                     bravocount+=1
                 else:
                     winner = bravoshort
-        tableformat1 = "{0:5s}        {1:10s}        {2:5s}".format(alphashort,"",bravoshort)
-        tableformat2 = "{0:5s}--------{1:10s}--------{2:5s}".format("-----","----------","-----")
-        tableformat3 = "{0:5s}        {1:10s}        {2:5s}".format(ourresult["rates"]["vote"]["alpha"],"Popularity",ourresult["rates"]["vote"]["bravo"])
-        tableformat4 = "{0:5s}        {1:10s}        {2:5s}".format(ourresult["rates"]["solo"]["alpha"],"Solo Wins",ourresult["rates"]["solo"]["bravo"])
-        tableformat5 = "{0:5s}        {1:10s}        {2:5s}".format(ourresult["rates"]["team"]["alpha"],"Team Wins",ourresult["rates"]["team"]["bravo"])
-        tableformat6 = "{0:5s}        {1:10s}        {2:5s}".format(alphacount,"Total",bravocount)
+        tableformat1 = "{0:5c}        {1:10c}        {2:5c}".format(alphashort,"",bravoshort)
+        tableformat2 = "{0:5c}--------{1:10c}--------{2:5c}".format("-----","----------","-----")
+        tableformat3 = "{0:5c}        {1:10c}        {2:5c}".format(ourresult["rates"]["vote"]["alpha"],"Popularity",ourresult["rates"]["vote"]["bravo"])
+        tableformat4 = "{0:5c}        {1:10c}        {2:5c}".format(ourresult["rates"]["solo"]["alpha"],"Solo Wins",ourresult["rates"]["solo"]["bravo"])
+        tableformat5 = "{0:5c}        {1:10c}        {2:5c}".format(ourresult["rates"]["team"]["alpha"],"Team Wins",ourresult["rates"]["team"]["bravo"])
+        tableformat6 = "{0:5c}        {1:10c}        {2:5c}".format(alphacount,"Total",bravocount)
         description = "{}\n{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(tableformat1,tableformat2,tableformat3,tableformat4,tableformat5,tableformat6,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
         embed.set_thumbnail(url=mainimage)
