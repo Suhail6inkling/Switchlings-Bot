@@ -3,11 +3,18 @@ from discord.ext import commands
 import asyncio
 import random
 import sql
+import gsheets
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 
 class SuhailCommands():
     def __init__(self, client):
         self.client = client
+    
+    @commands.command(pass_context=True)
+    async def redo(self,ctx):
+        gsheets.redoplaceinqueue()
+        await ctx.message.add_reaction("✅")
+
     @commands.command(pass_context=True)
     async def join(self, ctx):
         server = ctx.guild

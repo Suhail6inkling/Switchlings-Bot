@@ -18,7 +18,7 @@ def lenrows():
 
 def redoplaceinqueue():
     global sheet
-    for x in range(0,lenrows()):
+    for x in range(2,lenrows()+1):
         placebat="{}{}".format("A",str(x))
         sheet.update_acell(placebat,str(x))
         
