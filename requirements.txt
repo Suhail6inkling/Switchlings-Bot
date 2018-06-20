@@ -14,10 +14,10 @@ Jinja2==2.10
 MarkupSafe==1.0
 multidict==4.3.0
 oauth2client==4.0.0
+prettytable==0.7.2
 psycopg2==2.7.4
 python-twitter==3.4.1
 SQLAlchemy==1.2.7
-tabulate==0.8.2
 Werkzeug==0.14.1
 yarl==1.0.0
 youtube-dl==2018.5.9

@@ -6,7 +6,7 @@ import json
 import time
 import gsheets
 import twitter
-from tabulate import tabulate as table
+from prettytable import PrettyTable as table
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/festivals.json"
@@ -77,53 +77,13 @@ class SplatfestCommands():
                     bravocount+=1
                 else:
                     winner = bravoshort
-        if len(alphashort) < 4:
-            lenalpha = 4
-        else:
-            lenalpha = len(alphashort)
-        if len(bravoshort) < 4:
-            lenbravo = 4
-        else:
-            lenbravo = len(bravoshort)
-        tableformat1 = "{}        {}        {}".format(alphashort,"         ",bravoshort)
-        aformat = ""
-        for x in range(0,lenalpha):
-            aformat+="-"
-        bformat = ""
-        for x in range(0,lenalpha):
-            bformat+="-"
-        tableformat2 = "{}--------{}--------{}".format(aformat,"----------",bformat)
-        aformat = str(float(ourresult["rates"]["vote"]["alpha"]/100))
-        for x in range(4,lenalpha):
-            aformat+=" "
-        bformat = str(float(ourresult["rates"]["vote"]["bravo"]/100))
-        for x in range(4,lenbravo):
-            bformat+=" "
-        tableformat3 = "{}        {}        {}".format(aformat,"Popularity",bformat)
-        
-        aformat = str(float(ourresult["rates"]["solo"]["alpha"]/100))
-        for x in range(4,lenalpha):
-            aformat+=" "
-        bformat = str(float(ourresult["rates"]["solo"]["bravo"]/100))
-        for x in range(4,lenbravo):
-            bformat+=" "
-
-        tableformat4 = "{}        {}        {}".format(aformat," Solo Wins",bformat)       
-        aformat = str(float(ourresult["rates"]["team"]["alpha"]/100))
-        for x in range(4,lenalpha):
-            aformat+=" "
-        bformat = str(float(ourresult["rates"]["team"]["bravo"]/100))
-        for x in range(4,lenbravo):
-            bformat+=" "
-        tableformat5 = "{}        {}        {}".format(aformat," Team Wins",bformat)
-        aformat = str(alphacount)
-        for x in range(1,lenalpha):
-            aformat+=" "
-        bformat= str(bravocount)
-        for x in range(1,lenbravo):
-            bformat+=" "
-        tableformat6 = "{}        {}        {}".format(alphacount,"   Total  ",bravocount)
-        description = "{}\n{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(tableformat1,tableformat2,tableformat3,tableformat4,tableformat5,tableformat6,winner)
+        t = ourresult["rates"]
+        tablee = table([alphashort,"",bravoshort])
+        tablee.add_row([t["vote"]["alpha"],"Popularity",t["vote"]["bravo"]])
+        tablee.add_row([t["solo"]["alpha"],"Solo Wins",t["solo"]["bravo"]])
+        tablee.add_row([t["team"]["alpha"],"Team Wins",t["team"]["bravo"]])
+        tablee.add_row([alphacount,"Total",bravocount])
+        description = "{}\n\nTeam {} wins!".format(tablee,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
         embed.set_thumbnail(url=mainimage)
         await ctx.send(embed=embed)

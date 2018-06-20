@@ -1,6 +1,53 @@
 "These are from older versions of the Switchlings Bot that are unnecessary at the moment but may be added again later"
 
 
+        """if len(alphashort) < 4:
+            lenalpha = 4
+        else:
+            lenalpha = len(alphashort)
+        if len(bravoshort) < 4:
+            lenbravo = 4
+        else:
+            lenbravo = len(bravoshort)
+        tableformat1 = "{}        {}        {}".format(alphashort,"         ",bravoshort)
+        aformat = ""
+        for x in range(0,lenalpha):
+            aformat+="-"
+        bformat = ""
+        for x in range(0,lenalpha):
+            bformat+="-"
+        tableformat2 = "{}--------{}--------{}".format(aformat,"----------",bformat)
+        aformat = str(float(ourresult["rates"]["vote"]["alpha"]/100))
+        for x in range(4,lenalpha):
+            aformat+=" "
+        bformat = str(float(ourresult["rates"]["vote"]["bravo"]/100))
+        for x in range(4,lenbravo):
+            bformat+=" "
+        tableformat3 = "{}        {}        {}".format(aformat,"Popularity",bformat)
+        
+        aformat = str(float(ourresult["rates"]["solo"]["alpha"]/100))
+        for x in range(4,lenalpha):
+            aformat+=" "
+        bformat = str(float(ourresult["rates"]["solo"]["bravo"]/100))
+        for x in range(4,lenbravo):
+            bformat+=" "
+
+        tableformat4 = "{}        {}        {}".format(aformat," Solo Wins",bformat)       
+        aformat = str(float(ourresult["rates"]["team"]["alpha"]/100))
+        for x in range(4,lenalpha):
+            aformat+=" "
+        bformat = str(float(ourresult["rates"]["team"]["bravo"]/100))
+        for x in range(4,lenbravo):
+            bformat+=" "
+        tableformat5 = "{}        {}        {}".format(aformat," Team Wins",bformat)
+        aformat = str(alphacount)
+        for x in range(1,lenalpha):
+            aformat+=" "
+        bformat= str(bravocount)
+        for x in range(1,lenbravo):
+            bformat+=" "
+        tableformat6 = "{}        {}        {}".format(alphacount,"   Total  ",bravocount)"""
+
 
 """
         try:
