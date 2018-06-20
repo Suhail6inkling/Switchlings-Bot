@@ -48,21 +48,24 @@ class SplatfestCommands():
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
-        splatfests = allmodes[region]["festivals"]
+        splatfest = allmodes[region]["festivals"][0]
         description = "`"
-        for x in range(0,5):
-            a = splatfests[x]
+        if splatfest["times"]["end"] < timenow and splatfest["times"]["result"] > timenow:
+            await ctx.send("The results of Team {} vs Team {} have not been announced... Showing previous Splatfest...".format(splatfest["names"]["alpha_short"],splatfest["names"]["bravo_short"]))
+        if splatfest["times"]["result"] > timenow:
+            splatfests = allmodes[region]["festivals"][1:6]
+        splatfests = allmodes[region]["festivals"][:5]
+        for a in splatfests:
             alpha = a["names"]["alpha_short"]
             bravo = a["names"]["bravo_short"]
             fid = a["festival_id"]
             alphacount=0
             bravocount=0
-            ourresult = [d for d in allmodes[results] if d["festival_id"] == fid][0]
+            ourresult = [d for d in allmodes["results"] if d["festival_id"] == fid][0]
             for x in ourresult["summary"]:
                 if ourresult["summary"][x] ==0:
                     if x != "total":
                         alphacount+=1
-
                 else:
                     if x != "total":
                         bravocount+=1
@@ -84,6 +87,7 @@ class SplatfestCommands():
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
+        timenow = time.time()
         splatfest = allmodes[region]["festivals"][0]
         if splatfest["times"]["end"] < timenow and splatfest["times"]["result"] > timenow:
             await ctx.send("The results of Team {} vs Team {} have not been announced... Showing previous Splatfest...".format(splatfest["names"]["alpha_short"],splatfest["names"]["bravo_short"]))
