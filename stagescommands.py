@@ -352,8 +352,22 @@ class StagesCommands():
         await ctx.send(embed=embed)
 
             
-        
-
+    @commands.command(pass_context=True)
+    async def timeleft(self,ctx):   
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        endtime = allmodes["regular"][0]["end_time"]
+        timenow = time.time()
+        endtime_relative = endnow-time.time()
+        message = ""
+        hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
+        minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
+        second = int(time.strftime("%S", time.gmtime(endtime_relative)))
+        message = em(message, hour, minute, second)
+        embed = discord.Embed(title="Time until next map rotation",description=message,colour=0x808080)
+        await ctx.send(embed=embed)
     @commands.command(pass_context=True)
     async def splatnet(self, ctx):
         api = twitter.Api(

@@ -62,7 +62,7 @@ class SplatfestCommands():
             fid = a["festival_id"]
             alphacount=0
             bravocount=0
-            ourresult = [d for d in allmodes["results"] if d["festival_id"] == fid][0]
+            ourresult = [d for d in allmodes[region]["results"] if d["festival_id"] == fid][0]
             for x in ourresult["summary"]:
                 if ourresult["summary"][x] ==0:
                     if x != "total":
