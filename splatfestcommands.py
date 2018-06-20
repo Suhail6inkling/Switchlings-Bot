@@ -84,7 +84,8 @@ class SplatfestCommands():
         if len(bravoshort) < 5:
             format = "{f}5}".format(f=format)
         else:
-            format = "{f}{lb}}".format(f=format,lb=len(bravoshort))
+            format = "{f}{lb}".format(f=format,lb=len(bravoshort))
+        format=format+"}"
         t1 = format.format(alphashort,"",bravoshort)
         t2 = format.format(str(float(t["vote"]["alpha"])/100),"Popularity",str(float(t["vote"]["bravo"])/100))
         t3 = format.format(str(float(t["solo"]["alpha"])/100),"Solo Wins",str(float(t["solo"]["bravo"])/100))
