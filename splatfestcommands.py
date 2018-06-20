@@ -81,11 +81,11 @@ class SplatfestCommands():
             p = "{0:5}        {1:^20}}        {2:>"
         else:
             p = "{0:{la}}        {1:^20}}        {2:>".format(la=len(alphashort))
-        if le       n(bravoshort) < 5:
+        if len(bravoshort) < 5:
             p = "{f}5}".format(f=p)
         else:
             p = "{f}{lb}".format(f=p,lb=len(bravoshort))
-        p=p+"}        "
+        p=p+"}"
         t1 = p.format(alphashort,"",bravoshort)
         t2 = p.format(str(float(t["vote"]["alpha"])/100),"Popularity",str(float(t["vote"]["bravo"])/100))
         t3 = p.format(str(float(t["solo"]["alpha"])/100),"Solo Wins",str(float(t["solo"]["bravo"])/100))
