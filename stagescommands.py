@@ -345,7 +345,7 @@ class StagesCommands():
             endtime = alltime["end_time"]
             startdate = time.strftime("%d %b %H:%M:00",time.gmtime(starttime+number))
             enddate = time.strftime("%d %b %H:%M:00",time.gmtime(endtime+number))
-            description = {}\n{}\nto\n{}\n".format(description,startdate,enddate)
+            description ="{}\n{}\nto\n{}\n".format(description,startdate,enddate)
         description = "{}\n\n(NOTE: All times are in {}.)\n(NOTE: For countries with a Daylight Savings Time equivalent,\nplease ensure you are aware whether DST is active or not.).format(description,choice)
         embed = discord.Embed(title="Salmon Run",description=description,colour=0xff5600)
         embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
