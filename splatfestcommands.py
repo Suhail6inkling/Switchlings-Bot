@@ -49,6 +49,7 @@ class SplatfestCommands():
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
         splatfest = allmodes[region]["festivals"][0]
+        timenow = time.time()
         description = "`"
         if splatfest["times"]["end"] < timenow and splatfest["times"]["result"] > timenow:
             await ctx.send("The results of Team {} vs Team {} have not been announced... Showing previous Splatfest...".format(splatfest["names"]["alpha_short"],splatfest["names"]["bravo_short"]))
@@ -105,7 +106,7 @@ class SplatfestCommands():
         for x in regiontimezones[region]:
             startdate = time.strftime("%d %b %H:%M:00",time.gmtime(starttime+x[1]))
             enddate = time.strftime("%d %b %H:%M:00",time.gmtime(endtime+x[1]))
-            date = "{} - {}".format(startdate,enddate)
+            date = "{} - {} {}".format(startdate,enddate,x[0])
             description = "{}{}\n".format(description,date)
         ourresult = [d for d in results if d["festival_id"]==eyedee]
         if ourresult==[]:
