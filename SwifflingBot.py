@@ -85,12 +85,19 @@ async def onlinestuff():
     await sbschat.send("{} Online!".format(client.user.mention))
     global successful_extensions, failed_extensions
     if successful_extensions!=[]:
-        for x in successful_extensions:
-            await sbschat.send("Successfully loaded {}.py".format(x))
+        a = "Successfully loaded"
+        for y in range(0,len(successful_extensions)):
+            x = successful_extensions[y]
+            if y == 0:
+                a = "{} {}.py".format(a,x)
+            elif y == len(successful_extensions)-1:
+                a = "{} and {}.py".format(a,x)
+            else:
+                a = "{}, {}.py".format(a,x)
+        await sbschat.send(a)
     if failed_extensions!=[]:
         for x in failed_extensions:
-            await sbschat.send("""{} Failed to load {}.py
-```{}: {}```""".format(person.mention, x[0], x[1], x[2]))
+            await sbschat.send("""{}\nFailed to load {}.py\n```{}: {}```""".format(person.mention, x[0], x[1], x[2]))
 
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
