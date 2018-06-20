@@ -16,11 +16,20 @@ def lenrows():
     return sheet.row_count
 
 
-def redoplaceinqueue():
+async def redoplaceinqueue():
     global sheet
-    for x in range(2,lenrows()+1):
-        placebat="{}{}".format("A",str(x))
-        sheet.update_acell(placebat,str(x))
+    lenny = lenrows()
+    lentimes = round((lenny/50)-0.5)
+    for x in range(0,lentimes):
+        for y in range(50*x),(50*x)+49):
+            if y !=0 and y !=1:
+                placebat="{}{}".format("A",str(x))
+                sheet.update_acell(placebat,str(x))
+        await asyncio.sleep(100)
+    for y in range(50*(x+1),lenny):
+        if y!=0 and y!=1:
+            placebat="{}{}".format("A",str(x))
+            sheet.update_acell(placebat,str(x))
         
 
 

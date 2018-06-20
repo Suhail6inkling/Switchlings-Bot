@@ -12,8 +12,9 @@ class SuhailCommands():
     
     @commands.command(pass_context=True)
     async def redo(self,ctx):
-        gsheets.redoplaceinqueue()
-        await ctx.message.add_reaction("✅")
+        await gsheets.redoplaceinqueue()
+        await ctx.send("{} DONE!".format(ctx.author.mention))
+        
 
     @commands.command(pass_context=True)
     async def join(self, ctx):
