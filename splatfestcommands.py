@@ -78,10 +78,10 @@ class SplatfestCommands():
                     winner = bravoshort
         t = ourresult["rates"]
         if len(alphashort) < 5:
-            p = "{:{5}}        {:^20}}        {:>"
+            p = "{0:5}        {1:^20}}        {2:>"
         else:
-            p = "{:{la}}        {:^20}}        {:>".format(la=len(alphashort))
-        if len(bravoshort) < 5:
+            p = "{0:{la}}        {1:^20}}        {2:>".format(la=len(alphashort))
+        if le       n(bravoshort) < 5:
             p = "{f}5}".format(f=p)
         else:
             p = "{f}{lb}".format(f=p,lb=len(bravoshort))
