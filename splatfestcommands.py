@@ -92,7 +92,7 @@ class SplatfestCommands():
         t4 = p.format(str(float(t["team"]["alpha"])/100),"Team Wins",str(float(t["team"]["bravo"])/100))
         t5 = p.format(alphacount,"Total",bravocount)
         
-        description = "{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(t1,t2,t3,t4,t5,winner)
+        description = "`{}\n{}\n{}\n{}\n{}`\n\nTeam {} wins!".format(t1,t2,t3,t4,t5,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
         embed.set_thumbnail(url=mainimage)
         await ctx.send(description)
