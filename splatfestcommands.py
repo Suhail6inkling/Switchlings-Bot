@@ -93,33 +93,33 @@ class SplatfestCommands():
         for x in range(0,lenalpha):
             bformat+="-"
         tableformat2 = "{}--------{}--------{}".format(aformat,"----------",bformat)
-        aformat = ourresult["rates"]["vote"]["alpha"]
+        aformat = str(float(ourresult["rates"]["vote"]["alpha"]/100))
         for x in range(4,lenalpha):
             aformat+=" "
-        bformat = ourresult["rates"]["vote"]["bravo"]
+        bformat = str(float(ourresult["rates"]["vote"]["bravo"]/100))
         for x in range(4,lenbravo):
             bformat+=" "
         tableformat3 = "{}        {}        {}".format(aformat,"Popularity",bformat)
         
-        aformat = ourresult["rates"]["solo"]["alpha"]
+        aformat = str(float(ourresult["rates"]["solo"]["alpha"]/100))
         for x in range(4,lenalpha):
             aformat+=" "
-        bformat = ourresult["rates"]["solo"]["bravo"]
+        bformat = str(float(ourresult["rates"]["solo"]["bravo"]/100))
         for x in range(4,lenbravo):
             bformat+=" "
 
         tableformat4 = "{}        {}        {}".format(aformat," Solo Wins",bformat)       
-        aformat = ourresult["rates"]["team"]["alpha"]
+        aformat = str(float(ourresult["rates"]["team"]["alpha"]/100))
         for x in range(4,lenalpha):
             aformat+=" "
-        bformat = ourresult["rates"]["team"]["bravo"]
+        bformat = str(float(ourresult["rates"]["team"]["bravo"]/100))
         for x in range(4,lenbravo):
             bformat+=" "
         tableformat5 = "{}        {}        {}".format(aformat," Team Wins",bformat)
-        aformat = alphacount
+        aformat = str(alphacount)
         for x in range(1,lenalpha):
             aformat+=" "
-        bformat= bravocount
+        bformat= str(bravocount)
         for x in rage(1,lenbravo):
             bformat+=" "
         tableformat6 = "{}        {}        {}".format(alphacount,"   Total  ",bravocount)
