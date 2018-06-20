@@ -63,9 +63,9 @@ jp -> Japan""")
         bravoshort = splatfest["names"]["bravo_short"]
         alphalong = splatfest["names"]["alpha_long"]
         bravolong = splatfest["names"]["bravo_long"]
-        alphahex = hexcolor[splatfest["colors"]["alpha"]]
-        bravohex = hexcolor[splatfest["colors"]["bravo"]]
-        middlehex = hexcolor[splatfest["colors"]["middle"]]
+        alphahex = hexcolor(splatfest["colors"]["alpha"])
+        bravohex = hexcolor(splatfest["colors"]["bravo"])
+        middlehex = hexcolor(splatfest["colors"]["middle"])
         alphaimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["alpha"])
         bravoimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["bravo"])
         mainimage = "https://splatoon2.ink/assets/splatnet{}".format(splatfest["images"]["panel"])
