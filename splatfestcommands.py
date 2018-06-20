@@ -77,8 +77,8 @@ class SplatfestCommands():
                     bravocount+=1
                 else:
                     winner = bravoshort
-        tableformat1 = "{0.5d}        {1:10d}        {2:5d}".format(alphashort,"",bravoshort)
-        tableformat2 = "{0.5d}--------{1:10d}--------{2:5d}".format("-----","----------","-----")
+        tableformat1 = "{0:5d}        {1:10d}        {2:5d}".format(alphashort,"",bravoshort)
+        tableformat2 = "{0:5d}--------{1:10d}--------{2:5d}".format("-----","----------","-----")
         tableformat3 = "{0:5d}        {1:10d}        {2:5d}".format(ourresult["rates"]["vote"]["alpha"],"Popularity",ourresult["rates"]["vote"]["bravo"])
         tableformat4 = "{0:5d}        {1:10d}        {2:5d}".format(ourresult["rates"]["solo"]["alpha"],"Solo Wins",ourresult["rates"]["solo"]["bravo"])
         tableformat5 = "{0:5d}        {1:10d}        {2:5d}".format(ourresult["rates"]["team"]["alpha"],"Team Wins",ourresult["rates"]["team"]["bravo"])
