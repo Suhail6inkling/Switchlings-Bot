@@ -81,12 +81,12 @@ TEAM {}
 TEAM {}
        
 {}""".format(bravoshort,bravolong),colour=bravohex)
-       embed.set_thumbnail(url=bravoimage)
-       await ctx.send(embed=embed)
-       if beg == "Now":
+        embed.set_thumbnail(url=bravoimage)
+        await ctx.send(embed=embed)
+        if beg == "Now":
            description = """START TIME:
 NOW""""
-       else:
+        else:
             description = """
 START TIME:"""
             for x in regiontimezones[region]:
@@ -94,17 +94,17 @@ START TIME:"""
                 starttime = time.strftime(timestructure,time.gmtime(starttime+x[1]))
                 description="""{}
 {}""".format(description,starttime)
-       description="""{}
+        description="""{}
        
 END TIME:""".format(description)
-       for x in regiontimezones[region]:
+        for x in regiontimezones[region]:
            timestructure = "%d %b %H:%M:00 {}".format(x[0])
            endtime = time.strftime(timestructure,time.gmtime(starttime+x[1]))
            description="""{}
 {}""".format(description,starttime)
-       embed = discord.Embed(title="Timings",description=description,colour=middlehex)
-       embed.set_thumbnail(url=mainimage)
-       await ctx.send(embed=embed)
+        embed = discord.Embed(title="Timings",description=description,colour=middlehex)
+        embed.set_thumbnail(url=mainimage)
+        await ctx.send(embed=embed)
            
 
 
