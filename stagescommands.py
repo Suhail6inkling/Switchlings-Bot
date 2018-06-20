@@ -360,7 +360,7 @@ class StagesCommands():
         allmodes = json.loads(webpage)
         endtime = allmodes["regular"][0]["end_time"]
         timenow = time.time()
-        endtime_relative = endnow-time.time()
+        endtime_relative = endtime-time.time()
         message = ""
         hour = int(time.strftime("%H", time.gmtime(endtime_relative)))
         minute = int(time.strftime("%M", time.gmtime(endtime_relative)))

@@ -59,21 +59,30 @@ class ProfileCommands():
     def __init__(self, client):
         self.client = client
 
-   
+    @commands.command(pass_context=True)
+    async def stats(self, ctx, person: discord.Member=None):
+        if person is None:
+            person = ctx.author
+        member = person.id
+        gsheets.open()
+        people = gsheets.read()
+        for x in people:
+            if x["ID"] == member:
+                personlist = x
+        description = "`{levname:14}     {lev:>4}\n{szname:14}     {sz:>4}\n{tcname:14}     {tc:>4}\n{rmname:14}     {rm:>4}\n{cbname:14}            {cb:>4}`".format(levname="Level:",lev=personlist["Level"],szname="Splat Zones:",sz=personlist["Splat Zone Rank"],tcname="Tower Control:",tc=personlist["Tower Control:"],rm="Rainmaker:",rmname=personlist["Rainmaker Rank"],cbname="Clam Blitz",cb=personlist["Clam Blitz Rank"])
+        await ctx.send(description)
 
     @commands.command(pass_context=True)
-    async def profile(self, ctx, person=""):
-            if person=="":
+    async def profile(self, ctx, person: discord.Member=None):
+            if person is None:
                 person=ctx.author
-            else:
-                person = ctx.message.mentions[0]
             member = person.id
             gsheets.open()
             people = gsheets.read()
             for x in people:
                 if x["ID"] == member:
                     personlist = x       
-            embed = discord.Embed(title = person.name, description="""\n**Friend Code:** {}\n\n**Gender & Species:** {}\n**Skin Colour:** {}\n**Eye Colour:** {}\n**Hairstyle:** {}\n**Trousers:** {}\n\n**WEAPON:** {}\n\n**STATS**\n*Level:* {}\n*Splat Zone Rank:* {}\n*Tower Control Rank:* {}\n*Rainmaker Rank:* {}\n*Clam Blitz Rank:* {}\n\n**HAT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHIRT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHOES**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}""".format(personlist["Friend Code"],personlist["Gender & Species"],personlist["Skin Colour"],personlist["Eye Colour"],personlist["Hairstyle"],personlist["Trousers"],personlist["Weapon"],
+            embed = discord.Embed(title = person.name, description="""\n**Friend Code:** {}\n\n**Gender & Species:** {}\n**Skin Colour:** {}\n**Eye Colour:** {}\n**Hairstyle:** {}\n**Trousers:** {}\n\n**WEAPON:** {}\n\n**STATS**\n*Level:* {}\n*Splat Zones Rank:* {}\n*Tower Control Rank:* {}\n*Rainmaker Rank:* {}\n*Clam Blitz Rank:* {}\n\n**HAT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHIRT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHOES**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}""".format(personlist["Friend Code"],personlist["Gender & Species"],personlist["Skin Colour"],personlist["Eye Colour"],personlist["Hairstyle"],personlist["Trousers"],personlist["Weapon"],
                    personlist["Level"],personlist["Splat Zone Rank"],personlist["Tower Control Rank"],personlist["Rainmaker Rank"],personlist["Clam Blitz Rank"],
                    personlist["Hat"],personlist["Hat Main"],personlist["Hat Sub 1"],personlist["Hat Sub 2"],personlist["Hat Sub 3"],
                    personlist["Shirt"],personlist["Shirt Main"],personlist["Shirt Sub 1"],personlist["Shirt Sub 2"],personlist["Shirt Sub 3"],
@@ -183,11 +192,9 @@ class ProfileCommands():
         
 
     @commands.command(pass_context=True)
-    async def getfc(self, ctx, person=""):
-            if person=="":
-                person=ctx.author
-            else:
-                person = ctx.message.mentions[0]
+    async def getfc(self, ctx, person: discord.Member=None):
+            if person is None:
+                person = ctx.author
             if person==ctx.author:
                 pronoun="Your"
                 pronouna="You"

@@ -49,13 +49,13 @@ class SplatfestCommands():
         webpage = web_byte.decode("utf-8")
         allmodes = json.loads(webpage)
         splatfest = allmodes[region]["festivals"][0]
+        splatfests = allmodes[region]["festivals"][:5]
         timenow = time.time()
         description = "`"
         if splatfest["times"]["end"] < timenow and splatfest["times"]["result"] > timenow:
             await ctx.send("The results of Team {} vs Team {} have not been announced... Showing previous Splatfest...".format(splatfest["names"]["alpha_short"],splatfest["names"]["bravo_short"]))
         if splatfest["times"]["result"] > timenow:
             splatfests = allmodes[region]["festivals"][1:6]
-        splatfests = allmodes[region]["festivals"][:5]
         for a in splatfests:
             alpha = a["names"]["alpha_short"]
             bravo = a["names"]["bravo_short"]
@@ -70,7 +70,7 @@ class SplatfestCommands():
                 else:
                     if x != "total":
                         bravocount+=1
-            description = "{desc}{a:20} {aas:5}-{bs:5} {b:20}\n".format(desc=description, a=alpha, aas=alphacount,bs=bravocount,b=bravo)
+            description = "{desc}{a:20} {aas:1}-{bs:1} {b:>20}\n".format(desc=description, a=alpha, aas=alphacount,bs=bravocount,b=bravo)
         description="{}`".format(description)
         embed = discord.Embed(title="Recent Splatfests",colour=0x2d6092,description=description)
         embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/thumb/9/9a/S2_Splatfest_Logo.svg/512px-S2_Splatfest_Logo.svg.png")
