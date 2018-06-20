@@ -77,12 +77,53 @@ class SplatfestCommands():
                     bravocount+=1
                 else:
                     winner = bravoshort
-        tableformat1 = "{0:5c}        {1:10c}        {2:5c}".format(alphashort,"",bravoshort)
-        tableformat2 = "{0:5c}--------{1:10c}--------{2:5c}".format("-----","----------","-----")
-        tableformat3 = "{0:5c}        {1:10c}        {2:5c}".format(ourresult["rates"]["vote"]["alpha"],"Popularity",ourresult["rates"]["vote"]["bravo"])
-        tableformat4 = "{0:5c}        {1:10c}        {2:5c}".format(ourresult["rates"]["solo"]["alpha"],"Solo Wins",ourresult["rates"]["solo"]["bravo"])
-        tableformat5 = "{0:5c}        {1:10c}        {2:5c}".format(ourresult["rates"]["team"]["alpha"],"Team Wins",ourresult["rates"]["team"]["bravo"])
-        tableformat6 = "{0:5c}        {1:10c}        {2:5c}".format(alphacount,"Total",bravocount)
+        if len(alphashort) < 4:
+            lenalpha = 4
+        else:
+            lenalpha = len(alphashort)
+        if len(bravoshort) < 4:
+            lenbravo = 4
+        else:
+            lenbravo = len(bravoshort)
+        tableformat1 = "{}        {}        {}".format(alphashort,"         ",bravoshort)
+        aformat = ""
+        for x in range(0,lenalpha):
+            aformat+="-"
+        bformat = ""
+        for x in range(0,lenalpha):
+            bformat+="-"
+        tableformat2 = "{}--------{}--------{}".format(aformat,"----------",bformat)
+        aformat = ourresult["rates"]["vote"]["alpha"]
+        for x in range(4,lenalpha):
+            aformat+=" "
+        bformat = ourresult["rates"]["vote"]["bravo"]
+        for x in range(4,lenbravo):
+            bformat+=" "
+        for x in range()
+        tableformat3 = "{}        {}        {}".format(aformat,"Popularity",bformat)
+        
+        aformat = ourresult["rates"]["solo"]["alpha"]
+        for x in range(4,lenalpha):
+            aformat+=" "
+        bformat = ourresult["rates"]["solo"]["bravo"]
+        for x in range(4,lenbravo):
+            bformat+=" "
+
+        tableformat4 = "{}        {}        {}".format(aformat," Solo Wins",bformat)       
+        aformat = ourresult["rates"]["team"]["alpha"]
+        for x in range(4,lenalpha):
+            aformat+=" "
+        bformat = ourresult["rates"]["team"]["bravo"]
+        for x in range(4,lenbravo):
+            bformat+=" "
+        tableformat5 = "{}        {}        {}".format(aformat," Team Wins",bformat)
+        aformat = alphacount
+        for x in range(1,lenalpha):
+            aformat+=" "
+        bformat= bravocount
+        for x in rage(1,lenbravo):
+            bformat+=" "
+        tableformat6 = "{}        {}        {}".format(alphacount,"   Total  ",bravocount)
         description = "{}\n{}\n{}\n{}\n{}\n{}\n\nTeam {} wins!".format(tableformat1,tableformat2,tableformat3,tableformat4,tableformat5,tableformat6,winner)
         embed = discord.Embed(title="Splatfest Results",description=description, colour=middlehex)
         embed.set_thumbnail(url=mainimage)
