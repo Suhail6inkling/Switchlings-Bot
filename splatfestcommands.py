@@ -112,6 +112,9 @@ RESULTS:""".format(description)
            results_converted = time.strftime(timestructure,time.gmtime(results+x[1]))
            description="""{}
 {}""".format(description,results_converted)
+        description = """{}
+
+(NOTE: Times may be 1 hr ahead due to Daylight Savings Time)""".format(description)
         embed = discord.Embed(title="Timings",description=description,colour=middlehex)
         embed.set_thumbnail(url=mainimage)
         await ctx.send(embed=embed)
