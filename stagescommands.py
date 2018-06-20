@@ -111,12 +111,8 @@ class StagesCommands():
     def __init__(self, client):
         self.client = client
 
-    @commands.group(pass_context=True)
-    async def stages(self, ctx):
-        if ctx.invoked_subcommand is None:
-            await ctx.send("""Choose one from the following:\n```md\n<s.stages regular>\n<s.stages ranked>\n<s.stages league>\n<s.stages all>\n<s.stages next>```""")
 
-    @stages.command()
+    @commands.command(pass_context=True)
     async def regular(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
@@ -153,7 +149,7 @@ class StagesCommands():
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/4/4c/Mode_Icon_Regular_Battle_2.png")
             await ctx.send(embed=embed)
     
-    @stages.command()
+    @commands.command(pass_context=True)
     async def ranked(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
@@ -191,7 +187,7 @@ class StagesCommands():
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png")
             await ctx.send(embed=embed)
 
-    @stages.command()
+    @commands.command(pass_context=True)
     async def league(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
@@ -229,8 +225,8 @@ class StagesCommands():
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/9/9b/Symbol_LeagueF.png")
             await ctx.send(embed=embed)
 
-    @stages.command()
-    async def all(self, ctx):
+    @commands.command(pass_context=True)
+    async def stages(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
@@ -258,8 +254,8 @@ class StagesCommands():
             embed.set_thumbnail(url=urls[x])
             await ctx.send(embed=embed)
 
-    @stages.command()
-    async def next(self, ctx):
+    @commands.command(pass_context=True)
+    async def nextstages(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         web_byte = urlopen(req).read()
         webpage = web_byte.decode("utf-8")
