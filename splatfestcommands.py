@@ -85,7 +85,7 @@ TEAM {}
         await ctx.send(embed=embed)
         if beg == "Now":
            description = """START TIME:
-NOW""""
+NOW"""
         else:
             description = """
 START TIME:"""
