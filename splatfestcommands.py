@@ -136,8 +136,9 @@ class SplatfestCommands():
             p="{f}{la}".format(f=p,la=len(alphashort))
             q="}"
             p="{f}{q}        ".format(f=p,q=q)
-            p="{f}{1:^20".format(f=p)
-            p = "{f}{q}        {2:>".format(f=p,q=q)
+            p="{f}{".format(f=p)
+            p="{f}1:^20".format(f=p)
+            p= "{f}{q}        {2:>".format(f=p,q=q)
         if len(bravoshort) <= 5:
             p = "{f}5}".format(f=p)
         else:
