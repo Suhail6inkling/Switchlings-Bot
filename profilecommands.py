@@ -74,7 +74,7 @@ class ProfileCommands():
         for x in people:
             if x["ID"] == member:
                 personlist = x
-        description = "`{levname:14}     {lev:>4}\n{szname:14}     {sz:>4}\n{tcname:14}     {tc:>4}\n{rmname:14}     {rm:>4}\n{cbname:14}            {cb:>4}`".format(levname="Level:",lev=personlist["Level"],szname="Splat Zones:",sz=personlist["Splat Zone Rank"],tcname="Tower Control:",tc=personlist["Tower Control Rank"],rm="Rainmaker:",rmname=personlist["Rainmaker Rank"],cbname="Clam Blitz",cb=personlist["Clam Blitz Rank"])
+        description = "`{levname:14}     {lev:>4}\n{szname:14}     {sz:>4}\n{tcname:14}     {tc:>4}\n{rmname:14}     {rm:>4}\n{cbname:14}            {cb:>4}`".format(levname="Level:",lev=personlist["Level"],szname="Splat Zones:",sz=personlist["Splat Zone Rank"],tcname="Tower Control:",tc=personlist["Tower Control Rank"],rmname="Rainmaker:",rm=personlist["Rainmaker Rank"],cbname="Clam Blitz:",cb=personlist["Clam Blitz Rank"])
         await ctx.send(description)
 
     @commands.command(pass_context=True)
