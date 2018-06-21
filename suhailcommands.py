@@ -9,12 +9,8 @@ from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, 
 class SuhailCommands():
     def __init__(self, client):
         self.client = client
-    
-    @commands.command(pass_context=True)
-    async def redo(self,ctx):
-        await gsheets.redoplaceinqueue()
-        await ctx.send("{} DONE!".format(ctx.author.mention))
-        
+
+
 
     @commands.command(pass_context=True)
     async def join(self, ctx):

@@ -4,7 +4,12 @@ import asyncio
 import random
 import json
 import time
-import gsheets
+
+
+from gsheets import SwitchlingsBotProfile as SBS
+from gsheets import ListOfRanks as LOR
+
+
 import twitter
 from urllib.request import Request
 from urllib.request import urlopen
@@ -64,8 +69,8 @@ class ProfileCommands():
         if person is None:
             person = ctx.author
         member = person.id
-        gsheets.open()
-        people = gsheets.read()
+        SBS.open()
+        people = SBS.read()
         for x in people:
             if x["ID"] == member:
                 personlist = x
@@ -77,8 +82,8 @@ class ProfileCommands():
             if person is None:
                 person=ctx.author
             member = person.id
-            gsheets.open()
-            people = gsheets.read()
+            SBS.open()
+            people = SBS.read()
             for x in people:
                 if x["ID"] == member:
                     personlist = x       
@@ -92,46 +97,46 @@ class ProfileCommands():
     @commands.command(pass_context=True)
     async def set(self, ctx, varchar, *, variable):
         member = ctx.author.id
-        gsheets.open()
-        people = gsheets.read()
+        SBS.open()
+        people = SBS.read()
         for x in people:
             if x["ID"] == member:
                 personlist = x
         if varchar in sqlstuff:
             if varchar == "hat":
                 if variable in hats:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
     
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("This hat doesn't exist. Please look online for the list of headgear. If this item is new or is spelt incorrectly, please contact Suhail6inkling")
             elif varchar == "switchcode":
                 if variable.startswith("SW-") and len(variable)==17:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("Please put your switch code in the format `SW-xxxx-xxxx-xxxx`.")
             elif varchar == "shirt":
                 if variable in shirts:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("This shirt doesn't exist. Please look online for the list of clothing. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
             elif varchar == "shoes":
                 if variable in shoes:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("These shoes don't exist. Please look online for the list of footwear. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
             elif varchar == "gender":
                 if variable in genders:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That gender doesn't exist!")
             elif varchar == "eyecolour":
                 if variable in eyecolours:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That isn't an eye colour!")
@@ -139,19 +144,19 @@ class ProfileCommands():
                 if personlist["Gender & Species"]==None or personlist["Gender & Species"]=="None":
                     await ctx.send("Choose a gender first!")
                 elif variable in hairstyles[personlist["Gender & Species"]]:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("Your gender doesn't have that hairstyle or that hairstyle doesn't exist!")
             elif varchar == "skincolour":
                 if variable in skincolours:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That isn't a skin colour!")
             elif varchar == "weapon":
                 if variable in weapons:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That weapon doesn't exist!")
@@ -160,7 +165,7 @@ class ProfileCommands():
             elif varchar == "level":
                 try:
                     if int(variable) > 0  and int(variable) < 200:
-                        gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                        SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                         await ctx.message.add_reaction("✅")
                     else:
                         await ctx.send("Levels don't go up that high/low!")
@@ -168,26 +173,26 @@ class ProfileCommands():
                     await ctx.send("Please input a number (for prestige, input a number between 100-200)")
             elif varchar in rankmodes:
                 if variable in ranks:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That's not a valid rank!")
             elif varchar.endswith("main"):
                 if variable in abilities:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That ability doesn't exist!")
             else:
                 if variable in subs:
-                    gsheets.updatecell(varchar, personlist["Place in Queue"],variable)
+                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
                     await ctx.send("That ability doesn't exist or is restricted to the first slot only!")
         else:
             await ctx.send("That's not a variable you can change!")
-        gsheets.open()
-        people = gsheets.read()
+        SBS.open()
+        people = SBS.read()
             
         
 
@@ -202,7 +207,8 @@ class ProfileCommands():
                 pronoun="Their"
                 pronouna="They"
             member = person.id
-            global people
+            SBS.open()
+            people = SBS.read()
             for x in people:
                 if x["ID"] == member:
                     personlist = x

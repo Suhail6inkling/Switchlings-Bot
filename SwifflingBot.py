@@ -6,7 +6,8 @@ from discord.ext import commands
 import asyncio, random, os, time#, psycopg2
 import urllib.parse as urlparse
 import twitter
-import gsheets
+from gsheets import SwitchlingsBotProfile as SBS
+from gsheets import ListOfRanks as LOR
 
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
@@ -27,7 +28,7 @@ except ModuleNotFoundError:
 Client = discord.Client()   
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
-startup_extensions=["usercommands","modcommands","stagescommands","profilecommands","splatfestcommands","suhailcommands"]
+startup_extensions=["usercommands","modcommands","stagescommands","profilecommands","splatfestcommands","suhailcommands","rankcommands"]
 client.remove_command("help")
 global successful_extensions, failed_extensions
 successful_extensions = []
@@ -75,8 +76,11 @@ shoessub3"""
 #cur = sql.open()
 #cur.execute("INSERT INTO people (id) VALUES (%s)",[320366423052386334])
 #sql.close()
-gsheets.open()
-people = gsheets.read()
+SBS.open()
+people = SBS.read()
+LOR.open()
+ranks = LOR.read()
+
 
 
 async def onlinestuff():
@@ -85,26 +89,14 @@ async def onlinestuff():
     await sbschat.send("{} Online!".format(client.user.mention))
     global successful_extensions, failed_extensions
     if successful_extensions!=[]:
-        a = "Successfully loaded"
-        for y in range(0,len(successful_extensions)):
-            x = successful_extensions[y]
-            if y == 0:
-                a = "{} {}.py".format(a,x)
-            elif y == len(successful_extensions)-1:
-                a = "{} and {}.py".format(a,x)
-            else:
-                a = "{}, {}.py".format(a,x)
+        a = "Successfully loaded:"
+        for x in successful_extensions:
+            a="{}\n{}.py".format(a,x)
         await sbschat.send(a)
     if failed_extensions!=[]:
         for x in failed_extensions:
             await sbschat.send("""{}\nFailed to load {}.py\n```{}: {}```""".format(person.mention, x[0], x[1], x[2]))
 
-scope = ['https://spreadsheets.google.com/feeds',
-         'https://www.googleapis.com/auth/drive']
-creds = SAC.from_json_keyfile_name("SwifflingBot.json", scope)
-cliente = gspread.authorize(creds)
-sheet = cliente.open("Switchlings Bot Profile").sheet1
-values=["ID", "Friend Code","Gender & Species","Skin Colour","Eye Colour","Hairstyle","Trousers","Weapon","Level","Splat Zone Rank","Tower Control Rank","Rainmaker Rank","Clam Blitz Rank","Hat Main","Hat Sub 1","Hat Sub 2","Hat Sub 3","Shirt Main","Shirt Sub 1","Shirt Sub 2","Shirt Sub 3","Shoes Main","Shoes Sub 1","Shoes Sub 2","Shoes Sub 3"]
 
         
 starttime = time.time()
@@ -162,13 +154,12 @@ async def on_member_remove(member):
         avatar = member.avatar_url_as(format="jpg",size=512)
         embed.set_thumbnail(url=avatar)
         await swifflingbotchat.send(embed=embed)
-        gsheets.open()
-        people = gsheets.read()
+        SBS.open()
+        people = SBS.read()
         for x in people:
             if x["ID"] == member.id:
                 personlist = x
-        gsheets.delrow(personlist["Place in Queue"])
-        await gsheets.redoplaceinqueue()
+        SBS.delrow(personlist["Place in Queue"])
 
 @client.event
 async def on_member_join(member):
@@ -183,11 +174,11 @@ async def on_member_join(member):
         avatar = member.avatar_url_as(format="jpg",size=512)
         embed.set_thumbnail(url=avatar) 
         await swifflingbotchat.send(embed=embed)
-        gsheets.open()
-        values = [gsheets.lenrows(),str(member.id)]
-        for x in range(0, 28):
+        SBS.open()
+        values = [SBS.lenrows(),str(member.id)]
+        for x in range(0, 27):
             values.append("None")
-        gsheets.addrow(values)
+        SBS.addrow(values)
     
 
 async def KeepAwake():
