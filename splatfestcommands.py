@@ -32,7 +32,7 @@ class SplatfestCommands():
         self.client = client
 
 
-    @splatfest.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def oldsplatfests(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
@@ -72,7 +72,7 @@ class SplatfestCommands():
         embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/thumb/9/9a/S2_Splatfest_Logo.svg/512px-S2_Splatfest_Logo.svg.png")
         await ctx.send(embed=embed)
        
-    @splatfest.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def lastsplatfest(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
@@ -155,7 +155,7 @@ class SplatfestCommands():
 
 
 
-    @splatfest.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def nextsplatfest(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
