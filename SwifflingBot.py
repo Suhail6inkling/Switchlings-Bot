@@ -150,7 +150,7 @@ async def on_message_remove(message):
         await x.send("```{}: {}```".format(message.author,message.content))
 
 @client.event
-async def on_message_edit(before,after)
+async def on_message_edit(before,after):
     server = client.get_guild(413113734303580171)
     if before.guild == server:
         x = client.get_channel(459450288198123530)
