@@ -130,6 +130,8 @@ async def on_message(message):
                 await sbcchat.send("{}: {}".format(message.author, message.content))
                 await message.delete()
                 return
+    if message.content.startswith("s."):
+        await message.channel.trigger_typing()
     noservercommands=["s.mute","s.unmute","s.kick","s.ban","s.timeout","s.lockdown","s.open","s.test","s.leave","s.join","s.prune","s.rank","s.addrank","s.delrank","s.ranks"]
     if message.content.split(" ")[0] in noservercommands and message.guild!=server:
         await message.channel.send("Those commands can only be used in **Switchlings Plaza!**")
