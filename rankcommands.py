@@ -33,10 +33,10 @@ class RankCommands():
             rank = discord.utils.get(server.roles, name=rankname.title())
             if rank in ctx.author.roles:
                 await ctx.author.remove_roles(rank)
-                await ctx.send("{}, you have left {}".format(ctx.author.mention,rankname.title()))
+                await ctx.send("{}, you left **{}**".format(ctx.author.mention,rankname.title()))
             else:
                 await ctx.author.add_roles(rank)
-                await ctx.send("{}, you have joined {}".format(ctx.author.mention, rankname.title()))
+                await ctx.send("{}, you joined **{}**".format(ctx.author.mention, rankname.title()))
         else:
             await ctx.send("That rank doesn't exist.")
     

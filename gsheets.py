@@ -65,6 +65,7 @@ class ListOfRanks():
         return x
 
     def updaterow(values):
+        sheet1.clear()
         sheet1.insert_row(values,index=1)
     
 
