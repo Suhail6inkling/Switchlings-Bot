@@ -49,7 +49,7 @@ class UserCommands():
 <s.rps (choice)> - Play a game with me!
 <s.randomchoice (comma-separated values)> - Let me decide on something from a given list
 <s.flip (number of coins)> - Leave everything to a head or a tail.
-<s.magic8ball> - With a question, used to give an answer. Now call it for a secret message!
+<s.magic8ball> - It used to give an answer. Now call it for a secret message!
 <s.rank (role)> - Give yourself a role / Remove yourself from a role
 <s.ranks> - View the list of roles that you can give yourself via s.rank```""")
 
@@ -68,16 +68,17 @@ class UserCommands():
         await ctx.author.send("""Splatoon Commands [Profile]:
 
 ```md
-<s.profile (@mention)> - View someone's full Splatoon 2 statistics (or view your own by not mentioning someone)
-<s.getfc (@mention)> - View someone's friend code (or view your own by not mentioning someone)
-<s.stats (@mention)> - View someone's level and ranks at ease (or view your own by not mentioning someone)
-<s.set (variable_name) (variable)> - Change your Splatoon 2 statistics```""")
+<s.profile (@mention)> - View someone's full Splatoon 2 statistics 
+<s.getfc (@mention)> - View someone's friend code 
+<s.stats (@mention)> - View someone's level and ranks at ease 
+<s.set (variable_name) (variable)> - Change your Splatoon 2 statistics
+For all these mentions don't mention someone to view your own information```""")
 
         await ctx.author.send("""Splatoon Commands [Splatfest]")        
 ```md
 <s.nextsplatfest (region)> - View the details for the next Splatfest in a region
 <s.lastsplatfest (region)> - View the results of the most previous Splatfest in a region
-<s.oldsplatfests (region)> - View the overall results of he last few splatfests in a region```""")
+<s.oldsplatfests (region)> - View the results of the last few splatfests in a region```""")
 
 
 
