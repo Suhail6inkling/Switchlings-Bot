@@ -142,7 +142,20 @@ async def on_message(message):
     
         
         
-         
+@client.event
+async def on_message_remove(message):
+    server = client.get_guild(413113734303580171)
+    if message.guild == server:
+        x = client.get_channel(459449840351445000)
+        await x.send("```{}: {}```".format(message.author,message.content))
+
+@client.event
+async def on_message_edit(before,after)
+    server = client.get_guild(413113734303580171)
+    if before.guild == server:
+        x = client.get_channel(459450288198123530)
+        await x.send("```{}\n{}\n{}```".format(before.author,before.content,after.content))
+
 @client.event
 async def on_member_remove(member):
     server = client.get_guild(413113734303580171)
