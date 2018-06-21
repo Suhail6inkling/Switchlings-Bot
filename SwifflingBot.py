@@ -143,7 +143,7 @@ async def on_message(message):
         
         
 @client.event
-async def on_message_remove(message):
+async def on_message_delete(message):
     server = client.get_guild(413113734303580171)
     if message.guild == server:
         x = client.get_channel(459449840351445000)
