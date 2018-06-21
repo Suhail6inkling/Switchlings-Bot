@@ -32,10 +32,10 @@ class RankCommands():
         if rankname.title() in ranks:
             rank = discord.utils.get(server.roles, name=rankname.title())
             if rank in ctx.author.roles:
-                await ctx.author.remove_role(rank)
+                await ctx.author.remove_roles(rank)
                 await ctx.send("{}, you have left {}".format(ctx.author.mention,rankname.title()))
             else:
-                await ctx.author.add_role(rank)
+                await ctx.author.add_roles(rank)
                 await ctx.send("{}, you have joined {}".format(ctx.author.mention, rankname.title()))
         else:
             await ctx.send("That rank doesn't exist.")
@@ -75,12 +75,13 @@ class RankCommands():
         LOR.open()
         ranks = LOR.read()
         server = ctx.guild
-        description=""
+        description="`"
         for rank in ranks:
             discordrank = discord.utils.get(server.roles, name=rank)
             amountofpeople = len([d for d in server.members if rank in [role.name for role in d.roles]])
             description="{0}\n{1:13}   {2:2} {3:>7}".format(description,rank,amountofpeople,"members")
-        embed = discord.Embed(title="Ranks",description=description,colour=0x00f00)
+        description="{}`".format(description)
+        embed = discord.Embed(title="Ranks",description=description,colour=0x00ff00)
         await ctx.send(embed=embed)
             
             
