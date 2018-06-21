@@ -31,13 +31,9 @@ class SplatfestCommands():
     def __init__(self, client):
         self.client = client
 
-    @commands.group(pass_context=True)
-    async def splatfest(self, ctx):
-        if ctx.invoked_subcommand is None:
-            await ctx.send("Please choose from one of the following options:\n```md\n<s.splatfest upcoming (region)> - View the upcoming or ongoing Splatfest\n<s.splatfest recent (region)> - View stats of the most recent Splatfest\n<s.splatfest list (region)> - View overall stats of the most recent Splatfests```")
 
     @splatfest.command(pass_context=True)
-    async def list(self, ctx, region=""):
+    async def oldsplatfests(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
@@ -77,7 +73,7 @@ class SplatfestCommands():
         await ctx.send(embed=embed)
        
     @splatfest.command(pass_context=True)
-    async def recent(self, ctx, region=""):
+    async def lastsplatfest(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
@@ -160,7 +156,7 @@ class SplatfestCommands():
 
 
     @splatfest.command(pass_context=True)
-    async def next(self, ctx, region=""):
+    async def nextsplatfest(self, ctx, region=""):
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
