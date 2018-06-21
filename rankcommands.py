@@ -70,6 +70,21 @@ class RankCommands():
             else:
                 await ctx.send("That rank doesn't exist.")
 
+    @commands.command(pass_context=True)
+    async def ranks(self, ctx):
+        LOR.open()
+        ranks = LOR.read()
+        server = ctx.guild
+        description=""
+        for rank in ranks:
+            discordrank = discord.utils.get(server.roles, name=rank)
+            amountofpeople = len([d for d in server.members if rank in [role.name for role in d.roles]])
+            description="{0}\n{1:13}   {2:2} {3:>7}".format(description,rank,amountofpeople,"members")
+        embed = discord.Embed(title="Ranks",description=description,colour=0x00f00)
+        await ctx.send(embed=embed)
+            
+            
+
 
 
 def setup(client):
