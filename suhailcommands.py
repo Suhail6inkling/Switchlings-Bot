@@ -4,6 +4,9 @@ import asyncio
 import random
 import sql
 import gsheets
+from cStringIO import StringIO as IO
+from urllib import urlopen as url
+import Image
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, jmbphotos
 
 class SuhailCommands():
@@ -13,7 +16,9 @@ class SuhailCommands():
 
     @commands.command(pass_context=True)
     async def jmb(self,ctx):
-        await ctx.send(random.choice(jmbphotos))
+        with Image.open(IO(urllib.urlopen(random.choice(jmbphotos)).read()) as img:
+            await ctx.send(file=discord.File(img))
+
 
 
     @commands.command(pass_context=True)
