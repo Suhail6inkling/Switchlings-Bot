@@ -25,6 +25,11 @@ class RankCommands():
 
 
     @commands.command(pass_context=True)
+    async def brands(self, ctx):
+        with open("brands.png","rb") as file:
+            await ctx.send(file=file)
+
+    @commands.command(pass_context=True)
     async def rank(self, ctx, *, rankname: str):
         LOR.open()
         ranks = LOR.read()
