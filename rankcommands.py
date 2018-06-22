@@ -12,7 +12,7 @@ import twitter
 from urllib.request import Request
 from urllib.request import urlopen
 
-from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords,
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords
 global people
 from SwifflingBot import people
 
