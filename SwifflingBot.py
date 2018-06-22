@@ -21,7 +21,8 @@ except ModuleNotFoundError:
     hangmanwords = (os.environ["hangmanwords"]).split(",")
     allowedwords = (os.environ["allowedwords"]).split(",")
     jmbphotos = (os.environ["jmbphotos"]).split(",")
-    
+    print(jmbphotos)
+
     
 Client = discord.Client()   
 prefix = "s."
