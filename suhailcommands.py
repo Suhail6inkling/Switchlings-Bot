@@ -14,7 +14,7 @@ class SuhailCommands():
 
     @commands.command(pass_context=True)
     async def jmb(self,ctx):
-        with urllib.urlopen(random.choice(jmbphotos)) as img:
+        with urllib.request.urlopen(random.choice(jmbphotos)) as img:
             await ctx.send(file=discord.File(img))
 
 
