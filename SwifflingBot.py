@@ -38,7 +38,18 @@ jmbphotos=["https://www.famousbirthdays.com/headshots/joseph-birlem-6.jpg",
 "https://a.wattpad.com/cover/104694240-288-k768814.jpg",
 "https://cdn.discordapp.com/attachments/442679711961710592/459799278500577292/unknown.png",
 "https://media.discordapp.net/attachments/422206454213115904/430706283931238401/image.png?width=203&height=499",
-"https://cdn.discordapp.com/attachments/422206454213115904/422206586589675520/image.jpg"]
+"https://cdn.discordapp.com/attachments/422206454213115904/422206586589675520/image.jpg",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201450352443392/IMG_0996.jpg",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201374700044299/IMG_1042.jpg",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201183812943872/IMG_1160.jpg",
+"https://cdn.discordapp.com/attachments/455200518902382613/455200983157571595/IMG_0963.jpg",
+"https://cdn.discordapp.com/attachments/455200518902382613/455200781126074369/D93E5BE2-8EC8-4E9B-820F-EAF3F32B0F3A-273-00000004E103A857.JPEG",
+"https://cdn.discordapp.com/attachments/455200518902382613/455200776311013397/EE29E36C-7CF6-4C52-BA6B-4F655CCDE000-273-00000004611142C0.JPEG",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201586067800074/57FF9BC2-DB37-4044-8609-7B1734F8D4EE-273-000000050EF02467.JPEG",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201590215835651/0B690FA3-5717-4B82-9056-970D0CAE26DC-273-00000005011D1924.JPEG",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201707815600138/IMG_0972.jpg",
+"https://cdn.discordapp.com/attachments/455200518902382613/455201732323049512/IMG_0970.jpg"]
+
     
 Client = discord.Client()   
 prefix = "s."
