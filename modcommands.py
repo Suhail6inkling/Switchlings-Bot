@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords
 
 class ModCommands():
     def __init__(self, client):

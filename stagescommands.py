@@ -11,7 +11,7 @@ from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
 salmonurl="https://splatoon2.ink/data/coop-schedules.json"
 
-from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords,
 global people
 from SwifflingBot import people
 

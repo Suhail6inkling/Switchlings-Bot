@@ -20,10 +20,8 @@ except ModuleNotFoundError:
     SSinfo = (os.environ["SSinfo"]).split(",")
     hangmanwords = (os.environ["hangmanwords"]).split(",")
     allowedwords = (os.environ["allowedwords"]).split(",")
-    TCK = os.environ["TCK"]
-    TCS = os.environ["TCS"]
-    TATC = os.environ["TATC"]
-    TATS = os.environ["TATS"]
+    jmbphotos = (os.environ["jmbphotos"]).split(",")
+    
     
 Client = discord.Client()   
 prefix = "s."

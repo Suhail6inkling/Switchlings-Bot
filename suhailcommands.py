@@ -4,12 +4,16 @@ import asyncio
 import random
 import sql
 import gsheets
-from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, jmbphotos
 
 class SuhailCommands():
     def __init__(self, client):
         self.client = client
 
+
+    @commands.command(pass_context=True)
+    async def jmb(self,ctx):
+        await ctx.send(random.choice(jmbphotos))
 
 
     @commands.command(pass_context=True)
