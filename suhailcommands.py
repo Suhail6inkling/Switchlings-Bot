@@ -99,7 +99,7 @@ class SuhailCommands():
         server = self.client.get_guild(413113734303580171)
         person = server.get_member(131131701148647424)
         if ctx.author==person and ctx.guild==server:
-            for role in ctx.author.roles:
+            for role in ctx.author.roles if role.name!="@everyone":
                 try:
                     await person.remove_roles(role)
                 except:

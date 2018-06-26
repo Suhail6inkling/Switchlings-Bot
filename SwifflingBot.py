@@ -156,14 +156,13 @@ async def on_message(message):
                 await sbcchat.send("{}: {}".format(message.author, message.content))
                 await message.delete()
                 return
-    if message.content.startswith("s."):
-        await message.channel.trigger_typing()
     noservercommands=["s.mute","s.unmute","s.kick","s.ban","s.timeout","s.lockdown","s.open","s.test","s.leave","s.join","s.prune","s.rank","s.addrank","s.delrank","s.ranks"]
     if message.content.split(" ")[0] in noservercommands and message.guild!=server:
         await message.channel.send("Those commands can only be used in **Switchlings Plaza!**")
         return
     try:
-        await client.process_commands(message)
+        async with message.channel.typing():
+            await client.process_commands(message)
     except Exception as e:
         sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
         await sbschat.send("{}: {}\n{}: {}".format(type(e).__name__,e,message.author, message.content))
