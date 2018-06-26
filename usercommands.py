@@ -138,6 +138,36 @@ For all these mentions don't mention someone to view your own information```""")
             #embed.set_thumbnail(url="")
             await ctx.send(embed=embed)
 
+    @commands.command(pass_context=True)
+    async def timer(self, ctx, number: int, unit: str):
+        seconds = ["sec","secs","second","seconds"]
+        minutes = ["min","mins","minute","minutes"]
+        hours = ["hr","hrs","hour","hours"]
+        if unit in seconds:
+            timee = number
+            if number==1:
+                unitt="second"
+            else:
+                unitt="seconds"
+        elif unit in minutes:
+            timee = number * 60
+            if number==1:
+                unitt = "minute"
+            else:
+                unitt="minutes"
+        elif unit in hours:
+            timee = number * 3600
+            if number==1:
+                unitt = "hour"
+            else:
+                unitt = "hours"
+        else:
+            await ctx.send("Error. That's not a unit of time!")
+            return
+        await ctx.send("{} {}, starting now...".format(number,unitt))
+        await asyncio.sleep(timee)
+        await ctx.send("{}, your timer is done".format(ctx.author.mention))
+        
 
     @commands.command(pass_context=True)
     async def randomchoice(self, ctx, *, options: str):
