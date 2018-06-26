@@ -161,8 +161,7 @@ async def on_message(message):
         await message.channel.send("Those commands can only be used in **Switchlings Plaza!**")
         return
     try:
-        async with message.channel.typing():
-            await client.process_commands(message)
+        await client.process_commands(message)
     except Exception as e:
         sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
         await sbschat.send("{}: {}\n{}: {}".format(type(e).__name__,e,message.author, message.content))
