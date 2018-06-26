@@ -52,6 +52,14 @@ class SuhailCommands():
 
     
     @commands.command(pass_context=True)
+    async def foreignprint(self, ctx, channel: str, *, message: str):
+        server = self.client.get_guild(413113734303580171)
+        if "Suhail" in [role.name for role in ctx.author.roles]:
+            serverchannel = discord.utils.get(server.channels, name=channel)
+            await serverchannel.send(message)
+            await ctx.message.add_reaction("✅")
+
+    @commands.command(pass_context=True)
     async def print(self, ctx, *, x: str):
         server = self.client.get_guild(413113734303580171)
         if ctx.guild == server:
