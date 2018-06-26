@@ -15,14 +15,14 @@ class SuhailCommands():
     @commands.command(pass_context=True)
     async def jmb(self,ctx):
         x = random.randint(1,25)
-        filetoopen="\Joey Birlem\JoeyBirlem{}.jpg".format(str(x))
+        filetoopen="Joey Birlem/JoeyBirlem{}.jpg".format(str(x))
         with open(filetoopen, "rb") as file:
             await ctx.send(file=discord.File(file))
     
     @commands.command(pass_context=True)
     async def js(self,ctx):
         x = random.randint(1,16)
-        filetoopen="\Jacob Sartorius\JacobSartorius{}.jpg".format(str(x))
+        filetoopen="Jacob Sartorius/JacobSartorius{}.jpg".format(str(x))
         with open(filetoopen, "rb") as file:
             await ctx.send(file=discord.File(file))
 
