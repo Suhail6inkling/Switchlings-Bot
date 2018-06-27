@@ -167,7 +167,18 @@ async def on_message(message):
         await sbschat.send("{}: {}\n{}: {}".format(type(e).__name__,e,message.author, message.content))
     
         
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound) or isinstance(error, commands.UserInputError) or isinstance(error, commands.MissingRequiredArgument):
+        await ctx.message.add_reaction("❌")
+    else:
+        sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
+        person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
+        await sbschat.send("{}\n{}: {}\n{}: {}".format(person.mention,type(error).__name__,error,message.author, message.content))
         
+    
+
 @client.event
 async def on_message_delete(message):
     server = client.get_guild(413113734303580171)
