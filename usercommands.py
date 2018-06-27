@@ -14,7 +14,7 @@ class UserCommands():
     @commands.command(pass_context=True)
     async def ping(self, ctx):
         resp = await ctx.send("Pong! Loading...")
-        diff = resp.created_at - message.created_at
+        diff = resp.created_at - ctx.message.created_at
         await resp.edit(content=f"Pong! That took {1000*diff.total_seconds():.1f}ms.")
 
     @commands.command(pass_context=True)
@@ -167,7 +167,7 @@ For all these mentions don't mention someone to view your own information```""")
         await ctx.send("{} {}, starting now...".format(number,unitt))
         await asyncio.sleep(timee)
         await ctx.send("{}, your timer is done".format(ctx.author.mention))
-        
+
 
     @commands.command(pass_context=True)
     async def randomchoice(self, ctx, *, options: str):
