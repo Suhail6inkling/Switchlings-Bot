@@ -186,7 +186,36 @@ class StagesCommands():
             embed = discord.Embed(title="Ranked Battle", description="\n\n{}\n\n**MODE**\n{}\n\n**STAGES**\n{}\n{}\n\n{}".format(beginningmessage,mode,stages[0],stages[1],endingmessage),colour=0xF44910)
             embed.set_thumbnail(url="https://cdn.wikimg.net/en/splatoonwiki/images/2/2c/Mode_Icon_Ranked_Battle_2.png")
             await ctx.send(embed=embed)
+    @commands.command(pass_context=True)
+    async def getcurrentrankedmode(self, ctx):
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        await ctx.send("**{}**".format(allmodes["gachi"][0]["rule"]["name"]))
 
+    @commands.command(pass_context=True)
+    async def getnextrankedmode(self, ctx):
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        await ctx.send("**{}**".format(allmodes["gachi"][1]["rule"]["name"]))
+    @commands.command(pass_context=True)
+    async def getcurrentleaguemode(self, ctx):
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        await ctx.send("**{}**".format(allmodes["league"][0]["rule"]["name"]))
+
+    @commands.command(pass_context=True)
+    async def getnextleaguemode(self, ctx):
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        await ctx.send("**{}**".format(allmodes["league"][1]["rule"]["name"]))
     @commands.command(pass_context=True)
     async def league(self, ctx):
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
