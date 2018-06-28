@@ -393,29 +393,6 @@ class StagesCommands():
         message = em(message, hour, minute, second)
         embed = discord.Embed(title="Time until next map rotation",description=message,colour=0x808080)
         await ctx.send(embed=embed)
-    @commands.command(pass_context=True)
-    async def splatnet(self, ctx):
-        api = twitter.Api(
-        consumer_key=TCK,
-        consumer_secret=TCS,
-        access_token_key=TATC,
-        access_token_secret=TATS)
-        t = api.GetUserTimeline(screen_name="splatoon2inkbot", count=12)
-        tweets = [i.AsDict() for i in t]
-        items = []
-        for tweet in tweets:
-            if "SplatNet" in tweet["text"]:
-                q = tweet["text"].split("Up now on SplatNet: ")[1]
-                q = q.split(" #splatnet2")[0]
-                items.append(q)
-        description = ""
-        for item in items:
-            if description == "":
-                description = item
-            else:
-                description = """{}\n{}""".format(description,item)
-        embed = discord.Embed(title = "SplatNet Shop", description = description, colour = 0x202020)
-        await ctx.send(embed=embed)
-
+    
 def setup(client):
     client.add_cog(StagesCommands(client))

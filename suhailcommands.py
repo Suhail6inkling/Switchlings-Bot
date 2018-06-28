@@ -5,7 +5,7 @@ import random
 import sql
 import gsheets
 import urllib
-from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, jmbphotos
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords  
 
 class SuhailCommands():
     def __init__(self, client):

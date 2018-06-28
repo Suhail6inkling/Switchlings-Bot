@@ -148,7 +148,7 @@ async def on_command_error(ctx, error):
     else:
         sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
         person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
-        await sbschat.send("{}\n{}: {}\n{}: {}".format(person.mention,type(error).__name__,error,message.author, message.content))
+        await sbschat.send("{}\n{}: {}\n{}: {}".format(person.mention,type(error).__name__,error,ctx.message.author, ctx.message.content))
         
     
 
