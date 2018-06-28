@@ -23,38 +23,11 @@ except ModuleNotFoundError:
 
 
 
-jmbphotos=["https://www.famousbirthdays.com/headshots/joseph-birlem-6.jpg",
-"https://i1.wp.com/www.famedstar.com/wp-content/uploads/2018/01/Joey-Birlem-Height-Age-Weight-Wiki-Biography-Parents-Affairs-Siblings-Net-Worth.jpg?resize=700%2C605",
-"https://a.wattpad.com/cover/106416278-352-k742150.jpg",
-"https://pbs.twimg.com/profile_images/903368437233266688/WFd4BBeP_400x400.jpg",
-"https://www.famousbirthdays.com/headshots/joseph-birlem-4.jpg",
-"https://pbs.twimg.com/media/DGIWdmqUIAEakzs.jpg",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQERuVXJS_vKHe8blvWMbzHY9jhhMZSKyakMzUO9m5j6a-mvIsh",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfzHo1bOkk5MK10uM6ua8oHdkGYpxaeXjz8h8bCUO9cboSUhfpjw"
-"https://78.media.tumblr.com/68d5de0c64a9014e8501cd440d819a4b/tumblr_orv1rfQidc1w8rdaco1_1280.jpg",
-"https://cdn.discordapp.com/attachments/442679711961710592/459795623852507146/unknown.png",
-"https://cdn.discordapp.com/attachments/442679711961710592/455198565736775700/image.png",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbrWWyzSKefPbBPa3_tZ77KuSYWEiyc-HDBP-Yv_Ju3V8KKc_9",
-"https://a.wattpad.com/cover/104694240-288-k768814.jpg",
-"https://cdn.discordapp.com/attachments/442679711961710592/459799278500577292/unknown.png",
-"https://media.discordapp.net/attachments/422206454213115904/430706283931238401/image.png?width=203&height=499",
-"https://cdn.discordapp.com/attachments/422206454213115904/422206586589675520/image.jpg",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201450352443392/IMG_0996.jpg",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201374700044299/IMG_1042.jpg",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201183812943872/IMG_1160.jpg",
-"https://cdn.discordapp.com/attachments/455200518902382613/455200983157571595/IMG_0963.jpg",
-"https://cdn.discordapp.com/attachments/455200518902382613/455200781126074369/D93E5BE2-8EC8-4E9B-820F-EAF3F32B0F3A-273-00000004E103A857.JPEG",
-"https://cdn.discordapp.com/attachments/455200518902382613/455200776311013397/EE29E36C-7CF6-4C52-BA6B-4F655CCDE000-273-00000004611142C0.JPEG",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201586067800074/57FF9BC2-DB37-4044-8609-7B1734F8D4EE-273-000000050EF02467.JPEG",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201590215835651/0B690FA3-5717-4B82-9056-970D0CAE26DC-273-00000005011D1924.JPEG",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201707815600138/IMG_0972.jpg",
-"https://cdn.discordapp.com/attachments/455200518902382613/455201732323049512/IMG_0970.jpg"]
-
     
 Client = discord.Client()   
 prefix = "s."
 client = commands.Bot(command_prefix=prefix)
-startup_extensions=["usercommands","modcommands","stagescommands","profilecommands","splatfestcommands","suhailcommands","rankcommands"]
+startup_extensions=["usercommands","modcommands","stagescommands","profilecommands","splatfestcommands","suhailcommands","rankcommands","miscellaneouscommands"]
 client.remove_command("help")
 global successful_extensions, failed_extensions
 successful_extensions = []

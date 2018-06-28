@@ -17,6 +17,8 @@ url = "https://splatoon2.ink/data/schedules.json"
 salmonurl="https://splatoon2.ink/data/coop-schedules.json"
 sqlstuff = ["switchcode","gender","skincolour","eyecolour","hairstyle","trousers","weapon","level","sz","tc","rm","cb","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
 rankmodes = ["sz","tc","rm","cb"]
+modes = ["Splat Zones","Tower Control","Rainmaker","Clam Blitz","Turf War"]
+
 genders = ["Inkling Boy","Inkling Girl","Octoling Boy","Octoling Girl"]
 skincolours=["White","Pale","Yellow","Light Brown","Middle Brown","Dark Brown","Black"]
 eyecolours=["Blue","Green","Yellow","Orange","Red","Pink","Purple","Black","White","Grey","Lime Green","Brown","Dark Purple","Dark Blue"]
@@ -45,176 +47,64 @@ for shoe in newshoes:
     shoes.append(shoe)
 
 
+stages=["The Reef","Inkblot Art Academy","Kelp Dome","Humpback Pump Track","Manta Maria","Moray Towers","Musselforge Fitness","Port Mackerel","Snapper Canal","Starfish Mainstage","Sturgeon Shipyard","Blackbelly Skatepark","MakoMart","Walleye Warehouse","Arowana Mall","Goby Arena","Piranha Pit","Camp Triggerfish","Wahoo World","Shellendorf Institute","Albacore Hotel"]
+
+
+
 mains = ["Comeback","Last-Ditch Effort","Opening Gambit","Tenacity","Ability Doubler","Haunt","Ninja Squid","Respawn Punisher","Thermal Ink","Drop Roller","Object Shredder","Stealth Jump"]
 abilities = ["Ability Doubler","Bomb Defense Up","Cold-Blooded","Comeback","Drop Roller","Haunt","Ink Recovery Up","Ink Resistance Up","Ink Saver (Main)","Ink Saver (Sub)","Last-Ditch Effort","Ninja Squid","Object Shredder","Opening Gambit","Quick Respawn","Quick Super Jump","Respawn Punisher","Run Speed Up","Special Charge Up","Special Power Up","Special Saver","Stealth Jump","Sub Power Up","Swim Speed Up","Tenacity","Thermal Ink"]
 subs = ['Bomb Defense Up', 'Cold-Blooded', 'Ink Recovery Up', 'Ink Resistance Up', 'Ink Saver (Main)', 'Ink Saver (Sub)', 'Quick Respawn', 'Quick Super Jump', 'Run Speed Up', 'Special Charge Up', 'Special Power Up', 'Special Saver', 'Sub Power Up', 'Swim Speed Up']
 ranks = ["C-","C","C+","B-","B","B+","A-","A","A+","S","S+0","S+1","S+2","S+3","S+4","S+5","S+6","S+7","S+8","S+9","X"]
 
-from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords
+from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 global people
 from SwifflingBot import people
 
 
 
 
+class MiscellaneousCommands():
 
-
-
-class ProfileCommands():
     def __init__(self, client):
         self.client = client
 
     @commands.command(pass_context=True)
-    async def stats(self, ctx, person: discord.Member=None):
-        if person is None:
-            person = ctx.author
-        member = person.id
-        SBS.open()
-        people = SBS.read()
-        for x in people:
-            if x["ID"] == member:
-                personlist = x
-        description = "`{levname:14}     {lev:>4}\n{szname:14}     {sz:>4}\n{tcname:14}     {tc:>4}\n{rmname:14}     {rm:>4}\n{cbname:14}     {cb:>4}`".format(levname="Level:",lev=personlist["Level"],szname="Splat Zones:",sz=personlist["Splat Zone Rank"],tcname="Tower Control:",tc=personlist["Tower Control Rank"],rmname="Rainmaker:",rm=personlist["Rainmaker Rank"],cbname="Clam Blitz:",cb=personlist["Clam Blitz Rank"])
-        await ctx.send(description)
+    async def brands(self, ctx):
+        with open("brands.png","rb") as file:
+            await ctx.send(file=discord.File(file))
 
     @commands.command(pass_context=True)
-    async def profile(self, ctx, person: discord.Member=None):
-            if person is None:
-                person=ctx.author
-            member = person.id
-            SBS.open()
-            people = SBS.read()
-            for x in people:
-                if x["ID"] == member:
-                    personlist = x       
-            embed = discord.Embed(title = person.name, description="""\n**Friend Code:** {}\n\n**Gender & Species:** {}\n**Skin Colour:** {}\n**Eye Colour:** {}\n**Hairstyle:** {}\n**Trousers:** {}\n\n**WEAPON:** {}\n\n**STATS**\n*Level:* {}\n*Splat Zones Rank:* {}\n*Tower Control Rank:* {}\n*Rainmaker Rank:* {}\n*Clam Blitz Rank:* {}\n\n**HAT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHIRT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHOES**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}""".format(personlist["Friend Code"],personlist["Gender & Species"],personlist["Skin Colour"],personlist["Eye Colour"],personlist["Hairstyle"],personlist["Trousers"],personlist["Weapon"],
-                   personlist["Level"],personlist["Splat Zone Rank"],personlist["Tower Control Rank"],personlist["Rainmaker Rank"],personlist["Clam Blitz Rank"],
-                   personlist["Hat"],personlist["Hat Main"],personlist["Hat Sub 1"],personlist["Hat Sub 2"],personlist["Hat Sub 3"],
-                   personlist["Shirt"],personlist["Shirt Main"],personlist["Shirt Sub 1"],personlist["Shirt Sub 2"],personlist["Shirt Sub 3"],
-                   personlist["Shoes"],personlist["Shoes Main"], personlist["Shoes Sub 1"],personlist["Shoes Sub 2"],personlist["Shoes Sub 3"]))
-            await ctx.send(embed=embed)
-            
-    @commands.command(pass_context=True)
-    async def set(self, ctx, varchar, *, variable):
-        member = ctx.author.id
-        SBS.open()
-        people = SBS.read()
-        for x in people:
-            if x["ID"] == member:
-                personlist = x
-        if varchar in sqlstuff:
-            if varchar == "hat":
-                if variable in hats:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-    
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("This hat doesn't exist. Please look online for the list of headgear. If this item is new or is spelt incorrectly, please contact Suhail6inkling")
-            elif varchar == "switchcode":
-                if variable.startswith("SW-") and len(variable)==17:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("Please put your switch code in the format `SW-xxxx-xxxx-xxxx`.")
-            elif varchar == "shirt":
-                if variable in shirts:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("This shirt doesn't exist. Please look online for the list of clothing. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
-            elif varchar == "shoes":
-                if variable in shoes:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("These shoes don't exist. Please look online for the list of footwear. If this item is new or is spelt incorrectly, please contact Suhail6inkling.")
-            elif varchar == "gender":
-                if variable in genders:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That gender doesn't exist!")
-            elif varchar == "eyecolour":
-                if variable in eyecolours:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That isn't an eye colour!")
-            elif varchar == "hairstyle":
-                if personlist["Gender & Species"]==None or personlist["Gender & Species"]=="None":
-                    await ctx.send("Choose a gender first!")
-                elif variable in hairstyles[personlist["Gender & Species"]]:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("Your gender doesn't have that hairstyle or that hairstyle doesn't exist!")
-            elif varchar == "skincolour":
-                if variable in skincolours:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That isn't a skin colour!")
-            elif varchar == "weapon":
-                if variable in weapons:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That weapon doesn't exist!")
-            elif varchar == "trousers":
-                await ctx.send("WIP")
-            elif varchar == "level":
-                try:
-                    if int(variable) > 0  and int(variable) < 200:
-                        SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                        await ctx.message.add_reaction("✅")
-                    else:
-                        await ctx.send("Levels don't go up that high/low!")
-                except:
-                    await ctx.send("Please input a number (for prestige, input a number between 100-200)")
-            elif varchar in rankmodes:
-                if variable in ranks:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That's not a valid rank!")
-            elif varchar.endswith("main"):
-                if variable in abilities:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That ability doesn't exist!")
+    async def splatnet(self, ctx):
+        api = twitter.Api(
+        consumer_key=TCK,
+        consumer_secret=TCS,
+        access_token_key=TATC,
+        access_token_secret=TATS)
+        t = api.GetUserTimeline(screen_name="splatoon2inkbot", count=12)
+        tweets = [i.AsDict() for i in t]
+        items = []
+        for tweet in tweets:
+            if "SplatNet" in tweet["text"]:
+                q = tweet["text"].split("Up now on SplatNet: ")[1]
+                q = q.split(" #splatnet2")[0]
+                items.append(q)
+        description = ""
+        for item in items:
+            if description == "":
+                description = item
             else:
-                if variable in subs:
-                    SBS.updatecell(varchar, personlist["Place in Queue"],variable)
-                    await ctx.message.add_reaction("✅")
-                else:
-                    await ctx.send("That ability doesn't exist or is restricted to the first slot only!")
-        else:
-            await ctx.send("That's not a variable you can change!")
-        SBS.open()
-        people = SBS.read()
-            
-        
+                description = """{}\n{}""".format(description,item)
+        embed = discord.Embed(title = "SplatNet Shop", description = description, colour = 0x202020)
+        await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
-    async def getfc(self, ctx, person: discord.Member=None):
-            if person is None:
-                person = ctx.author
-            if person==ctx.author:
-                pronoun="Your"
-                pronouna="You"
-            else:
-                pronoun="Their"
-                pronouna="They"
-            member = person.id
-            SBS.open()
-            people = SBS.read()
-            for x in people:
-                if x["ID"] == member:
-                    personlist = x
-            if personlist["Friend Code"] is None or personlist["Friend Code"] == "None":
-                await ctx.send("{} have not entered {} FC.".format(pronouna,pronoun.lower()))
-            else:
-                await ctx.send("{} FC is {}".format(pronoun,personlist["Friend Code"]))
+    async def privatebattle(self, ctx):
+        embed1 = discord.Embed(title="Private Battle",description="**MODE:**\n{}\n\n**STAGE:**\n{}".format(random.choice(modes),random.choice(stages)),colour=0xbc36e7)
+        embed2 = discord.Embed(title="Alpha Team",description="**WEAPONS:**\n\n{}\n{}\n{}\n{}".format(random.choice(weapons),random.choice(weapons),random.choice(weapons),random.choice(weapons)),colour=0xf70b6d)
+        embed3 = discord.Embed(title="Bravo Team",description="**WEAPONS:**\n\n{}\n{}\n{}\n{}".format(random.choice(weapons),random.choice(weapons),random.choice(weapons),random.choice(weapons)),colour=0x09ff5A)
+        await ctx.send(embed=embed1)
+        await ctx.send(embed=embed2)
+        await ctx.send(embed=embed3)
+
 def setup(client):
-    client.add_cog(ProfileCommands(client))
+    client.add_cog(MiscellaneousCommands(client))
