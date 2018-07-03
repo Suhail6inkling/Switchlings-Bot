@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
-import sql
 import gsheets
 import urllib
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords  
