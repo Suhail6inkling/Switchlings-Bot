@@ -17,7 +17,7 @@ class UserCommands():
             if message == "":
                 message = numberr
             else:
-                message = "{}, {}".format(message,number)
+                message = "{}, {}".format(message,numberr)
         await ctx.send(message)
 
     @commands.command(pass_context=True)
