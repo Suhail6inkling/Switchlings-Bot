@@ -10,14 +10,14 @@ class UserCommands():
         self.client = client
 
     @commands.command(pass_context=True)
-    async def randomnumber(minimum: int=1, maximum: int=10, numberofthings: int=1)
-    message = ""
-    for x in range(0,numberofthings):
-        numberr = random.randint(minimum,maximum)
-        if message == "":
-            message = numberr
-        else:
-            message = "{}, {}".format(message,number)
+    async def randomnumber(minimum: int=1, maximum: int=10, numberofthings: int=1):
+        message = ""
+        for x in range(0,numberofthings):
+            numberr = random.randint(minimum,maximum)
+            if message == "":
+                message = numberr
+            else:
+                message = "{}, {}".format(message,number)
 
 
     @commands.command(pass_context=True)
