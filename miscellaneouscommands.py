@@ -70,7 +70,7 @@ class MiscellaneousCommands():
 
     @commands.command(pass_context=True)
     async def randomweapon(self, ctx):
-        await ctx.send(random.choice(weapons))
+        await ctx.send("**{}**".format(random.choice(weapons)))
 
     @commands.command(pass_context=True)
     async def maps(self, ctx):

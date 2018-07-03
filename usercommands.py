@@ -9,6 +9,15 @@ class UserCommands():
     def __init__(self, client):
         self.client = client
 
+    @commands.command(pass_context=True)
+    async def randomnumber(minimum: int=1, maximum: int=10, numberofthings: int=1)
+    message = ""
+    for x in range(0,numberofthings):
+        numberr = random.randint(minimum,maximum)
+        if message == "":
+            message = numberr
+        else:
+            message = "{}, {}".format(message,number)
 
 
     @commands.command(pass_context=True)
@@ -44,6 +53,7 @@ class UserCommands():
 <s.switchlings (Switchling)> - View information about one of us!
 [Random Commands](Fun?)
 <s.rps (choice)> - Play a game with me!
+<s.randomnumber (min, max, no of numbers)> - Pick (a) random number(s) between 2 values
 <s.randomchoice (comma-separated values)> - Let me decide on something from a given list
 <s.flip (number of coins)> - Leave everything to a head or a tail.
 <s.magic8ball> - It used to give an answer. Now call it for a secret message!
