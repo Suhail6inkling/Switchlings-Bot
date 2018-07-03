@@ -5,7 +5,7 @@ import random
 import json
 import time
 
-from SwifflingBot.errors import RankError
+from SwifflingBoterrors import RankError
 
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR

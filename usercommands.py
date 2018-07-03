@@ -3,7 +3,7 @@ from discord.ext import commands
 import asyncio
 import random
 import time
-from SwifflingBot.errors import WillCrashBot
+from SwifflingBoterrors import WillCrashBot
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, starttime
 
 class UserCommands():
