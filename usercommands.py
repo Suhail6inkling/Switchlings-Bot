@@ -72,7 +72,8 @@ class UserCommands():
 <s.brands> - View the favoured and unfavoured subs per brannd
 <s.splatnet> - View the items in the SplatNet shop
 <s.privatebattle> - Set up a private battle!
-<s.maps> - Returns a list of all the maps in the game!```""")
+<s.maps> - Returns a list of all the maps in the game
+<s.randomweapon> - Picks a weapon at random```""")
 
 
         

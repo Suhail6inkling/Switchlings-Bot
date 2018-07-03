@@ -69,6 +69,10 @@ class MiscellaneousCommands():
         self.client = client
 
     @commands.command(pass_context=True)
+    async def randomweapon(self, ctx):
+        await ctx.send(random.choice(weapons))
+
+    @commands.command(pass_context=True)
     async def maps(self, ctx):
         message = ""
         for stage in stages:
