@@ -73,6 +73,11 @@ class MiscellaneousCommands():
         await ctx.send("**{}**".format(random.choice(weapons)))
 
     @commands.command(pass_context=True)
+    async def randomstage(self, ctx):
+        await ctx.send("**{}**".format(random.choice(stages)))
+            
+
+    @commands.command(pass_context=True)
     async def maps(self, ctx):
         message = ""
         for stage in stages:

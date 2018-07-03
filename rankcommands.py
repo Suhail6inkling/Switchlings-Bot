@@ -5,6 +5,8 @@ import random
 import json
 import time
 
+from SwifflingBot.errors import RankError
+
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
 
@@ -40,7 +42,7 @@ class RankCommands():
                 await ctx.author.add_roles(rank)
                 await ctx.send("{}, you joined **{}**".format(ctx.author.mention, rankname.title()))
         else:
-            await ctx.send("That rank doesn't exist.")
+            raise RankError
     
 
     @commands.command(pass_context=True)
@@ -57,7 +59,7 @@ class RankCommands():
                 LOR.updaterow(ranks)
                 await ctx.message.add_reaction("✅")
             else:
-                await ctx.send("Error. That role doesn't exist in the server.")
+                raise RankError
     
     @commands.command(pass_context=True)
     async def delrank(self, ctx, *, rankname: str):

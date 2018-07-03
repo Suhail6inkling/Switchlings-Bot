@@ -8,7 +8,7 @@ import urllib.parse as urlparse
 import twitter
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
-
+import SwifflingBot.errors
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 except ModuleNotFoundError:
@@ -145,6 +145,10 @@ async def on_message(message):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound) or isinstance(error, commands.UserInputError) or isinstance(error, commands.MissingRequiredArgument):
         await ctx.message.add_reaction("❌")
+    elif isinstance(error, SwifflingBot.errors):
+        errormessage = "{}: {}".format(type(error).__name__,error)
+        await ctx.send("Oops an exclusive error occured!\n```{}```".format(errormessage))
+
     else:
         sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
         person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
