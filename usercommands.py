@@ -35,74 +35,47 @@ class UserCommands():
     async def help(self, ctx):
         await ctx.message.add_reaction("✅")
         await ctx.author.send("Hello there! My name is **Switchlings Bot**, made specifically for the **Switchlings Plaza**. I mainly specialize in Splatoon commands but I can do a lot more. Here is what I can do [Please note that I'm a WIP so not all commands may work]")
-
-        await ctx.author.send("""General Commands:""")
-        await ctx.author.send("""
-```md
+        await ctx.author.send("""```md
+#General Commands
 <s.help> - Displays this help message.
 <s.ping> - Check the time the bot takes to respond
 <s.botstatus> - Check how long the bot's been going for
 <s.userinfo (@mention)> - Check someone's Discord information!
-<s.switchlings (Switchling)> - View information about one of us!```
-
-
-Random Commands""")
-
-        await ctx.author.send("""
-```md
+<s.switchlings (Switchling)> - View information about one of us!
+#Random Commands
 <s.rps (choice)> - Play a game with me!
 <s.randomchoice (comma-separated values)> - Let me decide on something from a given list
 <s.flip (number of coins)> - Leave everything to a head or a tail.
 <s.magic8ball> - It used to give an answer. Now call it for a secret message!
 <s.rank (role)> - Give yourself a role / Remove yourself from a role
-<s.ranks> - View the list of roles that you can give yourself via s.rank```)
-
-
-Splatoon Commands[Stages (1)]""")
-
-        await ctx.author.send("""
-```md
+<s.ranks> - View the list of roles that you can give yourself via s.rank```""")
+        await ctx.author.send("""```md
+#Splatoon Commands - Stages
 <s.regular> - View the current and next two Turf War maps
 <s.ranked> - View the current and next two Ranked Battle mode & maps
 <s.league> - View the current and next two League Battle mode & maps
 <s.stages> - View the current mode & maps for all three battle formats
-<s.nextstages> - View the next mode & maps for all three battle formats```
-
-Splatoon Commands [Stages (2)]""")
-        await ctx.author.send("""
-```md
+<s.nextstages> - View the next mode & maps for all three battle formats
 <s.salmon> - View the current (if running) and future Salmon Run map, weapons & schedules
+<s.issalmonon> - Returns Yes or No if Salmon Run is currently running
 <s.timeleft> - View the amount of time remaining until the next map rotation
 <s.getcurrentrankedmode> - View the current mode for Ranked Battle
 <s.getcurrentleaguemode> - View the current mode for League Battle
 <s.getnextrankedmode> - View the next mode for Ranked Battle
-<s.getnextleaguemode> - View the next mode for League Battle```
-
-Splatoon Commands [Profile]""")
-
-        await ctx.author.send("""
-
-```md
-<s.profile (@mention)> - View someone's full Splatoon 2 statistics 
-<s.getfc (@mention)> - View someone's friend code 
-<s.stats (@mention)> - View someone's level and ranks at ease 
-<s.set (variable_name) (variable)> - Change your Splatoon 2 statistics
-For all these mentions don't mention someone to view your own information```
-
-Splatoon Commands [Splatfest]""")
-
-        await ctx.author.send("""        
-```md
+<s.getnextleaguemode> - View the next mode for League Battle
+#Splatoon Commands - Splatfest
 <s.nextsplatfest (region)> - View the details for the next Splatfest in a region
 <s.lastsplatfest (region)> - View the results of the most previous Splatfest in a region
-<s.oldsplatfests (region)> - View the results of the last few splatfests in a region```""")
-
-
-        await ctx.author.send("""Splatoon Commands [Misc]
-```md
+<s.oldsplatfests (region)> - View the results of the last few splatfests in a region
+<s.splatfestcolours (region)> - Returns the hex value for the colours of the next Splatfest
+#Splatoon Commands - Misc
 <s.brands> - View the favoured and unfavoured subs per brannd
 <s.splatnet> - View the items in the SplatNet shop
-<s.privatebattle> - Set up a private battle!```""")
+<s.privatebattle> - Set up a private battle!
+<s.maps> - Returns a list of all the maps in the game!```""")
+
+
+        
 
         await ctx.send("Documentation has been sent to your DMs!")
 

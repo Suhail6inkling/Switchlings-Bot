@@ -375,7 +375,7 @@ class StagesCommands():
             minute = int(time.strftime("%M", time.gmtime(endtime_relative)))
             second = int(time.strftime("%S", time.gmtime(endtime_relative)))
             endingmessage = salmonem(endingmessage, day, hour, minute, second)
-            embed = discord.Embed(title="Salmon Run",description="\n\n{}\n\n**STAGE*\n{}\n\n**WEAPONS**\n{}\n{}\n{}\n{}\n\n{}".format(beginningmessage,stage,weapons[0],weapons[1],weapons[2],weapons[3],endingmessage),colour=0xff5600)
+            embed = discord.Embed(title="Salmon Run",description="\n\n{}\n\n**STAGE**\n{}\n\n**WEAPONS**\n{}\n{}\n{}\n{}\n\n{}".format(beginningmessage,stage,weapons[0],weapons[1],weapons[2],weapons[3],endingmessage),colour=0xff5600)
             embed.set_thumbnail(url="https://splatoon2.ink/assets/img/mr-grizz.a87af8.png")
             await ctx.send(embed=embed)
         alltimes = salmonrun["schedules"]
