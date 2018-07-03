@@ -318,6 +318,22 @@ class StagesCommands():
 
 
     @commands.command(pass_context=True)
+    async def issalmonon(self, ctx):
+        req = Request(salmonurl, headers={'User-Agent': 'Mozilla/5.0'})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        salmonrun = json.loads(webpage)
+        salmonruna = salmonrun["details"][0]
+        starttime = salmonruna["start_time"]
+        timenow = time.time()
+        if starttime < timenow:
+            await ctx.send("Yes")
+        else:
+            await ctx.send("No")
+
+        
+
+    @commands.command(pass_context=True)
     async def salmon(self, ctx, choice="UTC"):
         timezones = {"GMT": 0,"UTC": 0, "BST": 3600, "PDT": -25200, "EDT": -14400, "CET": 3600, "PST": -28800, "EST": -18000, "CEST": 7200}
         try:

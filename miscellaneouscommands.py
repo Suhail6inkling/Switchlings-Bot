@@ -69,6 +69,13 @@ class MiscellaneousCommands():
         self.client = client
 
     @commands.command(pass_context=True)
+    async def maps(self, ctx):
+        message = ""
+        for stage in stages:
+            message="{}{}\n".format(message,stage)
+        await ctx.send(message)
+
+    @commands.command(pass_context=True)
     async def brands(self, ctx):
         with open("brands.png","rb") as file:
             await ctx.send(file=discord.File(file))

@@ -153,7 +153,30 @@ class SplatfestCommands():
 
 
 
-
+    @commands.command(pass_context=True)
+    async def splatfestcolours(self, ctx, region=""):
+        regions = ["na","eu","jp"]
+        if region == "" or region.lower() not in regions:
+            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
+            return
+        region = region.lower()
+        req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        web_byte = urlopen(req).read()
+        webpage = web_byte.decode("utf-8")
+        allmodes = json.loads(webpage)
+        splatfest = allmodes[region]["festivals"][0]
+        timenow = time.time()
+        if splatfest["times"]["end"] < timenow:
+            await ctx.send("There are no upcoming Splatfests for this region")
+            return
+        alphashort = splatfest["names"]["alpha_short"]
+        bravoshort = splatfest["names"]["bravo_short"]
+        alphahex = hexcolor(splatfest["colors"]["alpha"])
+        bravohex = hexcolor(splatfest["colors"]["bravo"])
+        await ctx.send("{}: {}\n{}: {}".format(alphashort,alphahex,bravoshort,bravohex))
+        
+        
+        
 
     @commands.command(pass_context=True)
     async def nextsplatfest(self, ctx, region=""):
