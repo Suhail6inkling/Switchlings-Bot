@@ -18,7 +18,7 @@ class UserCommands():
                 message = numberr
             else:
                 message = "{}, {}".format(message,number)
-
+        await ctx.send(message)
 
     @commands.command(pass_context=True)
     async def ping(self, ctx):
