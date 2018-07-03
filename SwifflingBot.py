@@ -150,7 +150,7 @@ async def on_command_error(ctx, error):
         person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
         errormessage = "{}: {}".format(type(error).__name__,error)
         x = errormessage.split("CommandInvokeError: Command raised an exception: ")
-        await sbschat.send("{}\n```{}: {}```\n{}: {}".format(person.mention,errormessage,ctx.message.author, ctx.message.content))
+        await sbschat.send("{}\n```{}```\n{}: {}".format(person.mention,errormessage,ctx.message.author, ctx.message.content))
         await ctx.send("Oops! An error has occured and has been reported to Suhail6inkling! Here's the error if you can make sense of it:\n```{}```".format(x))
 
     
