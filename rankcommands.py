@@ -42,7 +42,7 @@ class RankCommands():
                 await ctx.author.add_roles(rank)
                 await ctx.send("{}, you joined **{}**".format(ctx.author.mention, rankname.title()))
         else:
-            raise RankError
+            raise RankError(RankError.message)
     
 
     @commands.command(pass_context=True)
