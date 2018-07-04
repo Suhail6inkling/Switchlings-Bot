@@ -145,7 +145,7 @@ async def on_message(message):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound) or isinstance(error, commands.UserInputError) or isinstance(error, commands.MissingRequiredArgument):
         await ctx.message.add_reaction("❌")
-    elif isinstance(error, SwifflingBot.errors):
+    elif isinstance(error, SwifflingBoterrors):
         errormessage = "{}: {}".format(type(error).__name__,error)
         await ctx.send("Oops an exclusive error occured!\n```{}```".format(errormessage))
     else:
