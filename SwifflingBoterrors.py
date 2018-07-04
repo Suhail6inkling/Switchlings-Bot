@@ -1,5 +1,6 @@
 class WillCrashBot(Exception):
     def __init__(self):
+        super().__init__()
         self.message = "This will probably overload the bot and thus will not function"
 
 class PersonNotFound(Exception):
@@ -20,4 +21,5 @@ class SwitchlingMissing(Exception):
 
 class RankError(Exception):
     def __init__(self):
+        super().__init__()
         self.message = "This rank doesn't exist"
