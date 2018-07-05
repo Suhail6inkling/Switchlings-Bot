@@ -134,7 +134,7 @@ async def on_message(message):
     if message.content.lower() == "f":
         await message.channel.send("**{}** has paid their respects. :green_heart:".format(message.author.name))
     if message.content.lower().startswith("f "):
-        await message.channel.send("**{}** has paid their respects for **{}**. :blue_heart:".format(message.author.name,(message.content.lower().split("f ")[1])))
+        await message.channel.send("**{}** has paid their respects for **{}**. :blue_heart:".format(message.author.name,message.content.lower().split("f ")[1]))
     try:
         await client.process_commands(message)
     except Exception as e:
