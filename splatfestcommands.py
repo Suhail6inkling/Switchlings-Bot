@@ -79,8 +79,7 @@ class SplatfestCommands():
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
-            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
-            return
+            raiseError(RegionMissing)
         region = region.lower()
         req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
         web_byte = urlopen(req).read()
@@ -107,9 +106,6 @@ class SplatfestCommands():
             date = "{} - {} {}".format(startdate,enddate,x[0])
             description = "{}{}\n".format(description,date)
         ourresult = [d for d in results if d["festival_id"]==eyedee]
-        if ourresult==[]:
-            await ctx.send("There was an error processing your request")
-            return
         ourresult = ourresult[0]
         winner = ""
         alphacount=0
@@ -159,8 +155,7 @@ class SplatfestCommands():
     async def splatfestcolours(self, ctx, region=""):
         regions = ["na","eu","jp"]
         if region == "" or region.lower() not in regions:
-            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
-            return
+            raiseError(RegionMissing)
         region = region.lower()
         req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
         web_byte = urlopen(req).read()
@@ -185,8 +180,7 @@ class SplatfestCommands():
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
-            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
-            return
+            raiseError(RegionMissing)
         region = region.lower()
         req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
         web_byte = urlopen(req).read()
