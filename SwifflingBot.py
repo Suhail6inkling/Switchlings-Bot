@@ -88,9 +88,7 @@ async def onlinestuff():
     await sbschat.send("{} Online!".format(client.user.mention))
     global successful_extensions, failed_extensions
     if successful_extensions!=[]:
-        a = "Successfully loaded:"
-        for x in successful_extensions:
-            a="{}\n{}.py".format(a,x)
+        a = "Successfully loaded {} commands".format(len(successful_extensions))
         await sbschat.send(a)
     if failed_extensions!=[]:
         for x in failed_extensions:
