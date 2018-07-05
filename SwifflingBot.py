@@ -22,7 +22,7 @@ except ModuleNotFoundError:
     allowedwords = (os.environ["allowedwords"]).split(",")
 
 
-SwitchlingsBotErrors =[WillCrash
+SwitchlingsBotErrors =[WillCrashBot,PersonNotFound,IncorrectDataSubmitted,RegionMissing,SwitchlingMissing,RankError]
     
 Client = discord.Client()   
 prefix = "s."
