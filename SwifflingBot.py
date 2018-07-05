@@ -147,7 +147,7 @@ async def on_command_error(ctx, error):
         await ctx.message.add_reaction("❌")
     elif type(error).__name__ in SwitchlingsBotErrors:
         errormessage = "{}: {}".format(type(error).__name__,error)
-        await ctx.send("A specific Switchlings Bot Error has occured.\n{}".format(errormessage)
+        await ctx.send("A specific Switchlings Bot Error has occured.\n{}".format(errormessage))
     else:
         sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
         person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
