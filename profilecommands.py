@@ -177,7 +177,7 @@ class ProfileCommands():
                     else:
                         await ctx.send("Levels don't go up that high/low!")
                 except:
-                   raiseError(IncorrectDataS)ubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar in rankmodes:
                 if variable in ranks:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
