@@ -17,5 +17,5 @@ class RankError(Exception):
     message = "This rank doesn't exist"
 
 
-def RaiseError(Error):
+def raiseError(Error):
     raise Error(Error.message)
