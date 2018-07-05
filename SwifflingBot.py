@@ -148,7 +148,7 @@ async def on_command_error(ctx, error):
     x = errormessage.split("CommandInvokeError: Command raised an exception: ")[1]
     for y in SwitchlingsBotErrors:
          if x.startswith(y):      
-            await ctx.send("A specific Switchlings Bot Error has occured.\n{}".format(errormessage))
+            await ctx.send("A specific Switchlings Bot Error has occured.\n```{}```".format(x))
             return
     sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
     person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
