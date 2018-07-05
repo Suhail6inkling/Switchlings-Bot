@@ -141,8 +141,6 @@ async def on_message(message):
 
 @client.event
 async def on_command_error(ctx, error):
-    await ctx.send(type(error).__name__)
-    print(type(error).__name__)
     if isinstance(error, commands.CommandNotFound) or isinstance(error, commands.UserInputError) or isinstance(error, commands.MissingRequiredArgument):
         await ctx.message.add_reaction("❌")
         return 
