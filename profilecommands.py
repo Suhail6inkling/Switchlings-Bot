@@ -5,8 +5,9 @@ import random
 import json
 import time
 
-from SwifflingBoterrors import PersonNotFound, IncorrectDataSubmitted, raiseError(ror
-from gshee)ts import SwitchlingsBotProfile as SBS
+from SwifflingBoterrors import PersonNotFound, IncorrectDataSubmitted
+from SwifflingBoterrors import raiseError
+from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
 
 

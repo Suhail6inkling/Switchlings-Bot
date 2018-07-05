@@ -8,7 +8,7 @@ import urllib.parse as urlparse
 import twitter
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
-import SwifflingBoterrors  
+from SwifflingBoterrors import WillCrashBot,PersonNotFound,IncorrectDataSubmitted,RegionMissing,SwitchlingMissing,RankError  
 try:
     from config import TOKEN, badwords1, badwords2, noroles, channels, SSinfo, hangmanwords, allowedwords, TCK, TCS, TATC, TATS
 except ModuleNotFoundError:
@@ -22,7 +22,7 @@ except ModuleNotFoundError:
     allowedwords = (os.environ["allowedwords"]).split(",")
 
 
-SwitchlingsBotErrors =["WillCrashBot","PersonNotFound","IncorrectDataSubmitted","RegionMissing","SwitchlingMIssing","RankError"]
+SwitchlingsBotErrors =[WillCrash
     
 Client = discord.Client()   
 prefix = "s."
