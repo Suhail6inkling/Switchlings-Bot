@@ -20,4 +20,4 @@ class SwitchlingMissing(Exception):
         self.message = "A Switchling was not chosen or was incorrect. Please choose from Seven19inkling, Smol4inkling, Suhail6inkling, Arca9inkling or Minty12inkling"
 
 class RankError(Exception):
-        self.message = "This rank doesn't exist"
+        message = "This rank doesn't exist"
