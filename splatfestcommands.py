@@ -6,6 +6,9 @@ import json
 import time
 import gsheets
 import twitter
+
+from SwifflingBoterrors import RegionMissing, raiseError
+
 from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/festivals.json"
@@ -37,8 +40,7 @@ class SplatfestCommands():
         regions = ["na","eu","jp"]
         regiontimezones = {"na": [["PDT",-25200],["EDT",-14400]], "eu" : [["BST",3600],["CEST",7200]], "jp": [["JST",32400]]}
         if region == "" or region.lower() not in regions:
-            await ctx.send("""Please select either:\nna -> North America (& Oceania)\neu -> Europe\njp -> Japan""")
-            return
+            raiseError(RegionMissing)
         region = region.lower()
         req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
         web_byte = urlopen(req).read()

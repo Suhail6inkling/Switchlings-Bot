@@ -5,7 +5,7 @@ import random
 import json
 import time
 
-from SwifflingBoterrors import RankError
+from SwifflingBoterrors import RankError, raiseError
 
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
@@ -42,7 +42,7 @@ class RankCommands():
                 await ctx.author.add_roles(rank)
                 await ctx.send("{}, you joined **{}**".format(ctx.author.mention, rankname.title()))
         else:
-            raise RankError
+            raiseError(RankError)
     
 
     @commands.command(pass_context=True)
@@ -59,7 +59,7 @@ class RankCommands():
                 LOR.updaterow(ranks)
                 await ctx.message.add_reaction("✅")
             else:
-                raise RankError
+                raiseError(RankError)
     
     @commands.command(pass_context=True)
     async def delrank(self, ctx, *, rankname: str):

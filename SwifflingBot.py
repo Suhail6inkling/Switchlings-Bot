@@ -22,7 +22,7 @@ except ModuleNotFoundError:
     allowedwords = (os.environ["allowedwords"]).split(",")
 
 
-
+SwitchlingsBotErrors =["WillCrashBot","PersonNotFound","IncorrectDataSubmitted","RegionMissing","SwitchlingMIssing","RankError"]
     
 Client = discord.Client()   
 prefix = "s."
@@ -145,9 +145,9 @@ async def on_message(message):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound) or isinstance(error, commands.UserInputError) or isinstance(error, commands.MissingRequiredArgument):
         await ctx.message.add_reaction("❌")
-    #elif isinstance(error, SwifflingBoterrors):
-     #   errormessage = "{}: {}".format(type(error).__name__,error)
-      #  await ctx.send("Oops an exclusive error occured!\n```{}```".format(errormessage))"""
+    elif type(error).__name__ in SwitchlingsBotErrors:
+        errormessage = "{}: {}".format(type(error).__name__,error)
+        await ctx.send("A specific Switchlings Bot Error has occured.\n{}".format(errormessage)
     else:
         sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
         person = (client.get_guild(413357189931991060)).get_member(131131701148647424)

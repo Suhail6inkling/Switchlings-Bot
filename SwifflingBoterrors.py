@@ -15,3 +15,7 @@ class SwitchlingMissing(Exception):
 
 class RankError(Exception):
     message = "This rank doesn't exist"
+
+
+def RaiseError(Error):
+    raise Error(Error.message)

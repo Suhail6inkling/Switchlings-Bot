@@ -5,8 +5,8 @@ import random
 import json
 import time
 
-from SwifflingBoterrors import PersonNotFound, IncorrectDataSubmitted
-from gsheets import SwitchlingsBotProfile as SBS
+from SwifflingBoterrors import PersonNotFound, IncorrectDataSubmitted, raiseError(ror
+from gshee)ts import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
 
 
@@ -76,7 +76,7 @@ class ProfileCommands():
             if x["ID"] == member:
                 personlist = x
         if personlist=="":
-            raise PersonNotFound
+            raiseError(PersonNotFound)
         description = "`{levname:14}     {lev:>4}\n{szname:14}     {sz:>4}\n{tcname:14}     {tc:>4}\n{rmname:14}     {rm:>4}\n{cbname:14}     {cb:>4}`".format(levname="Level:",lev=personlist["Level"],szname="Splat Zones:",sz=personlist["Splat Zone Rank"],tcname="Tower Control:",tc=personlist["Tower Control Rank"],rmname="Rainmaker:",rm=personlist["Rainmaker Rank"],cbname="Clam Blitz:",cb=personlist["Clam Blitz Rank"])
         await ctx.send(description)
 
@@ -92,7 +92,7 @@ class ProfileCommands():
                 if x["ID"] == member:
                     personlist = x   
             if personlist=="":
-                raise PersonNotFound    
+                raiseError(PersonNotFound)    
             embed = discord.Embed(title = person.name, description="""\n**Friend Code:** {}\n\n**Gender & Species:** {}\n**Skin Colour:** {}\n**Eye Colour:** {}\n**Hairstyle:** {}\n**Trousers:** {}\n\n**WEAPON:** {}\n\n**STATS**\n*Level:* {}\n*Splat Zones Rank:* {}\n*Tower Control Rank:* {}\n*Rainmaker Rank:* {}\n*Clam Blitz Rank:* {}\n\n**HAT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHIRT**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}\n\n**SHOES**\n{}\nMain: {}\n*Sub1:* {}\n*Sub2:* {}\n*Sub3:* {}""".format(personlist["Friend Code"],personlist["Gender & Species"],personlist["Skin Colour"],personlist["Eye Colour"],personlist["Hairstyle"],personlist["Trousers"],personlist["Weapon"],
                    personlist["Level"],personlist["Splat Zone Rank"],personlist["Tower Control Rank"],personlist["Rainmaker Rank"],personlist["Clam Blitz Rank"],
                    personlist["Hat"],personlist["Hat Main"],personlist["Hat Sub 1"],personlist["Hat Sub 2"],personlist["Hat Sub 3"],
@@ -115,37 +115,37 @@ class ProfileCommands():
     
                     await ctx.message.add_reaction("✅")
                 else:
-                    raise IncorrectDataSubmitted
+                    raiseError(IncorrectDataSubmitted)
             elif varchar == "switchcode":
                 if variable.startswith("SW-") and len(variable)==17:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "shirt":
                 if variable in shirts:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "shoes":
                 if variable in shoes:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "gender":
                 if variable in genders:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "eyecolour":
                 if variable in eyecolours:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "hairstyle":
                 if personlist["Gender & Species"]==None or personlist["Gender & Species"]=="None":
                     await ctx.send("Choose a gender first!")
@@ -153,19 +153,19 @@ class ProfileCommands():
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "skincolour":
                 if variable in skincolours:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "weapon":
                 if variable in weapons:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             elif varchar == "trousers":
                 await ctx.send("WIP")
             elif varchar == "level":
@@ -176,7 +176,7 @@ class ProfileCommands():
                     else:
                         await ctx.send("Levels don't go up that high/low!")
                 except:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataS)ubmitted
             elif varchar in rankmodes:
                 if variable in ranks:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
@@ -188,15 +188,15 @@ class ProfileCommands():
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
             else:
                 if variable in subs:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
                 else:
-                   raise IncorrectDataSubmitted
+                   raiseError(IncorrectDataSubmitted)
         else:
-            raise IncorrectDataSubmitted
+            raiseError(IncorrectDataSubmitted)
         SBS.open()
         people = SBS.read()
             
@@ -220,7 +220,7 @@ class ProfileCommands():
                 if x["ID"] == member:
                     personlist = x
             if personlist=="":
-                raise PersonNotFound
+                raiseError(PersonNotFound)
             if personlist["Friend Code"] is None or personlist["Friend Code"] == "None":
                 await ctx.send("{} have not entered {} FC.".format(pronouna,pronoun.lower()))
             else:
