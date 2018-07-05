@@ -145,16 +145,17 @@ async def on_command_error(ctx, error):
     print(type(error).__name__)
     if isinstance(error, commands.CommandNotFound) or isinstance(error, commands.UserInputError) or isinstance(error, commands.MissingRequiredArgument):
         await ctx.message.add_reaction("❌")
-    elif type(error).__name__ in SwitchlingsBotErrors:
-        errormessage = "{}: {}".format(type(error).__name__,error)
-        await ctx.send("A specific Switchlings Bot Error has occured.\n{}".format(errormessage))
-    else:
-        sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
-        person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
-        errormessage = "{}: {}".format(type(error).__name__,error)
-        x = errormessage.split("CommandInvokeError: Command raised an exception: ")[1]
-        await sbschat.send("{}\n```{}```\n{}: {}".format(person.mention,errormessage,ctx.message.author, ctx.message.content))
-        await ctx.send("Oops! An error has occured and has been reported to Suhail6inkling! Here's the error if you can make sense of it:\n```{}```".format(x))
+        return 
+    errormessage = "{}: {}".format(type(error).__name__,error)    
+    x = errormessage.split("CommandInvokeError: Command raised an exception: ")[1]
+    for y in SwitchlingsBotErrors:
+         if x.startswith(y):      
+            await ctx.send("A specific Switchlings Bot Error has occured.\n{}".format(errormessage))
+            return
+    sbschat = (client.get_guild(413357189931991060)).get_channel(456118202666057729)
+    person = (client.get_guild(413357189931991060)).get_member(131131701148647424)
+    await sbschat.send("{}\n```{}```\n{}: {}".format(person.mention,errormessage,ctx.message.author, ctx.message.content))
+    await ctx.send("Oops! An error has occured and has been reported to Suhail6inkling! Here's the error if you can make sense of it:\n```{}```".format(x))
 
     
 
