@@ -131,6 +131,10 @@ async def on_message(message):
     if message.content.split(" ")[0] in noservercommands and message.guild!=server:
         await message.channel.send("Those commands can only be used in **Switchlings Plaza!**")
         return
+    if message.content.lower() == "f":
+        await message.channel.send("**{}** has paid their respects. :green_heart:".format(message.author.name))
+    if message.content.lower().startswith("f "):
+        await message.channel.send("**{}** has paid their respects for **{}**. :blue_heart:".format(message.author.name,(message.content.lower().split("f ")[1])))
     try:
         await client.process_commands(message)
     except Exception as e:

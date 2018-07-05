@@ -3,7 +3,7 @@ from discord.ext import commands
 import asyncio
 import random
 import time
-from SwifflingBoterrors import WillCrashBot
+from SwifflingBoterrors import WillCrashBot,raiseError
 from SwifflingBot import noroles, channels, SSinfo, hangmanwords, allowedwords, starttime
 
 class UserCommands():
@@ -13,7 +13,7 @@ class UserCommands():
     @commands.command(pass_context=True)
     async def randomnumber(self, ctx, minimum: int=1, maximum: int=10, numberofthings: int=1):
         if numberofthings >= 200:
-            raise WillCrashBot
+            raiseError(WillCrashBot)
         message = ""
         for x in range(0,numberofthings):
             numberr = random.randint(minimum,maximum)
