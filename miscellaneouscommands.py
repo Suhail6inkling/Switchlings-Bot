@@ -131,7 +131,7 @@ class MiscellaneousCommands():
         bravoteam = []
         alphacount = int((len(people)+0.5)/2)
         bravocount = len(people)-alphacount
-        for x in range(0, alphateam):
+        for x in range(0, alphacount):
             person = random.choice(temppeople)
             alphateam.append(person)
             temppeople.remove(person)
