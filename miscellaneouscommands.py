@@ -126,16 +126,45 @@ class MiscellaneousCommands():
     @commands.command(pass_context=True)
     async def custompb(self, ctx, *, listofpeople):
         people = listofpeople.split(", ")
-        temppeople = list(people)
-        alphateam = []
-        bravoteam = []
-        alphacount = int((len(people)+0.5)/2)
-        bravocount = len(people)-alphacount
+        for x in people:
+            if x.title() == "Switchlings":
+                people.remove(x)
+                people.append("Seven19inkling")
+                people.append("Smol4inkling")
+                people.append("Suhail6inkling")
+                people.append("Arca9inkling")
+                people.append("Minty12inkling")
+        if len(people) > 10:
+            await ctx.send("Too many people!")
+            return
+        elif len(people) < 8:
+            temppeople = list(people)
+            alphateam = []
+            bravoteam = []
+            spectatorteam = []
+            alphacount = int((len(people)+0.5)/2)
+            bravocount = len(people)-alphacount
+            speccount = 0
+    
+        else:
+            tempeople = list(people)
+            alphateam = []
+            bravoteam = []
+            spectatorteam = []
+            alphacount = 4
+            bravocount = 4
+            speccount = len(people) - 8
+                 
         for x in range(0, alphacount):
-            person = random.choice(temppeople)
-            alphateam.append(person)
-            temppeople.remove(person)
-        bravoteam = list(temppeople)
+                person = random.choice(temppeople)
+                alphateam.append(person)
+                temppeople.remove(person)
+        for x in range(0, bravocount):
+                person = random.choice(temppeople)
+                bravoteam.append(person)
+                temppeople.remove(person)
+        spectatorteam - list(temppeople)
+
         stage = random.choice(stages)
         mode = random.choice(modes)
         alpha = "ALPHA TEAM:\n"
@@ -144,7 +173,10 @@ class MiscellaneousCommands():
         bravo = "BRAVO TEAM: \n"
         for b in bravoteam:
             bravo ="{br}{b} - {w}\n".format(br=bravo,b=b,w=random.choice(weapons))
-        embed = discord.Embed(title="{}\n{}".format(mode,stage),description="{}\n{}".format(alpha,bravo),colour = 0xbc36e7)
+        spectators = "SPECTATORS:"
+        for s in spectatorteam:
+            spec
+        embed = discord.Embed(title="{} - {}".format(mode,stage),description="{}\n{}".format(alpha,bravo),colour = 0xbc36e7)
         await ctx.send(embed=embed)
 
 def setup(client):
