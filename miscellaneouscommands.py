@@ -143,7 +143,7 @@ class MiscellaneousCommands():
             alpha="{al}{a} - {w}\n".format(al=alpha,a=a,w=random.choice(weapons))
         bravo = "BRAVO TEAM: \n"
         for b in bravoteam:
-            bravo ="{br}{b} - {w}\n">format(br=bravo,b=b,w=random.choice(weapons))
+            bravo ="{br}{b} - {w}\n".format(br=bravo,b=b,w=random.choice(weapons))
         embed = discord.Embed(title="{}\n{}".format(mode,stage),description="{}\n{}".format(alpha,bravo),colour = 0xbc36e7)
         await ctx.send(embed=embed)
 
