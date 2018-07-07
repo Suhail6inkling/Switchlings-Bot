@@ -147,7 +147,7 @@ class MiscellaneousCommands():
             speccount = 0
     
         else:
-            tempeople = list(people)
+            temppeople = list(people)
             alphateam = []
             bravoteam = []
             spectatorteam = []
