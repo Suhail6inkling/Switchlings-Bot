@@ -140,10 +140,10 @@ class MiscellaneousCommands():
         mode = random.choice(modes)
         alpha = "ALPHA TEAM:\n"
         for  a in alphateam:
-            alpha="{}{} - {}\n".format(alpha,a,random.choice(weapons))
+            alpha="{al}{a} - {w}\n".format(al=alpha,a=a,w=random.choice(weapons))
         bravo = "BRAVO TEAM: \n"
         for b in bravoteam:
-            bravo ="{}{} - {}\n">format(bravo,b,random.choice(weapons))
+            bravo ="{br}{b} - {w}\n">format(br=bravo,b=b,w=random.choice(weapons))
         embed = discord.Embed(title="{}\n{}".format(mode,stage),description="{}\n{}".format(alpha,bravo),colour = 0xbc36e7)
         await ctx.send(embed=embed)
 
