@@ -168,8 +168,8 @@ class SplatfestCommands():
             return
         alphashort = splatfest["names"]["alpha_short"]
         bravoshort = splatfest["names"]["bravo_short"]
-        alphahex = hexcolor(splatfest["colors"]["alpha"])
-        bravohex = hexcolor(splatfest["colors"]["bravo"])
+        alphahex = hex(hexcolor(splatfest["colors"]["alpha"]))
+        bravohex = hex(hexcolor(splatfest["colors"]["bravo"]))
         await ctx.send("{}: {}\n{}: {}".format(alphashort,alphahex,bravoshort,bravohex))
         
         
