@@ -173,10 +173,10 @@ class MiscellaneousCommands():
         bravo = "BRAVO TEAM: \n"
         for b in bravoteam:
             bravo ="{br}{b} - {w}\n".format(br=bravo,b=b,w=random.choice(weapons))
-        spectators = "SPECTATORS:"
+        spec = "SPECTATORS: \n"
         for s in spectatorteam:
-            spec
-        embed = discord.Embed(title="{} - {}".format(mode,stage),description="{}\n{}".format(alpha,bravo),colour = 0xbc36e7)
+            spec = "{sp}{s}\n".format(sp=spectators, s=s)
+        embed = discord.Embed(title="{} - {}".format(mode,stage),description="{a}\n{b}\n{s}".format(a=alpha,b=bravo,s=spec),colour = 0xbc36e7)
         await ctx.send(embed=embed)
 
 def setup(client):
