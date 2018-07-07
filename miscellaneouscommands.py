@@ -163,7 +163,7 @@ class MiscellaneousCommands():
                 person = random.choice(temppeople)
                 bravoteam.append(person)
                 temppeople.remove(person)
-        spectatorteam - list(temppeople)
+        spectatorteam = list(temppeople)
 
         stage = random.choice(stages)
         mode = random.choice(modes)
