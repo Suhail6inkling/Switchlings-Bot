@@ -122,5 +122,30 @@ class MiscellaneousCommands():
         await ctx.send(embed=embed2)
         await ctx.send(embed=embed3)
 
+
+    @commands.command(pass_context=True)
+    async def custompb(self, ctx, *, listofpeople):
+        people = listofpeople.split(", ")
+        temppeople = list(people)
+        alphateam = []
+        bravoteam = []
+        alphacount = int((len(people)+0.5)/2)
+        bravocount = len(people)-alphacount
+        for x in range(0, alphateam):
+            person = random.choice(temppeople)
+            alphateam.append(person)
+            temppeople.remove(person)
+        bravoteam = list(temppeople)
+        stage = random.choice(stages)
+        mode = random.choice(modes)
+        alpha = "ALPHA TEAM:\n"
+        for  a in alphateam:
+            alpha="{}{} - {}\n".format(alpha,a,random.choice(weapons))
+        bravo = "BRAVO TEAM: \n"
+        for b in bravoteam:
+            bravo ="{}{} - {}\n">format(bravo,b,random.choice(weapons))
+        embed = discord.Embed(title="{}\n{}".format(mode,stage),description="{}\n{}".format(alpha,bravo),colour = 0xbc36e7)
+        await ctx.send(embed=embed)
+
 def setup(client):
     client.add_cog(MiscellaneousCommands(client))
