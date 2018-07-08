@@ -203,7 +203,6 @@ class MiscellaneousCommands():
         draw.text(xy=(len(member.name)*8+63,17),text="Today at 18:00",fill=(152,152,152),font=font2)
         area = (4,7)
         image.paste(pfp,area)
-        with o
         await ctx.send(file=discord.File(base64.decodebytes(image)))
 
 
