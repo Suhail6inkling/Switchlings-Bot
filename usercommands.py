@@ -98,7 +98,7 @@ class UserCommands():
     @commands.command(pass_context=True)
     async def hugetext(self, ctx, *, message):
         alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-        others = {" ":"  ","?": ":question:","!":"exclamation"}
+        others = {" ":"  ","?": ":question:","!":"exclamation","1": ":one:","2": ":two:","3": ":three:","4":":four:","5":":five:","6":":six:","7":":seven:","8":":eight:","9":":nine:","0":":zero:"}
         thing=""
 
         for c in message:
