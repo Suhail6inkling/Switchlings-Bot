@@ -192,8 +192,8 @@ class MiscellaneousCommands():
     async def quote(self, ctx, member: discord.Member, *, message):
         response = requests.get(member.avatar_url_as(format="png",size=64))
         pfp = Image.open(BytesIO(response.content))
-        await ctx.send(pfp.size)
         pfp.resize((43,43))
+        await ctx.send(pfp.size)
 
         image = Image.open("quoteimage.png")    
         font = ImageFont.truetype("arialbd.ttf",16)
