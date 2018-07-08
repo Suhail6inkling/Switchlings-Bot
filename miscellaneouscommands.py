@@ -205,7 +205,7 @@ class MiscellaneousCommands():
         bigsize = (pfp.size[0]*3, pfp.size[1]*3)
         mask = Image.new("L",bigsize,0)
         draw = ImageDraw.Draw(mask)
-        draw.ellipse(0,0)+bigsize, fill=255)
+        draw.ellipse((0, 0) + bigsize, fill=255)
         mask = mask.resize(pfp.size, Image.ANTIALIAS)
         pfp.putalpha(mask)
 
