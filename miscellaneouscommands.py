@@ -203,7 +203,12 @@ class MiscellaneousCommands():
         draw.text(xy=(len(member.name)*8+63,17),text="Today at 18:00",fill=(152,152,152),font=font2)
         area = (4,7)
         image.paste(pfp,area)
-        await ctx.send(file=discord.File(str(image)))
+        bitsio = BytesIO()
+        image.save(bitsio)
+        bitsio.seek(0)
+        bitsio = Image.open(image)
+        await ctx.send(file=discord.File(bitsio))
+
 
 
 def setup(client):
