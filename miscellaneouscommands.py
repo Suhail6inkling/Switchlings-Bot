@@ -190,7 +190,7 @@ class MiscellaneousCommands():
 
     @commands.command(pass_context=True)
     async def quote(self, ctx, member: discord.Member, *, message):
-        response = requests.get(member.avatar_url_as(format="png",size=16))
+        response = requests.get(member.avatar_url_as(format="png",size=64))
         pfp = Image.open(BytesIO(response.content))
 
         image = Image.open("quoteimage.png")    
@@ -201,9 +201,19 @@ class MiscellaneousCommands():
         draw.text(xy=(63,13),text=member.name,fill=(255,255,255),font=font)
         draw.text(xy=(63,34),text=message,fill=(255,255,255),font=font3)
         draw.text(xy=(len(member.name)*8+63,17),text="Today at 18:00",fill=(152,152,152),font=font2)
-        area = (4,7)
-        image.paste(pfp,area)
-        bitsio = BytesIO()
+        
+        bigsize = (pfp.size[0]*3, pfp.size[1]*3)
+        mask = Image.new("L",bigsize,0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse(0,0)+bigsize, fill=255)
+        mask = mask.resize(pfp.size, Image.ANTIALIAS)
+        pfp.putalpha(mask)
+
+        output = ImageOps.fit(pfp, mask.size, centering=(0.5,0.5))
+        output.putalpha(mask)
+
+        image.paste(pfp, (4,7), pfp)
+        
         image.save("temp.png")
         with open("temp.png","rb") as file:
             await ctx.send(file=discord.File(file))
