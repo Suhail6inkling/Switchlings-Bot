@@ -4,7 +4,7 @@ import asyncio
 import random
 import json
 import time
-
+import base64
 
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
@@ -203,7 +203,8 @@ class MiscellaneousCommands():
         draw.text(xy=(len(member.name)*8+63,17),text="Today at 18:00",fill=(152,152,152),font=font2)
         area = (4,7)
         image.paste(pfp,area)
-        await ctx.send(file=discord.File(image))
+        with o
+        await ctx.send(file=discord.File(base64.decodebytes(image)))
 
 
 def setup(client):
