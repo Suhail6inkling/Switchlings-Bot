@@ -102,8 +102,8 @@ class UserCommands():
         thing=""
 
         for c in message:
-            if c in alphabet:
-                thing="{}:regional_indicator_{}:".format(thing,c)
+            if c.lower() in alphabet:
+                thing="{}:regional_indicator_{}:".format(thing,c.lower())
             else:
                 try:
                     thing="{}{}".format(thing,others[c])
