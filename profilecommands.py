@@ -16,7 +16,7 @@ from urllib.request import Request
 from urllib.request import urlopen
 url = "https://splatoon2.ink/data/schedules.json"
 salmonurl="https://splatoon2.ink/data/coop-schedules.json"
-sqlstuff = ["switchcode","gender","skincolour","eyecolour","hairstyle","trousers","weapon","level","sz","tc","rm","cb","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
+sqlstuff = ["fc","gender","skincolour","eyecolour","hairstyle","trousers","weapon","level","sz","tc","rm","cb","hat","hatmain","hatsub1","hatsub2","hatsub3","shirt","shirtmain","shirtsub1","shirtsub2","shirtsub3","shoes","shoesmain","shoessub1","shoessub2","shoessub3"]
 rankmodes = ["sz","tc","rm","cb"]
 genders = ["Inkling Boy","Inkling Girl","Octoling Boy","Octoling Girl"]
 skincolours=["White","Pale","Yellow","Light Brown","Middle Brown","Dark Brown","Black"]
@@ -117,7 +117,7 @@ class ProfileCommands():
                     await ctx.message.add_reaction("✅")
                 else:
                     raiseError(IncorrectDataSubmitted)
-            elif varchar == "switchcode":
+            elif varchar == "fc":
                 if variable.startswith("SW-") and len(variable)==17:
                     SBS.updatecell(varchar, personlist["Place in Queue"],variable)
                     await ctx.message.add_reaction("✅")
