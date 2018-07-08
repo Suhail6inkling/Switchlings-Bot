@@ -204,10 +204,10 @@ class MiscellaneousCommands():
         area = (4,7)
         image.paste(pfp,area)
         bitsio = BytesIO()
-        image.save(bitsio,format="PNG")
-        bitsio.seek(0)
-        bitsio = Image.open(image)
-        await ctx.send(file=discord.File(bitsio))
+        image.save("temp.png")
+        with open("temp.png","rb") as file:
+            await ctx.send(file=discord.File(file))
+        
 
 
 
