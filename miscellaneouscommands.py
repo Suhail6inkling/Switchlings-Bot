@@ -188,7 +188,7 @@ class MiscellaneousCommands():
 
 
 
-    @commands.command(pass_context=True):
+    @commands.command(pass_context=True)
     async def quote(self, ctx, member: discord.Member, *, message):
         response = requests.get(member.avatar_url_as("png",size=12))
         pfp = Image.open(BytesIO(response.content))
