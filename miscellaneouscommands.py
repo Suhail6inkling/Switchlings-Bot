@@ -9,7 +9,7 @@ import base64
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 from io import BytesIO
 import requests
 
