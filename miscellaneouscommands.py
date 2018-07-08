@@ -9,6 +9,9 @@ import time
 from gsheets import SwitchlingsBotProfile as SBS
 from gsheets import ListOfRanks as LOR
 
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+import requests
 
 import twitter
 from urllib.request import Request
@@ -24,7 +27,7 @@ skincolours=["White","Pale","Yellow","Light Brown","Middle Brown","Dark Brown","
 eyecolours=["Blue","Green","Yellow","Orange","Red","Pink","Purple","Black","White","Grey","Lime Green","Brown","Dark Purple","Dark Blue"]
 hairstyles = {"Inkling Boy": ["Ponytail","Comb Back","Side Tentacle","Buzzcut","Mohawk","Bowl Cut"],"Inkling Girl": ["Long Hair","Short Hair","Knotted Hair","Side hair","Pigtails","Long Bangs"],"Octoling Girl": ["Parted Bangs","Octotail"],"Octoling Boy": ["Single Tentacle","Afro"]}
 trousers = {}
-weapons = [".52 Gal", ".52 Gal Deco",".96 Gal",".96 Gal Deco","Aerospray MG","Aerospray RG","Bamboozler 14 MK I","Blaster","Carbon Roller","Carbon Roller Deco","Clash Blaster","Clash Blaster Neo","Classic Squiffer","Custom Blaster","Custon Dualie Squelchers","Custom E-liter $K","Custom E-liter 4K Scope","Custom Goo Tuber","Custom Jet Squelcher","Custom Range Blaster","Custom Splattershot Jr.","Dapple Dualies","Dapple Dalies Nouveau","Dark Tetra Dualies","Dualie Squelchers","Dynamo Roller","E-liter 4K","E-liter 4K Scope","Enperry Splat Dualies","Firefin Splat Charger","Firefin Splatterscope","Flingza Roller","Foil Flingza Roller","Foil Squeezer","Forge Splattershot Pro","Glooga Dualies","Glooga Dualies Deco","Gold Dynamo Roller","Goo Tuber","H-3 Nozzlenose","H-3 Nozzlenose D","Heavy Splatling","Heavy Splatling Deco","Hero Blaster Replica","Hero Brella Replica","Hero Charger Replica","Hero Dualie Replicas","Hero Roller Replica","Hero Shot Replica","Hero Slosher Replica","Hero Splatling Replica","Herobrush Replica","Hydra Splatling","Inkbrush","Inkbrush Nouveau","Jet Squelcher","Krak-On Splat Roller","L-3 Nozzlenose","L-3 Nozzlenose D","Luna Blaster","Luna Blaster Neo","Mini Splatling","N-ZAP '85","N-ZAP '89","Neo Splash-o-matic","Neo Sploosh-o-matic","Octobrush","Octobrush Nouveau","Range Blaster","Rapid Blaster","Rapid Blaster Deco","Rapid Blaster Pro","Rapid Blaster Pro Deco","Slosher","Slosher Deco","Sloshing Machine","Sloshing Machine Neo","Sorella Brella","Splash-o-matic","Splat Brella","Splat Charger","Splat Dualies","Splat Roller","Splatterscope","Splattershot","Splattershot Jr.","Splattershot Pro","Sploosh-o-matic","Squeezer","Tenta Brella","Tentatek Splattershot","Tri-Slosher","Tri-Slosher Nouveau","Undercover Brella","Undercover Sorella Brella","Zink Mini Splatling"]
+weapons = [".52 Gal", ".52 Gal Deco",".96 Gal",".96 Gal Deco","Aerospray MG","Aerospray RG","Bamboozler 14 MK I","Blaster","Carbon Roller","Carbon Roller Deco","Clash Blaster","Clash Blaster Neo","Classic Squiffer","Custom Blaster","Custon Dualie Squelchers","Custom E-liter 4K","Custom E-liter 4K Scope","Custom Goo Tuber","Custom Jet Squelcher","Custom Range Blaster","Custom Splattershot Jr.","Dapple Dualies","Dapple Dalies Nouveau","Dark Tetra Dualies","Dualie Squelchers","Dynamo Roller","E-liter 4K","E-liter 4K Scope","Enperry Splat Dualies","Firefin Splat Charger","Firefin Splatterscope","Flingza Roller","Foil Flingza Roller","Foil Squeezer","Forge Splattershot Pro","Glooga Dualies","Glooga Dualies Deco","Gold Dynamo Roller","Goo Tuber","H-3 Nozzlenose","H-3 Nozzlenose D","Heavy Splatling","Heavy Splatling Deco","Hero Blaster Replica","Hero Brella Replica","Hero Charger Replica","Hero Dualie Replicas","Hero Roller Replica","Hero Shot Replica","Hero Slosher Replica","Hero Splatling Replica","Herobrush Replica","Hydra Splatling","Inkbrush","Inkbrush Nouveau","Jet Squelcher","Krak-On Splat Roller","L-3 Nozzlenose","L-3 Nozzlenose D","Luna Blaster","Luna Blaster Neo","Mini Splatling","N-ZAP '85","N-ZAP '89","Neo Splash-o-matic","Neo Sploosh-o-matic","Octobrush","Octobrush Nouveau","Range Blaster","Rapid Blaster","Rapid Blaster Deco","Rapid Blaster Pro","Rapid Blaster Pro Deco","Slosher","Slosher Deco","Sloshing Machine","Sloshing Machine Neo","Sorella Brella","Splash-o-matic","Splat Brella","Splat Charger","Splat Dualies","Splat Roller","Splatterscope","Splattershot","Splattershot Jr.","Splattershot Pro","Sploosh-o-matic","Squeezer","Tenta Brella","Tentatek Splattershot","Tri-Slosher","Tri-Slosher Nouveau","Undercover Brella","Undercover Sorella Brella","Zink Mini Splatling"]
 
 hats = ["18K Aviators","Annaki Beret","Annaki Beret & Glasses","Annaki Mask","Armour Helmet Replica","B-ball Headband","Backwards Cap","Bamboo Hat","Bike Helmet","Black Arrowbands","Black FishFry Bandana","Blowfish Bell Hat","Blowfish Newsie","Bobble Hat","Bucket Hat","Camo Mesh","Camping Hat","Cap of Legend","Classic Straw Boater","Cycle King Cap","Cycling Cap","Deca Tackle Visor Helmet","Designer Headphones","Digi-Camo Forge Mask","Do-Rag, Cap, & Glasses","Double Egg Shades","Dust Blocker 2000","Eminence Cuff","Face Visor","Fake Contacts","Firefin Facemask","FishFry Biscuit Bandana","FishFry Visor","Five-Panel Cap","Forge Mask","Fugu Bell Hat","Full Moon Glasses","Gas Mask","Golf Visor","Half-Rim Glasses","Headlamp Helmet","Hero Headphones Replica","Hero Headset Replica","Hickory Work Cap","Hockey Helmet","Hothouse Hat","House-Tag Denim Cap","Ink-Guard Goggles","Jellyvader Cap","Jet Cap","Jogging Headband","Jungle Hat","King Facemask","King Flip Mesh","Knitted Hat","Lightweight Cap","Long-Billed Cap","Matte Bike Helmet","Moist Ghillie Helmet","Motocross Nose Guard","Mountie Hat","MTB Helmet","Noise Cancelers","Oceanic Hard Hat","Octo Tackle Helmet Deco","Octoglasses","Octoking Facemask","Paintball Mask","Painter's Mask","Paisley Bandana","Patched Hat","Pilot Goggles","Pilot Hat","Power Mask","Power Mask Mk I","Retro Specs","Safari Hat","Samurai Helmet","Seashell Bamboo Hat","Short Beanie","Skate Helmet","Skull Bandana","Sneaky Beanie","Snorkel Mask","Soccer Headband","Special Forces Beret","Splash Goggles","Sporty Bobble Hat","Squash Headband","Squid Clip-Ons","Squid Facemask","Squid Hairclip","Squid Nordic","Squid-Stitch Cap","Squidfin Hook Cans","Squidlife Headphones","Squidvader Cap","Squinja Mask","Stealth Goggles","Straw Boater","Streetsyle Cap","Striped Beanie","Studio Headphones","Studio Octophones","Sun Visor","SV925 Circle Shades","Swim Goggles","Takoroka Mesh","Takoroka Visor","Tennis Headband","Tinted Shades","Toni Kensa Goggles","Treasure Hunter","Tulip Parasol","Two-Stripe Mesh","Urchincs Cap","Visor Skate Helmet","Welding Mask","White Arrowbands","White Headband","Woolly Urchins Classic","Yamagiri Beanie","Zekko Cap","Zekko Mesh"]
 newhats = ["Studio Octophones","Octoling Shades","Null Visor Replica","Old-Timey Hat","Conductor Cap","Golden Toothpick"]
@@ -134,6 +137,7 @@ class MiscellaneousCommands():
                 people.append("Suhail6inkling")
                 people.append("Arca9inkling")
                 people.append("Minty12inkling")
+                break
         if len(people) > 10:
             await ctx.send("Too many people!")
             return
@@ -181,6 +185,26 @@ class MiscellaneousCommands():
         else:
             embed = discord.Embed(title="{} - {}".format(mode,stage),description="{a}\n{b}".format(a=alpha,b=bravo),colour = 0xbc36e7)
         await ctx.send(embed=embed)
+
+
+
+    @commands.command(pass_context=True):
+    async def quote(self, ctx, member: discord.Member, *, message):
+        response = requests.get(member.avatar_url_as("png",size=12))
+        pfp = Image.open(BytesIO(response.content))
+
+        image = Image.open("quoteimage.png")    
+        font = ImageFont.truetype("arialbd.ttf",16)
+        font2 = ImageFont.truetype("arial.ttf",12)
+        font3 = ImageFont.truetype("arial.ttf",16)
+        draw = ImageDraw.Draw(image)
+        draw.text(xy=(63,13),text=member.name,fill=(255,255,255),font=font)
+        draw.text(xy=(63,34),text=message,fill=(255,255,255),font=font3)
+        draw.text(xy=(len(member.name)*8+63,17),text="Today at 18:00",fill=(152,152,152),font=font2)
+        area = (4,7)
+        image.paste(pfp,area)
+        await ctx.send(file=discord.File(img))
+
 
 def setup(client):
     client.add_cog(MiscellaneousCommands(client))
