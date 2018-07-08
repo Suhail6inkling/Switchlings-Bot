@@ -190,6 +190,9 @@ class MiscellaneousCommands():
 
     @commands.command(pass_context=True)
     async def quote(self, ctx, member: discord.Member, *, message):
+
+        await ctx.message.delete()
+
         response = requests.get(member.avatar_url_as(format="png",size=64))
         pfp = Image.open(BytesIO(response.content))
         pfp = pfp.resize((43,43))
@@ -200,9 +203,10 @@ class MiscellaneousCommands():
         font2 = ImageFont.truetype("arial.ttf",12)
         font3 = ImageFont.truetype("arial.ttf",16)
         draw = ImageDraw.Draw(image)
-        draw.text(xy=(63,13),text=member.name,fill=(255,255,255),font=font)
+        color = member.color.to_rgb()
+        draw.text(xy=(63,13),text=member.display_name,fill=member.color.to_rgb(),font=font)
         draw.text(xy=(63,34),text=message,fill=(255,255,255),font=font3)
-        draw.text(xy=(len(member.name)*7+82,17),text="Today at 18:00",fill=(152,152,152),font=font2)
+        draw.text(xy=(len(member.display_name)*7+82,17),text="Today at 18:00",fill=(152,152,152),font=font2)
         
         bigsize = (pfp.size[0]*3, pfp.size[1]*3)
         mask = Image.new("L",bigsize,0)

@@ -96,6 +96,26 @@ class UserCommands():
 
 
     @commands.command(pass_context=True)
+    async def hugetext(self, ctx, *, message):
+        alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+        others = {" ":"  ","?": ":question:","!":"exclamation"}
+        thing=""
+
+        for c in message:
+            if c in alphabet:
+                thing="{}:regional_indicator_{}:".format(thing,c)
+            else:
+                try:
+                    thing="{}{}".format(thing,others[c])
+                except KeyError:
+                    thing="{}  ".format(thing)
+        await ctx.send(thing)
+
+    @commands.command(pass_context=True)
+    async def avatar(self, ctx, member: discord.Member=None):
+        await ctx.send(file=discord.File(member.avatar_url_as(format="png",size=1024))
+
+    @commands.command(pass_context=True)
     async def userinfo(self, ctx, member: discord.Member):
         embed = discord.Embed(description=("""**Username:**           {}
 **ID:**                    {}
