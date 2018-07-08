@@ -113,7 +113,9 @@ class UserCommands():
 
     @commands.command(pass_context=True)
     async def avatar(self, ctx, member: discord.Member=None):
-        await ctx.send(file=discord.File(member.avatar_url_as(format="png",size=1024))
+        if member==None:
+            member=ctx.author
+        await ctx.send(file=discord.File(member.avatar_url_as(format="png",size=1024)))
 
     @commands.command(pass_context=True)
     async def userinfo(self, ctx, member: discord.Member):
