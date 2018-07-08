@@ -202,7 +202,7 @@ class MiscellaneousCommands():
         draw = ImageDraw.Draw(image)
         draw.text(xy=(63,13),text=member.name,fill=(255,255,255),font=font)
         draw.text(xy=(63,34),text=message,fill=(255,255,255),font=font3)
-        draw.text(xy=(len(member.name)*6+80,17),text="Today at 18:00",fill=(152,152,152),font=font2)
+        draw.text(xy=(len(member.name)*7+82,17),text="Today at 18:00",fill=(152,152,152),font=font2)
         
         bigsize = (pfp.size[0]*3, pfp.size[1]*3)
         mask = Image.new("L",bigsize,0)
