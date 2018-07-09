@@ -199,12 +199,12 @@ class MiscellaneousCommands():
         await ctx.send(pfp.size)
 
         image = Image.open("quoteimage.png")    
-        font = ImageFont.truetype("arialbd.ttf",16)
-        font2 = ImageFont.truetype("arial.ttf",12)
-        font3 = ImageFont.truetype("arial.ttf",16)
+        font = ImageFont.truetype("Whitney Bold.ttf",16)
+        font2 = ImageFont.truetype("Whitney Medium.ttf",12)
+        font3 = ImageFont.truetype("Whitney Medium.ttf",16)
         draw = ImageDraw.Draw(image)
         color = member.color.to_rgb()
-        draw.text(xy=(63,13),text=member.display_name,fill=member.color.to_rgb(),font=font)
+        draw.text(xy=(63,13),text=member.display_name,fill=(255,255,255),font=font)
         draw.text(xy=(63,34),text=message,fill=(255,255,255),font=font3)
         draw.text(xy=(len(member.display_name)*7+82,17),text="Today at 18:00",fill=(152,152,152),font=font2)
         
